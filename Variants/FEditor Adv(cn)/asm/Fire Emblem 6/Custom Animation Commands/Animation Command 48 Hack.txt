@@ -1,0 +1,20 @@
+@Hook
+.org				0x0804A768
+@-------------------------------@Target address
+.long				0x082DBF74
+
+.org				0x082DBF74
+ldr	r0,	[r7,	#0x20]	@6A38; Get pointer to next frame to interpret
+sub	r0,	#0x4		@3804
+ldr	r0,	[r0]		@6800; Load command being executed
+lsl	r0,	r0,	#0x8	@0200
+lsr	r0,	r0,	#0x10	@0C00; Extract music ID
+@-------------------------------@F5C0; FC6F; Play music
+bl				0x0809C860
+ldr	r0,	[pc,	#0x4]	@4801
+bx	r0			@4700; Branch to play routine
+nop				@0000
+@.align				2
+.org				0x082DBF88
+.long				0x0804AD83
+.org				0x082DBF8C

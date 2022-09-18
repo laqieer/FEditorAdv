@@ -1,0 +1,58 @@
+You can see the format for the images the portrait editor expects by using it to dump those images.
+
+Or, you can check the "Portrait Editor Examples" folder!
+
+:D
+
+Note: The format has changed. But don't worry, you can still import your old images, and when you re-save them, they will automatically be rearranged into the new format.
+
+The "Legacy" sub-folder shows the old formats. The new format has two main advantages:
+
+1) It doesn't slice things up in weird ways.
+2) It puts things in the exact same places for all three games - so you can save a portrait from FE 6 and put it into FE 7/8, or vice versa, with no hassle. When you import into FE 6, it will just ignore the parts of the image that FE 6 doesn't use - the eye overlays, and two of the mouth overlays. See "Stuff unused by FE 6.png" for reference: the crossed-out parts are ignored when you are editing a ROM based on FE 6 (imagine that).
+
+Note that "card" images for generic enemies haven't changed - they're still just plain old 88x72 images (80x72 of actual displayable image, plus an 8 pixel column on the side so that the background colour can be identified). No reason to change that :)
+
+Also note that the new format does not have an extra column on the right-hand side. The top-right part of the new templates is always empty (make sure it is filled with the transparent background colour).
+
+We recommend looking at the actual game to see the rectangular dimensions of a full portrait.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+About mouth and eye frames:
+
+You can click and drag these on the preview to relocate them.
+
+Use the "Save" button in older versions of FEditor to apply your changes.
+
+If you do not see a "Save" button, then know that switching to another portrait, closing the portrait editor or saving your ROM will all automatically apply your changes prior.
+
+FE 6 only has support for mouth frames as characters do not blink in that game.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+About the save button:
+
+When you insert a portrait by selecting the image to use as a portrait after pressing the "Insert" button, you may notice that the mouth and eye frames are at their default location, the top left.
+
+You can move mouth and eye frames around using the mouse (just click and drag).
+
+After the pieces are where they look good, press the "Save" button to solidify the changes. The idea here is that you don't want to accidentally bump a button to move a mouth or eye frame of a portrait you are simply viewing and then realize all too late that you did so; the "Save" button ensures conscious choices to apply the changes made to mouth and eye frame positions to be the only choices.
+
+Alternatively, hit the "Revert" button to undo any changes you accidentally made. If you change to another index without using "Save", the changes will be reverted automatically, so don't worry if you accidentally move a frame and don't hit "Revert" before continuing. "Revert" is mostly just for studying a loaded image you may have injured.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Beware! All three FEs do some recoloring tricks, where two entries in the pointer array refer to the same image data (so that they don't waste space duplicating it in the ROM), but a different palette. If you import an image for one of these slots, the old image data will get scrubbed out, meaning that the other entries in the array that used to share the image will get messed up (in the editor it will show either solid blocks of color or striped regions, and the game itself will probably reboot when that portrait is requested). To fix this, check to see which entries in the array got corrupted, and replace them with something valid. (You'll probably want them to be recolors as well, but they don't have to be.)
+
+There is currently no support in the editor for that kind of data sharing trick - if you import your own images that are just recolors (or two different images that use the same palette), the image (or palette) data will just get duplicated. This may be addressed in the future.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For old versions of FEditor:
+
+Speaking of recoloring, a recoloring tool has been added to the portrait editor. It should be obvious how to use it, but in case it's not, choose the color you want to recolor by clicking its button and slide the color sliders (in order from top to bottom: red, green and blue, as one should expect) to change the color. The "Save" button applies the changes and the "Revert" button undoes them by reloading the portrait from the ROM.
+
+For newer versions:
+
+Instead of using sliders, there are now spinners for choosing exact RGB values.

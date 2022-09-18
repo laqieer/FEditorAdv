@@ -1,0 +1,86 @@
+//////////////////////////////
+@Resume hack - translate to WRAM
+@Tested and working!
+.thumb
+@Hook
+.org				0x08085938
+@-------------------------------@F256
+@-------------------------------@FB52
+bl				0x082DBFE0
+
+.org				0x082DBFE0
+mov	r4,	#0x00		@2400
+mov	r5,	#0x00		@2500
+.org				0x082DBFE4
+push	{lr}			@B500
+
+mov	r0,	#0x00		@2000
+mov	r1,	#0x34		@2134
+mov	r2,	#0x00		@2200
+@-------------------------------@F7FF
+@-------------------------------@FFE2
+bl				TRANSLATE_STATS_FOR_RANGE
+
+pop	{pc}			@BD00
+
+.org				0x082DBFF2
+dw				0x0000
+.org				0x082DBFF4
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////////////////////////////
+@Resume hack - translate to SRAM
+@Doesn't need testing
+.thumb
+@Hook
+.org				0x08085802
+@-------------------------------@F256
+@-------------------------------@FBF7
+bl				0x082DBFF4
+
+.org				0x082DBFF4
+@-------------------------------@4E04
+ldr	r6,			BASE
+mov	r4,	#0x33		@2433
+.org				0x082DBFF8
+push	{lr}			@B500
+
+mov	r0,	#0x00		@2000
+mov	r1,	#0x34		@2134
+mov	r2,	#0x01		@2201
+@-------------------------------@F7FF
+@-------------------------------@FFD8
+bl				TRANSLATE_STATS_FOR_RANGE
+
+pop	{pc}			@BD00
+
+dw				0x0000
+				BASE:
+.long				0x0202AB78
+
+.org				0x082DC00C
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////////////////////////////
+@Resume hack - fix loaded data in WRAM
+@Doesn't need testing
+.thumb
+@Hook
+.org				0x08085818
+@-------------------------------@F256
+@-------------------------------@FBF8
+bl				0x082DC00C
+
+.org				0x082DC00C
+push	{lr}			@B500
+
+@-------------------------------@F7FF
+@-------------------------------@FFE9
+bl				0x082DBFE4
+mov	r0,	#0x38		@2038
+add	r0,	r0,	r7	@19C0
+
+pop	{pc}			@BD00
+
+.org				0x082DC018
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

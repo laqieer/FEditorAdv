@@ -1,0 +1,46 @@
+The summary of how to upgrade is simply "open the ROM in the latest version of FEditor and save, then open it again to work from there".
+
+Re-opening gives FEditor a chance to check the ROM's "status" (whether it is "hacked", "old" or "new") while opening it the first time gives FEditor a chance to do actual updating (though some updating will be finalized the second time it is opened).
+
+However, there is a small problem with this IF YOU HAVE INSERTED A SPELL BEFORE (if not, quit reading this; you're fine). The patches FEditor applies to support custom spells also resets the pointer to the spell array, since the spell array does not actually exist in the ROM (it is entirely of FEditor's construction).
+So, to recover old spells you have inserted (rather than having to reinsert them and losing your old array), go to the address of the array pointer (in a HEXADECIMAL EDITOR - DO NOT USE THE NEW VERSION OF FEDITOR YET) and copy the value that is there.
+Then, after saving and re-opening the ROM in the new version of FEditor, paste the value you copied over the location of the spell array pointer (which may have had its value changed to "0x08000000").
+Save again and you should have your ROM upgraded and compatible with the latest version of FEditor.
+
+To get the address of the spell array, go to the
+"asm/X/Custom Spell Animation System/CSA Corrections.txt"
+file and open it, where "X" is the name of the Fire Emblem game you are working with ("Fire Emblem 7" for Fire Emblem 7, for example).
+
+Navigate to something that looks like this:
+
+//////////////////////////////
+0x080CB684 - Previous base pointer of CSA array
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+and/or like this:
+
+//////////////////////////////
+0x0895D904 - Base pointer of CSA array
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+If you only see the latter, that is the address you will use both for both the old location and the new location.
+
+If you see the former, that is the address you will refer to for the old location of your spell array, and the latter location will be where you must place the pointer located at the former location.
+
+It is recommended that you use the memory manager's integer editor for the actual overwriting of the new location of the spell array pointer (see "Memory and Free Space Manager.txt").
+Note that these will be virutal addresses, so you would first need to subtract 0x08000000 from the value of the location to overwrite as the memory manager expects a physical address.
+You will also need to do this subtraction when going through the ROM in a hexadecimal editor to acquire the pointer to where your spell array was.
+
+The last issues you will have are those of invalid spell pointers, lost free space and any save corruption due to other auto patches.
+
+Invalid spell pointers occur if the code used to processed custom spells (written by me, Hextator, NOT Intelligent Systems - it is one of the auto patches) was moved.
+To fix this, simply reinsert your spells.
+The catch is that while this is tedious, it should not injure your free space.
+The spell array will be fine at this point (assuming you've been following directions correctly).
+It is the spell program counter array which will be incorrect, which only maintains references to the auto patch code.
+The spell program counter array doesn't reference any data which needs to be freed/managed.
+
+Save corruption can either be ignored by having players of your hack restart their playthrough or continuing from a savestate rather than their regular battery save.
+
+Free space can be recovered (to an extent) by adding all occurrences of strings of bytes with the value "0xF0" that are at least 32 bytes in length to your free space list using the memory manager.
+An application or a feature to do this may be referenced or included later.

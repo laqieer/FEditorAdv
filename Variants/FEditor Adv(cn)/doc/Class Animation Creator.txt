@@ -1,0 +1,78 @@
+The index to reference inserted animations by is the number selected in the index spinner...but the spinner doesn't let you select index "0" this time - why? Because the game uses index 0 for choosing the "map animation".
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Lists of appropriate 0x85 (battle animation) command values can be found in the "Battle Animations" folder. There is also info about the necessity of the commands as far as not making the game freeze goes.
+
+Example animation frames also included; as well, the debug animation has been included as a more complete example.
+
+Note that the animation inserter is capable of reading text files as "insertion scripts", the format of which can be analyzed from an example script in the "Battle Animations" folder.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+About auto-recoloring:
+
+If the following "blue RGB values" occur in the palette of an inserted animation, they will be replaced with the appropriate intensity of red, green and purple values in the other 3 palettes that are generated from the palette of the frame images provided by the user for completing the 4 palette set required of class animations. In this way, an appropriately blue colored unit will have the correct red, green and purple colors when recruited to an enemy, NPC or 4th Link Arena team as per the Fire Emblem standard.
+
+These are GBA RGB values ranging from 0 through 31 (then the usual 0 through 255).
+
+Format is
+Color name:
+16 bit GBA color value
+Intensity - Decimal level (out of 31) (Decimal level (out of 255))
+
+Light blue:
+Hex 0x7F73
+R - 19 (156)
+G - 27 (222)
+B - 31 (255)
+
+Mid blue:
+Hex 0x766C
+R - 12 (099)
+G - 19 (156)
+B - 29 (239)
+
+Dark blue:
+Hex 0x6168
+R - 08 (066)
+G - 11 (090)
+B - 24 (198)
+
+Darker blue:
+Hex 0x5085
+R - 05 (041)
+G - 04 (033)
+B - 20 (165)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+About Z ordering:
+
+The animation inserter is capable of processing mode 2 and 4 data during processing of modes 1 and 3 only.
+
+To add a frame to mode 2 or 4, make a frame for the corresponding frame in mode 1 or 3 and add an extra space 240x160 pixels in size between the left 240x160 pixel frame image area and the 8x160 pixel palette decoding column. This area is what will appear on the GBA screen behind the attacked target, rather than in front, which is the purpose of modes 2 and 4. However, modes 2 and 4 are dependent on the graphical sheet currently being used by mode 1 or 3, which is why decoding of these modes has to be done at the same time as decoding of modes 1 and 3.
+
+IMPORTANT: When writing a script, exclude modes 2 and 4 completely; even exclude the terminators for these modes. The terminator after mode 1 brings the animation into editing mode for mode 3, and the terminator after mode 3 brings the animation into mode 5. The rest of the animation is consecutive from then on.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+About sprite throwing:
+
+The animation inserter has the option to select a 40x32 pixel image to be the sprite displayed when a battle animation command (0x26 or 0x27) used for "throwing" is reached in an animation.
+
+To specify the use of such an image in a script, write the line for loading the image as you would a normal frame, only this time, precede the hyphen with a capital "T" instead of a frame duration value.
+
+The "T" line must occur in the script before any command, terminator or frame loading lines are processed.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+About looping frames/commands:
+
+The 01 command has been hacked to allow looping of the frames and commands prior to it. To utilize this, an "add loop marker" button will allow specification of which location in the animation to begin repeating each time the 01 command is reached without the animation continuing beyond (normally the game loops back to the 01 command itself). Specifying a loop marker in a script is as easy as having a line with "L", but the "L" line must come after a "C04" or "C05" line.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+About sound commands:
+
+You know those "Music List.txt" files that come with the Nightmare modules? The values you see in there can be used to play the corresponding music or sound effect in your custom battle animation. You can type the value in the dialog where it says to and click the "Add Sound" button next to it, or, if you're using a script, you can add a line formatted as "SXXXX" where XXXX is the hexadecimal value of the sound ID. Have fun~

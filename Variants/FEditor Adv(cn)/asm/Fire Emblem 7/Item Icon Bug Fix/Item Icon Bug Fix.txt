@@ -1,0 +1,86 @@
+@0x8004DDE - Increments a loaded variable that is 0 when an icon update is needed
+
+@0x8004DE8 - Increments a loaded variable that designates which stage of a graphic to use; this should always be 0 for item icons
+
+@At above PC r4 will hold ID of icon being drawn; however, the above increment must be completed or other bad crap will happen
+
+@0x8004DC6 - Loads variable incremented by previous PC, compares to 0 just after
+
+@At above PC r4 will hold ID of icon being drawn
+
+@Hack to fix:
+
+@This file generates output when assembled which follows the format specified in the specification at
+
+@Hextator's Doc/Development/Applications/Reformatting/Binary Reformatters/Assembly Patcher
+
+@in the archive
+
+@http://dl.dropbox.com/u/336940/Hextator%27s%20Doc.7z
+
+@Hardware offset
+.long				0x08000000
+@@@@@
+.align				2
+				IIBF_HOOK:
+.set				IIBF_HOOK_SIZE, IIBF_HOOK_END - IIBF_HOOK_START
+@Origin
+.long				0x08004DC2
+@Offset (bytes to ignore)
+.long				0x00000000
+@Size
+.long				IIBF_HOOK_SIZE
+@@@
+.thumb
+				IIBF_HOOK_START:
+bx	r0			@
+				IIBF_HOOK_END:
+@@@@@
+.align				2
+				IIBF_LINK:
+.set				IIBF_LINK_SIZE, IIBF_LINK_END - IIBF_LINK_START
+@Origin
+.long				0x08004DD8
+@Offset (bytes to ignore)
+.long				0x00000000
+@Size
+.long				IIBF_LINK_SIZE
+@@@
+.thumb
+				IIBF_LINK_START:
+.long				IIBF_HACK_ORIGIN + 1
+				IIBF_LINK_END:
+@@@@@
+.align				2
+				IIBF_HACK:
+.set				IIBF_HACK_ORIGIN, 0x080CB660
+.set				IIBF_HACK_SIZE, IIBF_HACK_END - IIBF_HACK_START
+@Origin
+.long				IIBF_HACK_ORIGIN
+@Offset (bytes to ignore)
+.long				0x00000000
+@Size
+.long				IIBF_HACK_SIZE
+@@@
+.thumb
+				IIBF_HACK_START:
+ldr	r0,			IIBF_ICON_FLAG_BASE
+lsl	r1,	r4,	#0x2	@
+cmp	r4,	#0x80		@
+bge				IIBF_CUSTOM_ICON
+ldr	r5,			IIBF_NORM_RET
+bx	r5			@
+				IIBF_CUSTOM_ICON:
+add	r5,	r1,	r0	@
+ldr	r0,			IIBF_HACK_RET
+bx	r0			@
+
+.align				2
+				IIBF_ICON_FLAG_BASE:
+.long				0x02026A50
+				IIBF_NORM_RET:
+.long				0x08004DC5
+				IIBF_HACK_RET:
+.long				0x08004DDD
+				IIBF_HACK_END:
+@.org				0x080CB680

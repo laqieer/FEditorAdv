@@ -1,0 +1,47 @@
+[OpenMidLeft][LoadFace][0x2F][0x01]Sir! This isn't good[ToggleMouthMove]...[ToggleMouthMove]we're
+trapped. Enemy magi just came in[A]
+from the north! We're completely
+surrounded![A]
+No[ToggleMouthMove]...[ToggleMouthMove]this can't be.[A]
+There isn't enough time. Our
+best chances are to break[A]
+through the mages and retreat to
+Sacae.[A]
+Dammit! That would mean leaving
+Shon alone to fend off Etruria.
+Okay[ToggleMouthMove]...[ToggleMouthMove]Gordon, we're going to[A]
+cut out of this and make our way
+to Castle Caelin. Kevin, go take[A]
+everyone else and retreat to
+Pherae. Anakin should be there[A]
+as well. As soon as you can, I'd
+like you to send a message to[A]
+Kelik, the swordsman I talked
+with a few days ago. Request his[A]
+help. I'll take the defense of
+Caelin.[A]
+Sir Siegfried[ToggleMouthMove]...[ToggleMouthMove]is this for the
+best? Should we scatter, Etruria
+can eliminate us easily[ToggleMouthMove]...[ToggleMouthMove][A]
+[SendToBack]Kevin, please listen to these
+orders. I don't know how long I[A]
+can last out here in the field,
+nor is there enough time to get[A]
+everyone into Castle Caelin to
+mount a proper defense. Remember[A]
+Kevin, what I said before this
+battle? We are all family. I[A]
+won't allow my family to just
+die. We'll survive, you will[A]
+see. It just takes a little will
+power.[A]
+[ToggleMouthMove]...[ToggleMouthMove]Yes, I understand. Sir
+Siegfried, may fortune be with[A]
+you. We'll return for you, Sir
+Siegfried.[A]
+[ToggleMouthMove]...[ToggleMouthMove]Anakin, Kelik[ToggleMouthMove]...[ToggleMouthMove]you are our
+only hope. Looks like this is
+the end for me[ToggleMouthMove]...[ToggleMouthMove][A]
+
+Siegfreid leaves[A][ClearFace]
+[X]

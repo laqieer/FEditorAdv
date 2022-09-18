@@ -1,0 +1,19 @@
+The escape character, "\", is useless on its own.
+
+It can be used, however, to type the literal text similar to "[0x00]" or "[ControlCodeName]" without these things being parsed into their corresponding hexadecimal values. Items enclosed in brackets that aren't valid control code names will be stripped from the input entirely if they are not escaped, and all text following an opening bracket that is not escaped will be discarded as well.
+
+To escape a valid control code, place a "\" on either side of the opening bracket; to escape everything else or to escape the value of the control code, use only one "\" before the opening bracket (example: you can escape [0x00] by typing [X]).
+
+Wrap opening brackets that have no closing bracket associated with them with "\" on either side. Closing brackets do not need to be escaped.
+
+In FE 6, only one "\" is needed to escape a control code (and not its value; example: \[A] in FE 7 or 8 will become \[\0x03], but in FE 6, it will become \[\A] - this is because FE 6's character values throw a wrench in the process that would normally turn \[A] into \[\0x03]).
+
+~~~~~
+
+Regarding text insertion:
+
+Scripts to insert do not necessarily have to contain all entries in the game.
+
+The insertion code will only affect entries that are specified in the file being used.
+
+If an index is not specified for an entry then a default index will be used by treating each entry prior in the file as being numbered from 0 to (n - 1), where n is the index which will be used for the entry when none is specified.

@@ -1,0 +1,133 @@
+@WARNING
+
+@BLs and RCH_POST_ORIGIN will be broken because as.exe is buggy
+
+.set				ADDITION_FUNCTION, 0x084644DC
+.set				SUBTRACT_FUNCTION, 0x084644F0
+
+@/////////////////////////////
+@Address to check:
+.long				RCH_PRIOR_ORIGIN
+@Expected contents:
+.long				RCH_PRIOR_START
+@\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+@/////////////////////////////
+@.org				0x080A504C
+@add	r4,	#0x4C		@This instruction is before
+@mov	r6,	#0x00		@the loop for saving stats during normal saving
+@ldr	r1,			=#0x0202BE4C
+@mov	r9,	r1		@
+
+@Range: 0x00-0x34
+
+@Restart Chapter hack - translate to SRAM for normal saving
+@Tested and working
+				RCH_PRIOR_HOOK:
+.set				RCH_PRIOR_HOOK_ORIGIN, 0x080A504C
+.set				RCH_PRIOR_HOOK_SIZE, RCH_PRIOR_HOOK_END - RCH_PRIOR_HOOK_START
+@Origin
+.long				RCH_PRIOR_HOOK_ORIGIN
+@Size
+.long				(RCH_PRIOR_HOOK_SIZE + 3) & 0x7FFFFFFC
+				RCH_PRIOR_HOOK_START:
+.thumb
+ldr	r6,			RCH_PRIOR_HOOK_ADDRESS
+bx	r6			@
+.align				2
+				RCH_PRIOR_HOOK_ADDRESS:
+.long				RCH_PRIOR_ORIGIN + 1
+				RCH_PRIOR_HOOK_END:
+@@@@@
+				RCH_PRIOR:
+.set				RCH_PRIOR_ORIGIN, 0x0846458C
+.set				RCH_PRIOR_SIZE, RCH_PRIOR_END - RCH_PRIOR_START
+@Origin
+.long				RCH_PRIOR_ORIGIN
+@Size
+.long				(RCH_PRIOR_SIZE + 3) & 0x7FFFFFFC
+				RCH_PRIOR_START:
+.thumb
+add	r4,	#0x4C		@
+ldr	r1,			RCH_PRIOR_UNIT_BASE
+mov	r9,	r1		@
+ldr	r6,			RCH_PRIOR_RET
+mov	lr,	r6		@
+mov	r6,	#0x00		@
+push	{lr}			@
+
+@	The assembler lies in the warning it gives for this
+bl				SUBTRACT_FUNCTION - RCH_PRIOR_ORIGIN + RCH_PRIOR_START
+
+pop	{pc}			@
+.align				2
+				RCH_PRIOR_RET:
+.long				RCH_PRIOR_HOOK_ORIGIN + 9
+				RCH_PRIOR_UNIT_BASE:
+.long				0x0202BE4C
+				RCH_PRIOR_END:
+@\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+@/////////////////////////////
+@.org				0x080A506C
+@bl				0x080A2D28
+@mov	r4,	#0x00		@These instructions are after
+@-------------------------------@the loop for saving stats during normal saving
+@ldr	r6,			=#0x0202BE4C
+
+@Range: 0x00-0x34
+
+@Restart Chapter hack - translate to SRAM for normal saving
+@Tested and working
+				RCH_POST_HOOK:
+.set				RCH_POST_HOOK_ORIGIN, 0x080A506C
+.set				RCH_POST_HOOK_SIZE, RCH_POST_HOOK_END - RCH_POST_HOOK_START
+@Origin
+.long				RCH_POST_HOOK_ORIGIN
+@Size
+.long				(RCH_POST_HOOK_SIZE + 3) & 0x7FFFFFFC
+				RCH_POST_HOOK_START:
+.thumb
+ldr	r6,			RCH_POST_HOOK_ADDRESS
+bx	r6			@
+.align				2
+				RCH_POST_HOOK_ADDRESS:
+.long				RCH_POST_ORIGIN + 1
+				RCH_POST_HOOK_END:
+@@@@@
+				RCH_POST:
+@	The assembler screws this
+@.set				RCH_POST_ORIGIN, RCH_PRIOR_ORIGIN + RCH_PRIOR_SIZE
+.set				RCH_POST_ORIGIN, RCH_PRIOR_ORIGIN + RCH_PRIOR_END - RCH_PRIOR_START
+.set				RCH_POST_SIZE, RCH_POST_END - RCH_POST_START
+@Origin
+.long				RCH_POST_ORIGIN
+@Size
+.long				(RCH_POST_SIZE + 3) & 0x7FFFFFFC
+				RCH_POST_START:
+.thumb
+adr	r6,			RCH_POST_LONG_CALL_RET_1
+add	r6,	#0x01		@
+mov	lr,	r6		@
+ldr	r6,			RCH_POST_LONG_CALL_ADDR_1
+bx	r6			@
+.align				2
+				RCH_POST_LONG_CALL_RET_1:
+ldr	r6,			RCH_POST_UNIT_BASE
+ldr	r4,			RCH_POST_RET
+mov	lr,	r4		@
+mov	r4,	#0x00		@
+push	{lr}			@
+
+bl				ADDITION_FUNCTION - RCH_POST_ORIGIN + RCH_POST_START
+
+pop	{pc}			@
+.align				2
+				RCH_POST_RET:
+.long				RCH_POST_HOOK_ORIGIN + 9
+				RCH_POST_LONG_CALL_ADDR_1:
+.long				0x080A2D28 + 1
+				RCH_POST_UNIT_BASE:
+.long				0x0202BE4C
+				RCH_POST_END:
+@\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
