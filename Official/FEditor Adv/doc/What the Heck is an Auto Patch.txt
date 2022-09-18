@@ -1,0 +1,7 @@
+What do you think? Sounds like a patch that's automatically applied to me.
+
+These patches include those that enable the editor to work (and hence are always applied if they aren't detected to have been applied already, regardless of whether the ROM is clean) and those that mark file ranges with the "free space marker" (see GBA FE Auto Patches->Free Space for more info; free space marking auto patches are only applied to clean ROMs to avoid accidentally overwriting someone's modifications).
+
+Application occurs after successfully loading a ROM.
+
+Descriptions of what most of the hacks actually do can be found in the folder titled "GBA FE Auto Patches".

@@ -1,0 +1,38 @@
+[OpenMidRight][LoadFace][0x30][0x01][OpenFarRight][LoadFace][0x2F][0x01][OpenMidLeft][LoadFace][0x16][0x01]Alright, everybody! The plans
+are set for our assault. The[A]
+marquees of Caelin is said to
+guard its walls, and resistance[A]
+will be fierce. If anyone wishes
+to leave, do it now![A]
+[OpenMidRight]I'm staying, father. I won't
+abandon you and our soldiers![A]
+We've all gone too far to just
+quit![A]
+[OpenFarRight]I'll be by your side, sir.[A][OpenMidRight][ClearFace][OpenFarRight][ClearFace][OpenMidRight][LoadFace][0x3E][0x01]There will be injuries. I shall
+remain to heal those in need.[A][ClearFace][LoadFace][0x2B][0x01]You paid our wages, thus we
+stay. Right, Inanna?[A][OpenFarRight][LoadFace][0x33][0x01]Of course. I will not abandon my
+employer, regardless of the
+situation![A]
+[OpenMidRight][ClearFace][OpenFarRight][ClearFace][OpenMidRight][LoadFace][0x27][0x01][ToggleMouthMove]...[ToggleMouthMove]There's no where else for me
+to go[ToggleMouthMove]...[ToggleMouthMove]I'll stay till' death.[A][ClearFace][LoadFace][0x38][0x01]The holy light shalt guide us to
+victory, Sir.[A][ClearFace][LoadFace][0x2E][0x01]If Chief Haas bids me to stay,
+then I stay. For the honour of
+the Saceans![A]
+[ClearFace][LoadFace][0x3D][0x01]I have to stay. I can't abandon
+my friends.[A][ClearFace][LoadFace][0x49][0x01]Siegfried, you have come so far.
+I just want you to know, I've
+got your back![A]
+[ClearFace][LoadFace][0x20][0x01]Heheh. This sure is interesting.
+I hate to be like this, but,[A]
+once we seize the castle, I have
+to go somewhere. It's not like[A]
+I'm much of a fighter anyway,
+right?[A]
+[ClearFace][LoadFace][0x31][0x01]This is the most fun I've had in
+a long while. Count me in![A][ClearFace][OpenMidLeft]I see that my companions[ToggleMouthMove]...[ToggleMouthMove] no,
+my friends, have their minds
+set. I'm quite pleased. Like[A]
+they say, the best of companions
+are the loyal ones.[A]
+[ClearFace]
+[X]

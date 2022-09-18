@@ -1,0 +1,238 @@
+//////////////////////////////
+.org				0x080A1726
+lsl	r0,	r0,	#0x1A	@Masks STR statistic loaded from Resume data
+lsr	r0,	r0,	#0x1B	@so that it will be AND 0x1F
+
+Called by:
+
+.org				0x080A12A2
+bl				0x080A16C0
+
+Arg0: Address of 0x34 byte struct of data to load
+Arg1: Address of 0x48 byte struct to fill
+
+Hack to fix Resume issue, part 1:
+
+.org				0x080A1162
+@-------------------------------@F02A
+@-------------------------------@FA0D
+bl				0x080CB580
+
+.org				0x080CB580
+push	{r0, r1}		@
+mov	r6,	#0x04		@
+ldr	r1,	[r0,	#0x00]	@
+add	r0,	#0x14		@
+add	r1,	#0x0D		@
+				SUB_LOOP:
+ldsb	r2,	[r1,	r6]	@
+ldsb	r3,	[r0,	r6]	@
+sub	r3,	r3,	r2	@
+strb	r3,	[r0,	r6]	@
+sub	r6,	#0x01		@
+bpl				SUB_LOOP
+pop	{r0, r1}		@
+push	{r0, r1, lr}		@
+bl				0x080A13EC
+mov	r6,	#0x04		@
+pop	{r0, r1}		@
+push	{r0, r1}		@
+ldr	r1,	[r0,	#0x00]	@
+add	r0,	#0x14		@
+add	r1,	#0x0D		@
+				ADD_LOOP:
+ldsb	r2,	[r1,	r6]	@
+ldsb	r3,	[r0,	r6]	@
+add	r3,	r3,	r2	@
+strb	r3,	[r0,	r6]	@
+sub	r6,	#0x01		@
+bpl				ADD_LOOP
+pop	{r0, r1}		@
+mov	r6,	r0		@
+pop	{pc}			@
+.org				0x080CB5BC
+
+Hack to fix Resume issue, part 2:
+
+.org				0x080A12A6
+@-------------------------------@F02A
+@-------------------------------@F989
+bl				0x080CB5BC
+
+.org				0x080CB5BC
+add	r5,	#0x48		@
+add	r4,	#0x1		@
+@.org				0x080CB5C0
+				ADD_CALL
+push	{r0, r1, r6}		@
+sub	r1,	#0x46		@
+mov	r6,	#0x04		@
+ldr	r0,	[r1,	#0x00]	@
+add	r1,	#0x14		@
+add	r0,	#0x0D		@
+				ADD_LOOP:
+ldsb	r2,	[r0,	r6]	@
+ldsb	r3,	[r1,	r6]	@
+add	r3,	r3,	r2	@
+strb	r3,	[r1,	r6]	@
+sub	r6,	#0x01		@
+bpl				ADD_LOOP
+pop	{r0, r1, r6}		@
+bx	lr			@
+.org				0x080CB5DC
+
+Both parts tested and working
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////////////////////////////
+Hack to fix Link Arena stat loading issue, part 2:
+
+.org				0x080A0950
+@-------------------------------@F02A
+@-------------------------------@FE44
+bl				0x080CB5DC
+
+.org				0x080CB5DC
+ldr	r1,			Char_Base
+@.org				0x080CB5DE
+				OTHER_ADD_CALL
+push	{r3, lr}		@
+mov	r3,	#0x2C		@
+				ADD_LOOP:
+add	r1,	#0x46		@
+@bl				ADD_CALL
+bl				0x080CB5C0 - 0x080CB5DC
+add	r1,	#0x02		@
+sub	r3,	#0x1		@
+bpl				ADD_LOOP
+mov	r1,	#0xF3		@
+lsl	r1,	r1,	#0x3	@
+pop	{r3, pc}		@
+.align				2
+Char_Base:
+.long				0x0202BD50
+.org				0x080CB5F8
+
+Hack to fix Link Arena stat loading issue, part 1:
+
+.org				0x080A0856
+@-------------------------------@F02A
+@-------------------------------@FECF
+bl				0x080CB5F8
+
+.org				0x080CB5F8
+push	{r0, r1, r6, lr}	@
+mov	r6,	#0x04		@
+ldr	r1,	[r0,	#0x00]	@
+add	r0,	#0x14		@
+add	r1,	#0x0D		@
+				SUB_LOOP:
+ldsb	r2,	[r1,	r6]	@
+ldsb	r3,	[r0,	r6]	@
+sub	r3,	r3,	r2	@
+strb	r3,	[r0,	r6]	@
+sub	r6,	#0x01		@
+bpl				SUB_LOOP
+pop	{r0, r1}		@
+bl				0x080A0A60 - 0x080CB5F8
+pop	{r6}			@
+push	{r6}			@
+mov	r0,	r6		@
+mov	r1,	r10		@
+add	r0,	r0,	r1	@
+mov	r6,	#0x4		@
+ldr	r1,	[r0,	#0x00]	@
+add	r0,	#0x14		@
+add	r1,	#0x0D		@
+				ADD_LOOP:
+ldsb	r2,	[r1,	r6]	@
+ldsb	r3,	[r0,	r6]	@
+add	r3,	r3,	r2	@
+strb	r3,	[r0,	r6]	@
+sub	r6,	#0x01		@
+bpl				ADD_LOOP
+pop	{r6, pc}		@
+.org				0x080CB634
+
+Both parts tested and working
+
+This only works in the character select menu
+The stats are still loaded wrong once the team is loaded
+into the Link Arena
+
+This fixes the storing part of the above issue:
+
+.org				0x080A1E5C
+				@F029
+				@FBCC
+bl				0x080CB5F8
+
+And the loading part:
+
+.org				0x08040492
+				@F08B
+				@F8CF
+bl				0x080CB634
+
+.org				0x080CB634
+push	{lr}			@B500
+mov	r1,	r5		@1C29
+				@F7FF
+				@FFD1
+bl				0x080CB5DE - 0x080CB634
+mov	r7,	#0x0		@2700
+add	r2,	r6,	#0x1	@1C72
+pop	{pc}			@BD00
+dw				0x0000
+.org				0x080CB644
+
+Both tested and working
+
+For the unit list:
+
+.org				0x0803E8D6
+@-------------------------------@F08C
+@-------------------------------@FEB5
+bl				0x080CB644
+
+.org				0x080CB644
+add	sp,	#0x14		@B005
+@-------------------------------@4902
+ldr	r1,			Char_Base
+@-------------------------------@F7FF
+@-------------------------------@FFC9
+bl				0x080CB5DE - 0x080CB644
+				@This is pretty hacky, sis. Instead of returning
+				@to the calling function, the code at this point
+				@will return to just after the call to the calling
+				@function...this is safe because the rest of the
+				@function which called this code is just this:
+@pop	{r0}			@
+@bx	r0			@See? It was unnecessary anyway.
+pop	{r4, pc}		@BD10
+dw				0x0000
+Char_Base:			
+.long				0x0202BD50
+.org				0x080CB654
+
+Tested and working
+
+Nasty bugfix:
+
+.org				0x080CB5E2
+@-------------------------------@E037
+b				0x080CB654
+
+.org				0x080CB654
+add	r1,	#0x46		@3146
+push	{r3}			@B408
+@-------------------------------@F7FF
+@-------------------------------@FFAC
+bl				0x080CB5C0 - 0x080CB654
+pop	{r3}			@BC08
+@-------------------------------@E7C3
+b				0x080CB5E8 - 0x080CB654
+.org				0x080CB660
+
+Everything's fixed now. Finally.
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

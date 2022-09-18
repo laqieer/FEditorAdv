@@ -1,0 +1,96 @@
+//////////////////////////////
+.org				0x080A5C74
+mov	r4,	#0x00		@
+mov	r5,	#0x00		@
+mov	r0,	#0x34		@
+LOOP_START:
+mul	r0,	r4		@
+
+@Resume hack - translate to WRAM
+@Tested and working!
+.thumb
+@Hook
+.org				0x080A5C74
+@-------------------------------@F3BE
+@-------------------------------@FC30
+bl				0x084644D8
+
+.org				0x084644D8
+mov	r4,	#0x00		@2400
+mov	r5,	#0x00		@2500
+.org				0x084644DC
+push	{r0-r2, lr}		@B507
+
+mov	r0,	#0x00		@2000
+mov	r1,	#0x34		@2134
+mov	r2,	#0x00		@2200
+@-------------------------------@F7FF
+@-------------------------------@FFE2
+bl				TRANSLATE_STATS_FOR_RANGE
+
+pop	{r0-r2, pc}		@BD07
+dw				0x0000
+
+.org				0x084644EC
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////////////////////////////
+.org				0x080A5AAA
+add	r2,	#0x38		@
+str	r2,	[sp,	#0x3C]	@
+
+@Resume hack - translate to SRAM
+@Tested and working!
+.thumb
+@Hook
+.org				0x080A5AAA
+@-------------------------------@F3BE
+@-------------------------------@FD1F
+bl				0x084644EC
+
+.org				0x084644EC
+add	r2,	#0x38		@3238
+str	r2,	[sp,	#0x3C]	@920F
+.org				0x084644F0
+push	{r0-r2, lr}		@B507
+
+mov	r0,	#0x00		@2000
+mov	r1,	#0x34		@2134
+mov	r2,	#0x01		@2201
+@-------------------------------@F7FF
+@-------------------------------@FFD8
+bl				TRANSLATE_STATS_FOR_RANGE
+
+pop	{r0-r2,	pc}		@BD07
+dw				0x0000
+
+.org				0x08464500
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////////////////////////////
+.org				0x080A5AC8
+mov	r1,	r7		@
+add	r1,	#0x84		@
+
+@Resume hack - fix loaded data in WRAM
+@Tested and working!
+.thumb
+@Hook
+.org				0x080A5AC8
+@-------------------------------@F3BE
+@-------------------------------@FD1A
+bl				0x08464500
+
+.org				0x08464500
+mov	r1,	r7		@1C39
+add	r1,	#0x84		@3184
+push	{lr}			@B500
+
+@-------------------------------@F7FF
+@-------------------------------@FFE9
+bl				0x084644DC
+
+pop	{pc}			@BD00
+
+.org				0x0846450C
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

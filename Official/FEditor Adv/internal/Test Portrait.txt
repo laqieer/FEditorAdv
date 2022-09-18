@@ -1,0 +1,1 @@
+This portrait has its corners modified such that it will only look correctly in game if the background color interpretation code of the GBA_Image class is using the correct pixel.

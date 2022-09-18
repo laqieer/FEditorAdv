@@ -1,0 +1,1 @@
+See "Resume Hack" - this hack simply ports the logic of it to the Link Arena so that characters whose stats are normally injured upon being loaded in the Link Arena similarly to when they are loaded from "Resume Chapter" data will no longer have this issue (within limits; obviously less restrictive limits than before, though).

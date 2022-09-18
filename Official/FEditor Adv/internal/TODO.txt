@@ -1,0 +1,104 @@
+~~~~~~~~~~~~
+~~~ Done ~~~
+~~~~~~~~~~~~
+
+- Empty at the moment
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~ Goals for upcoming release ~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+F Move FE 6 auto patches that are overwriting level up number graphics so that they are
+	out of the way, preferably next to the AH patch
+F Make auto patches able to be selectively disabled by having the source for the
+	int[][][]s returned by getPatches able to be loaded dynamically from text files
+	with support for comments
+F Redo auto patches to be assemblable all at once
+F Add CG editor for at least FE 7
+F Add auto patch for the graphical fix for units that use both magic and melee weapons
+F Fix OAM rendering
+F Fix palette editing support for class animations
+F Add palette editing support for character animations
+F Add support for generating battle backgrounds, at least for FE 7, by extending
+	the CG_Image model
+F Add battle background editor for at least FE 7
+F Add feature for describing a memory map of the ROM based on what FEditor is
+	"aware of" and have the result able to be saved to a text file
+F Port CG/battle background editors to FE 8 and FE 6 where applicable
+F Integrate more external features into the main GUI
+F Remedy more of FEditor's code marked with "XXX", "FIXME", "TODO" and similar comments
+F Add custom chapter support (including map, event and starting location editing)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~ For future releases ~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- "Reset to initial value" button for the "space available" spinners
+
+Assigned: Zahlman. Status: Thinking about it.
+
+Zahlman: These should probably have some kind of "locking" mechanism.
+Maybe they shouldn't even be spinners at all.
+Also, similar functionality is needed for the weapon and spell animation GUIs, presumably.
+Hextator: We've taken care of the spell animation inserter.
+
+- Easier palette editing
+
+Assigned: Zahlman. Status: A control exists and is tested; now needs to be integrated and prettified.
+
+Hextator: Not sure about the interface for this, or if it should even be integrated into the main GUI.
+FB and Arch suggested this, so they probably have a better idea for the interface.
+The original focus was palettes for battle animations that aren't referenced by the animation
+data array, but it is preferred if support for palettes in general, compressed or otherwise is
+provided.
+
+Zahlman: I worked out an interface. FB was pretty useless in terms of describing the interface, didn't tell me anything I hadn't already thought of. I've designed it with modularity in mind, because integration is a pretty good idea. You'll be able e.g. to recolour portraits right in the editor.
+
+- Modularity improvements
+
+Assigned: Anyone. Status: ?
+
+Hextator: Um...models shouldn't be able to spawn dialogs. Their main methods can, but an instance
+method? Come now.
+Also, they need a way to report progress within single iterations for iterations that are especially
+long.
+
+- Script dump formatting improvement
+
+Assigned: Anyone. Status: ?
+
+- Proper resource management (classes to represent resources pointed at by a pointer array;
+	code in the pointer array to count references to resources and mark freespace only
+	when the last reference dies).
+
+Zahlman: I have a vague idea of the design for this.
+
+- Auto-patching of FE6 chibi pointers, for safety. (We could point them at the chibi for the
+	placeholder portrait in index 1, once the reference counting works.)
+
+- Better system for choosing compression methods and allowing the game code to work with
+	whatever compression method. This will require more than one flag bit on pointers,
+	and significant design/planning. There should be an overall compression module that
+	selects a compression method from a list of permissible options, compresses data and
+	indicates the method used. This will be easier with a Resource class.
+
+Zahlman: I have an even more vague idea of the design for this.
+
+- Investigate format for Huffman trees. Can we efficiently make a tree for
+	1-character-only "leaves"? Would it be a net savings to remove IS's tree from
+	ROM and never use Huffman for anything? Just what tree is used for the Nintendo
+	logo in the header, anyway?
+
+- Consider additional tricks (simple delta/entropy coding before/after LZ77?)
+
+- Improved patch system. Ideally, "jumped-to" code in patches could be relocatable. This
+	will require considerable analysis of existing patch code and development of some
+	conventions to make sure things don't get messed up (especially when calling back
+	to game code from the jumped-to code).
+Hextator: The more I think about this, the less feasible it seems. So many references
+	are broken from moving assembly code.
+
+Zahlman: It would also be neat if "jumped-over" code could be marked as freespace.
+	But that's very low priority. Do existing patches even do this?
+Hextator: They don't have to, usually.
+Zahlman: Yeah, let's just not bother with that part, then.

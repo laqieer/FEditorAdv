@@ -1,0 +1,30 @@
+@Hack to realize 85 00 00 48
+@as "85 XX YY 48 - Play music of ID XXYY":
+
+@Hook
+.org				0x08058D64
+@-------------------------------@Target address
+.long				0x08464400
+
+.org				0x08464400
+.thumb
+ldr	r5,	[r7,	#0x20]	@Get pointer to next frame to interpret
+sub	r5,	#0x4		@
+ldr	r5,	[r5]		@Load command being executed
+lsl	r5,	r5,	#0x8	@
+lsr	r0,	r5,	#0x10	@Extract music ID
+@bl				0x08071990
+adr	r5,			Call_Ret
+add	r5,	#0x1		@
+mov	lr,	r5		@
+ldr	r5,			Call_Address
+bx	r5			@
+.align				2
+Call_Ret:
+ldr	r0,			Return_Address
+bx	r0			@
+.align				2
+Call_Address:
+.long				0x08071991
+Return_Address:
+.long				0x080596CD

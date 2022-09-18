@@ -1,0 +1,7 @@
+D:
+
+Did you remember to go to File->Save or press Ctrl+S/Alt->F->S while at the main GUI (the only window you have when the application first starts outside of a possible command line window) to ensure that you saved your ROM?
+
+If you don't, then you can't expect your changes to be kept.
+
+This application loads the ROM into RAM and edits it there and must be told to put the RAM contents into a file. This is to cut down on potential streaming errors and is how most applications function anyway.

@@ -1,0 +1,243 @@
+//////////////////////////////
+.org				0x080A518A
+mov	r1,	#0xEF		@This instruction follows the end of
+lsl	r1,	r1,	#0x3	@the loop for loading stats for LA unit selection
+
+Range: 0x00-0x34
+
+@LA hack - translate to WRAM for selection
+@Tested and working!
+.thumb
+@Hook
+.org				0x080A518A
+@-------------------------------@F3BF
+@-------------------------------@F9BF
+bl				0x0846450C
+
+.org				0x0846450C
+mov	r1,	#0xEF		@21EF
+lsl	r1,	r1,	#0x3	@00C9
+push	{lr}			@B500
+
+@-------------------------------@F7FF
+@-------------------------------@FFE3
+bl				0x084644DC
+
+pop	{pc}			@BD00
+
+.org				0x08464518
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////////////////////////////
+.org				0x080A697C
+mov	r0,	#0xC4		@This instruction follows the end of
+mov	r1,	r8		@the loop for loading stats for LA roster viewing/battling
+
+Range: 0x00-0x34
+
+@LA hack - translate to WRAM for viewing/battling
+@Tested and working!
+.thumb
+@Hook
+.org				0x080A697C
+@-------------------------------@F3BD
+@-------------------------------@FDCC
+bl				0x08464518
+
+.org				0x08464518
+mov	r0,	#0xC4		@20C4
+mov	r1,	r8		@4641
+push	{lr}			@B500
+
+@-------------------------------@F7FF
+@-------------------------------@FFDD
+bl				0x084644DC
+
+pop	{pc}			@BD00
+
+.org				0x08464524
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////////////////////////////
+.org				0x08044990
+mov	r6,	#0x00		@This instruction comes before the loop
+mov	r7,	r8		@for storing stats for saving a new LA team
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@           ^INVALID^		@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+.org				0x08044970
+push	{r5-r7}			@
+mov	r10,	r0		@
+mov	r9,	r1		@
+mov	r0,	#0x81		@
+
+Range: 0x00-0x05 (can do 00-34 fine)
+
+@LA hack - translate to SRAM
+@Tested and working! (note: hook is tested and working)
+.thumb
+@Hook
+.org				0x08044970
+bx	pc			@4778
+.ARM
+.ORG				0x08044974
+@-------------------------------@EB107EEA
+BL				0x08464524
+
+.ARM
+.ORG				0x08464524
+ADD	LR,	LR,	#0x1	@E28EE001
+MOV	R10,	R0		@E1A0A000
+ADD	R0,	PC,	#0x1	@E28F0001
+BX	R0			@E12FFF10
+
+.thumb
+.org				0x08464534
+push	{r5-r7}			@B4E0
+mov	r9,	r1		@4689
+mov	r0,	#0x81		@2081
+push	{lr}			@B500
+
+@-------------------------------@F7FF
+@-------------------------------@FFD8
+bl				0x084644F0
+
+pop	{pc}			@BD00
+dw				0x0000
+
+.org				0x08464544
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////////////////////////////
+.org				0x080A691C
+str	r0,	[sp]		@This instruction comes after the loop
+mov	r1,	sp		@for storing stats for saving a new LA team
+
+Range: 0x00-0x05 (can do 00-34 fine)
+
+@LA hack - fix loaded data in WRAM, part 1
+@Tested and working!
+.thumb
+@Hook
+.org				0x080A691C
+@-------------------------------@F3BD
+@-------------------------------@FE12
+bl				0x08464544
+
+.org				0x08464544
+str	r0,	[sp]		@9000
+mov	r1,	sp		@4669
+push	{lr}			@B500
+
+@-------------------------------@F7FF
+@-------------------------------@FFC7
+bl				0x084644DC
+
+pop	{pc}			@BD00
+
+.org				0x08464550
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////////////////////////////
+.org				0x08045B3E
+mov	r7,	#0x00		@Occurs after loading of stats for LA battles
+add	r0,	r6,	#0x1	@which happens once per team to load
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@           ^INVALID^		@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+.org				0x08045B3E
+mov	r7,	#0x00		@
+add	r0,	r6,	#0x1	@
+mov	r10,	r0		@
+lsl	r0,	r6,	#0x1	@
+ldr	r1,	[pc,	#0x3C]	@Moved, not replaced
+
+Range: 0x00-0x34
+
+@LA hack - fix loaded data in WRAM, part 2
+@Tested and working!
+.thumb
+@Hook
+.org				0x08045B3E
+ldr	r1,	[pc,	#0x44]	@4911
+ldr	r7,	[pc,	#0x00]	@4F00
+bx	r7			@4738
+.long				0x08464551
+
+.org				0x08464550
+mov	r7,	#0x00		@2700
+add	r0,	r6,	#0x1	@1C70
+mov	r10,	r0		@4682
+lsl	r0,	r6,	#0x1	@0070
+
+@-------------------------------@F7FF
+@-------------------------------@FFCA
+bl				0x084644F0
+
+push	{r0}			@B401
+ldr	r0,	[pc,	#0x08]	@4802
+mov	lr,	r0		@4686
+pop	{r0}			@BC01
+bx	lr			@4770
+dw				0x0000
+
+.long				0x08045B49
+
+.org				0x0846456C
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////////////////////////////
+.org				0x08045BCE
+mov	r1,	#0x00		@Occurs after loading of all stats
+strb	r1,	[r0]		@for LA battles (only once)
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@           ^INVALID^		@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+.org				0x08045BCE
+mov	r1,	#0x00		@
+strb	r1,	[r0]		@
+ldr	r2,	[pc,	#0x38]	@Moved, not replaced
+ldr	r0,	[r2]		@
+strb	r1,	[r0,	#0x06]	@
+
+Range: 0x00-0x89 (All)
+
+@LA hack - fix loaded data in WRAM, part 3
+@Tested and working!
+.thumb
+@Hook
+.org				0x08045BCE
+ldr	r2,	[pc,	#0x3C]	@4A0F
+ldr	r1,	[pc,	#0x00]	@4900
+bx	r1			@4708
+.long				0x0846456D
+
+.org				0x0846456C
+mov	r1,	#0x00		@2100
+strb	r1,	[r0]		@7001
+ldr	r0,	[r2]		@6810
+strb	r1,	[r0,	#0x06]	@7181
+push	{r0-r2}			@B407
+
+mov	r0,	#0x00		@2000
+mov	r1,	#0x89		@2189
+mov	r2,	#0x00		@2200
+@-------------------------------@F7FF
+@-------------------------------@FF96
+bl				TRANSLATE_STATS_FOR_RANGE
+
+pop	{r0-r2}			@BC07
+ldr	r3,	[pc,	#0x04]	@4B01
+bx	r3			@4718
+dw				0x0000
+
+.long				0x08045BD9
+
+.org				0x0846458C
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

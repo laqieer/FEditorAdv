@@ -1,0 +1,18 @@
+Important note: Used data overwritten
+
+The data is image data for a font with a negative sign and numbers 1 through 12
+
+Data is referenced with the location 0x082DBDB0
+
+0x08067B88 and 0x08307AD8 point to 0x082DBDB0
+
+Graphics extend from 0x082DBDB0 to 0x082DC5B0 (0x0800 bytes)
+
+0x08307AD8 is part of a list of pointers; the routine that loads from 0x08067B88 starts at 0x08067B08 and loads with this instruction:
+.org				0x08067B16
+ldr	r0,	[pc,	#0x70]	
+
+To remedy this issue, relocate the 0x0800 bytes (2 kilobytes) from the stock FE 6 game to a free location and modify
+0x08067B88 and 0x08307AD8
+to point to the new location.
+This can be done most effectively with the Memory and Free Space Manager.

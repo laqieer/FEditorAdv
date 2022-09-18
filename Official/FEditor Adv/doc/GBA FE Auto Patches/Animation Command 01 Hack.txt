@@ -1,0 +1,1 @@
+This hack causes the game to loop back NN words in the frame data of an animation when the word 0x8500NN01 is encountered in the frame data so long as the game is waiting for HP depletion. This is used by the editor to enable looping effects such as cape flowing.

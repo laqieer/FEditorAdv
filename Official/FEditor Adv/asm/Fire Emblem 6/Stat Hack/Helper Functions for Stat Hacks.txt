@@ -1,0 +1,95 @@
+//////////////////////////////
+.thumb
+.org				0x082DBF8C
+				TRANSLATE_STATS:
+@-------------------------------@Tested and working!
+
+@arg0: Pointer to unit struct
+@arg1: Boolean of whether to add or subtract (true for latter)
+@Clobber list: N/A
+
+push	{r4-r7, lr}		@B5F0
+ldr	r4,	[r0,	#0x00]	@6804
+cmp	r4,	#0x00		@2C00
+@-------------------------------@D00D
+beq				EXIT
+add	r0,	#0x12		@3012
+add	r4,	#0x0D		@340D
+mov	r7,	#0x04		@2704
+
+				TRANSLATION_LOOP:
+ldrb	r5,	[r0,	r7]	@5DC5
+ldrb	r6,	[r4,	r7]	@5DE6
+cmp	r1,	#0x00		@2900
+@-------------------------------@D101
+bne				SUBTRACT
+				ADD:
+add	r5,	r5,	r6	@19AD
+@-------------------------------@E000
+b				NO_SUBTRACT
+				SUBTRACT:
+sub	r5,	r5,	r6	@1BAD
+				NO_SUBTRACT:
+strb	r5,	[r0,	r7]	@55C5
+sub	r7,	#0x01		@3F01
+@-------------------------------@D5F5
+bpl				TRANSLATION_LOOP
+
+sub	r0,	#0x12		@3812
+
+				EXIT:
+pop	{r4-r7, pc}		@BDF0
+
+.org				0x082DBFB2
+dw				0x0000
+.org				0x082DBFB4
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////////////////////////////
+.thumb
+.org				0x082DBFB4
+				TRANSLATE_STATS_FOR_RANGE:
+@-------------------------------@Tested and working!
+
+@arg0: ID of first struct
+@arg1: ID of last struct, exclusive
+@arg2: Boolean of whether to add or subtract (true for latter)
+@Clobber list: r0, r1, lr
+
+push	{r4, lr}		@B510
+
+cmp	r0,	#0x00		@2800
+@-------------------------------@DB0F
+blt				EXIT
+cmp	r1,	r0		@4281
+@-------------------------------@DD0D
+ble				EXIT
+mov	r4,	#0x48		@2448
+mul	r4,	r0		@4344
+@-------------------------------@4806
+ldr	r0,			BASE
+add	r0,	r0,	r4	@1900
+mov	r4,	#0x48		@2448
+mul	r4,	r1		@434C
+@-------------------------------@4904
+ldr	r1,			BASE
+add	r4,	r4,	r1	@1864
+mov	r1,	r2		@1C11
+
+				TRANSLATION_LOOP:
+@-------------------------------@F7FF
+@-------------------------------@FFDC
+bl				TRANSLATE_STATS
+add	r0,	#0x48		@3048
+cmp	r0,	r4		@42A0
+@-------------------------------@DBFA
+blt				TRANSLATION_LOOP
+
+				EXIT:
+pop	{r4, pc}		@BD10
+
+				BASE:
+.long				0x0202AB78
+
+.org				0x082DBFE0
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

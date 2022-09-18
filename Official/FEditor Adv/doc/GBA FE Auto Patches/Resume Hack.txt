@@ -1,0 +1,5 @@
+This patch causes the base stats of each character to be subtracted from that character's stats before storing their "Resume Chapter" data into the SRAM. It adds those stats back afterward, and also adds them back when they are loaded from the SRAM.
+
+The effect is that as long as a character's stat for STR, SKL, SPD, DEF or RES is within 0 through 31 points of their base stats, that stat will be stored and loaded without any data loss when a chapter is suspended and then resumed.
+
+As an example, a character with a base STR of 13 could have their STR be anywhere from 13 through (13 + 31), or 44, without the stat being corrupted during Resuming. Normally the range of values would be 0 through 31 (notice however in this example that values 0 through 12 would no be usable, but when would a character whose starting stat is 13 ever have less than 13 of that stat?).
