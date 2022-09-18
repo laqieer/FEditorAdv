@@ -1,0 +1,7 @@
+The folder "Free Space" contains information regarding memory management inside and outside of working with FEditor.
+
+Do note that memory management is key to not only avoiding corruption of data and thus the ruination of a hack, but also for efficiently using memory so that the hack is as small as possible.
+
+The smaller a hack is the better; someone might want to play the hack on a flash cartridge, and how could they if the hack didn't fit on it?
+
+As well, the GBA only supports ROMs of 32 megabytes or less!

@@ -1,0 +1,36 @@
+顔画像変更について
+
+サンプル画像
+internal\Test Portrait.PNG
+doc\Portrait Editor Examples\*.png
+
+step1.
+ツールを立ち上げ、ROMを開き、
+メニューから Tool -> Portrait Editor... を選択
+
+step2.
+Input Index: の数字を変えるキャラの顔ででくるので、
+変更したいキャラを選びます。
+
+step3.
+Load From File で、変更する顔画像を選択します。
+今回は、　internal\Test Portrait.PNG　を利用します。
+
+step4.
+目の位置と口の位置がおかしいときは、
+画像をマウスでドラッグすると直せます。
+
+step5.
+save を押して結果をします(まだファイルには保存されていない)
+
+step6.
+メニューから File -> Save を押して保存します。
+(romを上書きする前に、必ずバックアップは取ろうね)
+
+
+export
+別FEから顔画像を移植する場合は、
+移植した顔画像の Save To File を選択して、
+ファイルに落としてください。
+png 形式で保存されます。
+png を変更しても問題ありません。16色を超えてはいけませんよ。

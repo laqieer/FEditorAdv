@@ -1,0 +1,164 @@
+/// - Mode 1
+C03
+C07
+6 p- Ata01.png
+6 p- Ata02.png
+2 p- Ata04.png
+2 p- Ata05.png
+2 p- Ata06.png
+C38
+3 p- Ata07.png
+3 p- Ata08.png
+C19
+3 p- Ata09.png
+3 p- Ata010.png
+10 p- Ata011.png
+3 p- Ata012.png
+C05
+10 p- Ata013.png
+C01
+6 p- Ata03.png
+6 p- Ata01.png
+C06
+C0D
+~~~
+/// - Mode 3
+C03
+C07
+6 p- Ata01.png
+4 p- Ata02.png
+4 p- Ata04.png
+4 p- Ata05.png
+4 p- Ata06.png
+C38
+3 p- Ata07.png
+3 p- RAta01.png
+3 p- RAta02.png
+C38
+3 p- Ata07.png
+3 p- RAta01.png
+3 p- RAta02.png
+3 p- Ata08.png
+C19
+3 p- Ata09.png
+3 p- Ata010.png
+3 p- Ata011.png
+3 p- Ata012.png
+C05
+10 p- Ata013.png
+C01
+6 p- Ata03.png
+6 p- Ata01.png
+C06
+C0D
+~~~
+/// - Mode 5
+C03
+C07
+6 p- Ata01.png
+6 p- Ata02.png
+2 p- Ata04.png
+2 p- Ata05.png
+2 p- Ata06.png
+3 p- Ata07.png
+3 p- Ata08.png
+C19
+3 p- Ata09.png
+3 p- Ata010.png
+10 p- Ata011.png
+3 p- Ata012.png
+C05
+10 p- Ata013.png
+C01
+6 p- Ata03.png
+6 p- Ata01.png
+C06
+C0D
+~~~
+/// - Mode 6
+C03
+C07
+6 p- Ata01.png
+4 p- Ata02.png
+4 p- Ata04.png
+4 p- Ata05.png
+3 p- Ata06.png
+C38
+3 p- Ata07.png
+3 p- RAta01.png
+3 p- RAta02.png
+C38
+3 p- Ata07.png
+3 p- RAta01.png
+3 p- RAta02.png
+3 p- Ata08.png
+C19
+3 p- Ata09.png
+3 p- Ata010.png
+3 p- Ata011.png
+3 p- Ata012.png
+C05
+10 p- Ata013.png
+C01
+6 p- Ata03.png
+6 p- Ata01.png
+C06
+C0D
+~~~
+/// - Mode 7
+C02
+2 p- Ata01.png
+2 p- kaihi01.png
+5 p- kaihi02.png
+C0E
+C01
+3 p- Ata01.png
+C0D
+~~~
+/// - Mode 8
+C02
+2 p- Ata01.png
+2 p- kaihi01.png
+5 p- kaihi02.png
+C0E
+C01
+3 p- Ata01.png
+C0D
+~~~
+/// - Mode 9
+6 p- Ata01.png
+C01
+~~~
+/// - Mode 10
+6 p- Ata01.png
+C01
+~~~
+/// - Mode 11
+6 p- Ata01.png
+C01
+~~~
+/// - Mode 12
+C03
+C07
+6 p- Ata01.png
+6 p- Ata02.png
+2 p- Ata04.png
+2 p- Ata05.png
+2 p- Ata06.png
+3 p- Ata07.png
+3 p- Ata08.png
+C19
+3 p- Ata09.png
+3 p- Ata010.png
+10 p- Ata011.png
+3 p- Ata012.png
+C25
+C04
+10 p- Ata013.png
+C01
+6 p- Ata03.png
+6 p- Ata01.png
+C06
+C0D
+~~~
+/// - End of animation

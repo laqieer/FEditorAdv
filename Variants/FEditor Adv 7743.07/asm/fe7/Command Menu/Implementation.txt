@@ -1,0 +1,181 @@
+@WARNING: This hack is specifically fabricated for a specific hack called "Serenes Emblem"
+@and won't necessarily work for everyone.
+
+@This is an ugly hack to get GNU AS to be nice to me
+ECH_FILE_BEGIN:
+
+@This file generates output when assembled which follows the format specified in the specification at
+
+@Hextator's Doc/Development/Applications/Patching/Assembly Patcher
+
+@in the archive
+
+@http://dl.dropbox.com/u/336940/Hextator%27s%20Doc.7z
+
+.align				2
+@Hardware offset
+.long				0x08000000
+@@@@@
+
+@/////////////////////////////
+@0x10CA - Text ID for Seize command that appears in command menu
+
+@0x08B84BD4 - The address of the pointer to the text data associated
+@with the aboe text ID
+
+@0x08B95318 - The address of the 0x10CA ("Seize" text ID) loaded
+@by the code that chooses the name for the Seize command when
+@drawing the command menu
+
+@.org				0x0804A582
+@ldr	r1,	[r5,	#0x30]	@
+@ldrh	r0,	[r1,	#0x04]	@Loads the above text ID from the above address
+@cmp	r0,	#0x00		@
+@beq				0x0804A5B2
+@mov	r4,	r5		@
+@add	r4,	#0x34		@Address here is 0x0804A58C
+@bl				0x08012C60
+@mov	r1,	r0		@
+@mov	r0,	r4		@
+@bl				0x08005718
+
+@This hack allows the text ID used
+@for the Seize command in the command
+@menu to be set per chapter and may
+@allow other commands to be renamed
+@per chapter as well; the data referenced
+@by this hack is expected to be formatted
+@like
+
+@FORMAT
+
+@0xXX0CYAYB (XX == chapter number; YAYB == original text ID, in this case 0x10CA)
+@0x071DZAZB (ZAZB == new text ID)
+@[Repeat of the above two] (next entry)
+@[Anything else] (end of list)
+
+@Note that each group of 4 bytes is stored
+@with little endian formatting, so it
+@will appear in a binary editor as
+@YBYA0CXX and ZBZA1D07 for example
+@For FE 7 in particular, an entry like
+@CH0C10CA 071D10C9 for CH = Chapter
+@will make the "Seize" command appear
+@as "Exit", and then the tile can be made
+@to look like an exit point
+
+@~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@	Hook
+@~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.align				2
+@.org				0x0804A582
+				ECH_HOOK:
+.set				ECH_HOOK_SIZE, ECH_HOOK_END - ECH_HOOK_START
+.set				ECH_HOOK_ORIGIN, 0x0804A582
+@Origin
+.long				ECH_HOOK_ORIGIN
+@Offset (bytes to ignore)
+.long				0x00000002
+@Size
+.long				ECH_HOOK_SIZE
+
+.thumb
+.short				0x0000
+				ECH_HOOK_START:
+mov	lr,	pc		@x0804A584
+ldr	r0,			ECH_HOOK_TARG
+bx	r0			@hurg
+				ECH_HOOK_TARG:
+.align				2
+.long				ECH_HACK_ORIGIN + 1
+				ECH_HOOK_END:
+
+@~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@	Hack
+@~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.align				2
+@.org				0x08DA0240
+				ECH_HACK:
+.set				ECH_HACK_SIZE, ECH_HACK_END - ECH_HACK_START
+.set				ECH_HACK_ORIGIN, 0x08DA0240
+@Origin
+.long				ECH_HACK_ORIGIN
+@Offset (bytes to ignore)
+.long				0x00000000
+@Size
+.long				ECH_HACK_SIZE
+
+.thumb
+				ECH_HACK_START:
+@Ugly hack mentioned above implemented here
+.macro				ECH_CALL address
+bl				\address - (ECH_HACK_ORIGIN + (ECH_FILE_BEGIN - ECH_HACK_START))
+.endm
+ldr	r1,	[r5,	#0x30]	@
+ldrh	r0,	[r1,	#0x04]	@Loads the usual text ID
+push	{r2-r7}			@r2 = Chapter
+				@r3 = 0x000C0000
+				@r4 = 0x071D0000
+				@r5 = Loaded/chapter/text ID to match,
+				@r6 = Text ID to match, text ID to use
+				@r7 = Loaded
+
+mov	r3,	#0x0C		@
+lsl	r3,	r3,	#0x10	@r3 = 0x000C0000
+mov	r4,	#0x07		@
+lsl	r4,	r4,	#0x08	@
+add	r4,	#0x1D		@
+lsl	r4,	r4,	#0x10	@r4 = 0x071D0000
+ldr	r1,			ECH_CHAPTER_PTR
+ldrb	r2,	[r1,	#0x00]	@Load what chapter we're on
+ldr	r1,			ECH_DATA_REF
+
+				ECH_CHAPTER_LOOP:
+ldr	r5,	[r1,	#0x00]	@
+add	r1,	#0x04		@
+mov	r6,	r5		@
+and	r6,	r3		@
+cmp	r6,	r3		@
+bne				ECH_DONE
+ldr	r7,	[r1,	#0x00]	@Associated text ID
+add	r1,	#0x04		@
+lsl	r6,	r5,	#0x10	@
+lsr	r6,	r6,	#0x10	@r6 = text ID to match
+lsr	r5,	r5,	#0x18	@r5 = chapter to match
+cmp	r2,	r5		@
+bne				ECH_CHAPTER_LOOP
+cmp	r0,	r6		@
+bne				ECH_CHAPTER_LOOP
+mov	r6,	r7		@
+and	r6,	r4		@
+cmp	r6,	r4		@
+bne				ECH_CHAPTER_LOOP
+eor	r6,	r7		@
+mov	r0,	r6		@
+
+@Cleanup
+
+				ECH_DONE:
+pop	{r2-r7}			@
+ldr	r1,	[r5,	#0x30]	@Missing instruction
+cmp	r0,	#0x00		@
+beq				ECH_OTHER_RETURN
+mov	r4,	#0x07		@
+add	lr,	r4		@Normal return
+mov	r4,	r5		@Missing instruction
+bx	lr
+				ECH_OTHER_RETURN:
+mov	r4,	#0x2D		@
+add	lr,	r4		@Other return
+mov	r4,	r5		@Missing instruction;
+				@shouldn't be necessary but whatevs
+bx	lr
+.align				2
+				ECH_CHAPTER_PTR:
+.long				0x0202BC06
+				ECH_DATA_REF:
+.long				ECH_HACK_ORIGIN + ECH_HACK_SIZE
+				ECH_HACK_END:
+@\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

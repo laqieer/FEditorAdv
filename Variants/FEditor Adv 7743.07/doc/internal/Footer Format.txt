@@ -1,0 +1,67 @@
++----------------------+
+|1. Basic footer format|
++----------------------+
+
+The footer consists of the following data:
+
+12 bytes: Version string.
+Format is YYYYMMDD.B (10 bytes), plus 2 bytes padding. This value is extracted from the application resources, and can be compared lexicographically.
+Build ID can be '0' through '9' or 'A' through 'F' (but '0' is not normally used).
+
+?? bytes: Chunks, in any order. Every chunk is word-aligned.
+
+ 4 bytes: Length count. Total number of words used for the chunks. (This is used to locate the beginning of the footer when reading.)
+
+ 4 bytes: Signature. This is always 0x1270D1FE in little-endian, so that it reads FE D1 70 12 ("FEditor", in l33t) in a hex editor. If this value is not present, but the checksum was OK, it is assumed that this ROM was most recently edited with an old version of FEditor that didn't use a footer.
+
+ 4 bytes: CRC32 checksum for entire ROM, including all of the above.
+
+Every chunk starts with a 4-byte identifier and 4-byte length count. The identifier is intended to be a human-readable byte[4], but is loaded and compared as a little-endian word for efficiency. (See also http://en.wikipedia.org/wiki/FourCC .) The length count is the number of words in the chunk, little-endian.
+
++--------------+
+|2. Chunk types|
++--------------+
+
+The following chunk types are defined so far.
+
++---------+
+|2.1. FREE|
++---------+
+
+A freespace list. Bytes following the length count are as follows:
+
+1-4 bytes offset of first freespace region, encoded
+1-4 bytes size of first freespace region, encoded (i.e., distance to next non-freespace location)
+1-4 bytes distance from end of first freespace region to beginning of next, encoded
+1-4 bytes size of next freespace region, encoded
+etc.
+plus padding to ensure word alignment.
+
+Values are encoded as follows: The two LSB of the current byte are checked, and the corresponding number of additional bytes are read. The whole set of bytes is interpreted as a little-endian number. The two LSB are masked off, since freespace is always word-aligned.
+
+E.g. the default FE7 freespace list (one starting at D00000 with size 100000) would be encoded as 02 00 D0 02 00 10 00 00 (including 2 padding bytes). The default FE6 freespace list (0x00817A00 to 0x00A00000, 0x00A297B0 to 0x00B00000, 0x00B013F0 to 0x01000000) is encoded as 02 7A 81 82 A1 07 B2 97 02 52 68 0D F1 13 12 EC 4F 00 00 00 (including 3 padding bytes).
+
++---------+
+|2.2. SPEL|
++---------+
+
+Old spell pointer array location, in case a CSA patch has to be updated. This chunk always has a size of 4.
+
+The value will be initialized to GBA_HARDWARE_OFFSET, indicating that the array has not
+been generated. However, this is the value the array is "at" to begin with, so overwriting
+the pointer that points to the spell animation pointer array regardless will work fine.
+
+However, this should only be done for games that HAVE a spell animation pointer array, so
+each game should have an accessor: "getSpellArrayPointerRef()" that returns the location of
+this pointer. If it returns null, don't write anything, otherwise, write the word after
+"SPEL" to the address returned.
+
++-------------+
+|3. Discussion|
++-------------+
+
+Hectator: Also, we're going to need a way to contain common chunks in the Game model and uncommon
+ones in the specific models. I wonder if looking into this function pointer simulation you
+mentioned will be of use?
+
+Zahlman: This will just use standard template-and-hook techniques. Subclasses of the Metadata holder class provide handling for chunks not common to all games.

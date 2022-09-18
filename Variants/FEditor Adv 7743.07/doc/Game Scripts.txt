@@ -1,0 +1,13 @@
+Due to the sheer size of the game scripts altogether, they have been archived in the "7zip" format and included here:
+
+"Game Documentation/Text/FE Game Scripts.7z"
+
+Pre-dumped just for you, so you can save yourself some time.
+
+Of course, if you ever need to dump a hacked ROM's game script...
+
+...there's a feature for that ;D
+
+Fire Emblem.syn is a TextPad 5 compatible syntax file to be used for viewing the script dumps with syntax highlighting.
+
+You're welcome.

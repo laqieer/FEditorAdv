@@ -1,0 +1,3 @@
+This is hardly a hack. None of the game's original code or data needed to be modified to implement it. It is, however, a very nifty patch that processes spell animation data encoded by the editor so that it appears in the game as intended.
+
+LOTS of programming went into this. It is essentially assembly-level homebrew.

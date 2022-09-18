@@ -1,0 +1,21 @@
+The folder "Game Doc" contains information obtained through reverse engineering the games this application works with.
+
+Much of the information implemented by the application originated from here and further information which has yet to be implemented resides with in.
+
+You're welcome!
+
+"Where is the folder?"
+
+The folder has unfortunately been moved to accommodate the issue with ridiculously long file paths appearing in my more general documentation collection.
+
+This one in particular:
+
+"http://dl.dropbox.com/u/336940/Hextator%27s%20Doc/folDIR.html"
+
+You might well be browsing it for all I know.
+
+Here is the path to the folder:
+
+"http://dl.dropbox.com/u/336940/Hextator%27s%20Doc/Media/Games/Console/NGBA/Fire%20Emblem/Game%20Doc/folDIR.html"
+
+Do note that the link in the license in the root directory can be used to acquire a 7zip of the entire "Hextator's Doc" folder if necessary.

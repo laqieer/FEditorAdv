@@ -1,0 +1,31 @@
+Please confirm the integrity of and contribute to these lists.
+
+~~ FE 6 ~~
+
+0x002DBF50 to 0x002DC448 - used by auto patching system
+
+0x00817A00 to 0x00A00000 - confirmed
+
+0x00A297B0 to 0x00B00000 - confirmed
+
+0x00B013F0 to 0x00E00000 - confirmed
+
+0x00E00000 to 0x00E08000 - used by auto patching system
+
+0x00E08000 to 0x01000000 - confirmed
+
+~~ FE 7 ~~
+
+0x000CB51A to 0x000CBA34 - used by auto patching system
+
+0x00D00000 to 0x00E00000 - WARNING: mostly confirmed, however some data in the 0x00D8XXXX range has been shown to be in use by the game
+	(specifically for some class ability related data).
+	YOU SHOULD manually mark this data as used with the memory manager.
+
+~~ FE 8 ~~
+
+0x00464400 to 0x0046458C - used by auto patching system
+
+0x0095D780 to 0x0095DBC0 - used by auto patching system
+
+0x00B2A610 to 0x00C00000 - confirmed

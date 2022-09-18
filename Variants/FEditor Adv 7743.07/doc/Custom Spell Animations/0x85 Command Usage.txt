@@ -1,0 +1,66 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Command requirements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Below is a description of the format of a spell animation; items marked by "*" are required; items named "frames" are optional animation frames.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+000040
+- (screen scroll; recommended, and the animation will look ugly without it)
+blank frames for delay purposes*
+- (some casting animations such as those for mages use the VRAM allocated for spell animations; because of this, it is not a good idea for a spell animation to start loading graphics until after the first several frames have passed)
+frames
+00001A*
+00001F
+- (not required but this plays the hit sound; should accompany all 1A commands)
+frames
+~
+- ("miss" terminator; animation will exit if this is reached and the caster will miss; not sure if
+this has to occur after an 00001A command)
+frames
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Important note about attack commands:
+
+If more than one hit is used and the second hit doesn't land before the target's health depletes, it will stick the game's health handling routine into a permanent state of raising the target's HP, causing the game to freeze if the target counter attacks to queue another HP decrease. It is recommended command 0x51 (81) be used as a short white flash signifying a hit, rather than an actual hit, when multiple hits are desired.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Command format
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When commands are entered into the editor, the format is:
+
+CXXYYZZ
+
+ZZ is the command ID.
+XX is the first argument for the command.
+YY is the second argument.
+C denotes that the data following is command data; this is what should appear in an animation script; there should not be a "C" heading the number entered into the spinner in the dialog if the dialog is being used in place of a script.
+
+Commands with no information about arguments do not take them; any value can be used in place of XX or YY with no changes to the effect of such commands.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Command list
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+0x00 through 0x13 (except 0x08) - Ignored/unused
+0x08 Attack (becomes critical automatically) with HP stealing
+0x14 through 0x28 - passed to attacker's animation; it is recommended that all possible caster/
+	spell animation combinations are considered such that no combination conflicts
+0x29 Set brightness and opacity levels for the background.
+	Argument XX is the brightness level from 0 to 100% (0x0 through 0x10)
+	Argument YY is the opacity level from 100% to 50% (0x0 through 0x10)
+0x2A Sets whether maps 2 and 3 of the GBA screen should be visible.
+	Argument YY is the boolean for whether to display those two maps:
+		The value 0 means "false to display"; all other values mean "true".
+0x2B through 0x3F - passed to attacker's animation; see note above
+0x40 Scrolls the screen from being centered on the attacker to being centered on the defender.
+	This should not be used more than once per animation.
+0x41 through 0x47 - passed to attacker's animation; see note above
+0x48 Plays sound or music whose ID corresponds to those documented in Music List.txt of the Nightmare
+	module packages.
+	Argument XXYY is a 16 bit music ID.
+0x49 through 0x52 - passed to attacker's animation; see note above for commands 0x14 through 0x28
+0x53 through 0xFF - Ignored/unused

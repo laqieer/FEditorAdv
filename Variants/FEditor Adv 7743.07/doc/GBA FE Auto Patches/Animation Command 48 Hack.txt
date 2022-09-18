@@ -1,0 +1,3 @@
+This hack causes the game to play the music or sound of ID XXYY when the word 0x85XXYY48 is encountered within the frame data of an animation. The editor uses this both physically and conceptually to allow access to all the game's sounds when making custom battle or custom spell animations.
+
+I say "and conceptually" because custom spells are executed by a separate assembly program I wrote, which processes data formatted as "0x85XXYY48" in this way, although the actual code modified by this hack is entirely separate and only used for class animations.

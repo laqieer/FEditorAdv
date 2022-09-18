@@ -1,0 +1,47 @@
+/// - Oh lord v_V
+/// - This is the beginning of the animation. It may be a good idea to put 5 "C00" commands here
+C00
+C00
+C00
+C00
+C00
+/// - to prevent your animation from being loaded too soon and conflicting with the the data already in the RAM in cases when mages or the like are casting spells and use the spell animation VRAM for their special effects.
+C40 - Scrolls the screen. According to Fire Blazer, there should be a frame with a duration (in decimal) of 20 following this to delay further animation until the scrolling has completed.
+C101029 - Sets the brightness of the background layer to 100%, as well as setting its opacity to 50%
+C001848 - Play music or sound of ID 0x0018 - in FE 7, this plays Campaign of Fire if that music has not been edited.
+O  p- testImage.PNG
+B  p- Test BG.PNG
+32  - I hope this works >.> (This is the original file I tested my first custom spell with; so I was a little nervous!)
+C00001A - The actual hit command. Don't use more than one of these in your animation, and definitely have at least one if you don't want your animation to freeze the game.
+C1F - Default arguments will be 0 if they are not given
+~~~ - Terminate on miss (ONLY on miss; will not terminate otherwise)
+O  p- testImage.PNG
+B  p- Test BG.PNG
+32  - Apparently it does :P (I'd tested this file by this point and added all the documentation comments after)
+
+/*  - Description of the above lines' purposes
+
+testImage.PNG is a 488x160 pixel image with the 2 240x160 pixel sections at the left being the foreground and background sprite layers.
+Note that unlike with custom battle animations where you get up to 256 tiles per frame, you only get 128 tiles per frame for spell animations.
+However, you also get backgrounds, which have 256 tiles reserved to them for each frame; since the tiles are stretched, 512 tiles' worth of space will be covered by the background sheet (more than the whole screen, if you consider that battle info covers about a sixth of the screen).
+
+Test BG.PNG is a 264x64 pixel image with the left 256x64 pixel area being a 0.5 times scaled version of what is to appear in BG layer 1.
+Only the left 240x64 pixel area will be seen on the actual screen, and it will take up 240x128 pixels after it is actually loaded as it will be stretched vertically to be twice as tall.
+
+C101029 sets the opacity and brightness levels for BG layer 1 to their default, and C001848 plays music 0x18 - Campaign of Fire.
+
+The "32"s are the frames' durations; everything after the space is ignored. The data loaded by the O and B commands is applied to the animation once those numbers are reached.
+
+C00001A is the hit command, as usual, and C00001F is the sound of the hit (here it is seen as C1F as a way of demonstrating that not specifying command arguments uses the default arguments of "00").
+
+The ~~~ is where the animation will stop if the caster misses. ONLY IF THEY MISS.
+
+And finally, comments work the same as they always have. Hey! You knew that already, eh? :P
+
+Or perhaps I'm a dirty little liar, and using this script would be a bad idea because it's riddled with comments.
+
+I invite you to see for yourself.
+
+Oops, I forgot; you can set whether the "Dim" checkbox should be set using "DX" where X is either 0 to deselect the checkbox or any other character to set the checkbox.
+
+*/  - End description (notice how this part is still not in the actual comment, but still treated as "commented" because of the nature of the script interpreting system)
