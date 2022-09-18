@@ -1,0 +1,11 @@
+For old versions of FEditor:
+
+If a clean ROM is supplied, known free space ranges will be marked with the "free space marker" value, which at the time of this writing is "0xF0". The editor considers large areas of 0xF0 to be available for being written to; if it cannot find a space large enough for the data it is writing, it will append it to the end of the ROM.
+
+For current versions of FEditor:
+
+Freespace is stored as meta data in application RAM which can be stored in a "footer" for your ROM that FEditor can interpret or, if necessary, remove. As such, the editor will still keep track of free space, but it will not modify any data in the process. It also means that large areas of 0xF0, or any value for that matter, will not necessarily be considered free space. Only a valid footer can specify free space, or, if the ROM is clean, free space will be assumed.
+
+For all versions of FEditor:
+
+See "Known Free Space.txt" for documentation on which ranges in various GBA FEs are considered "free" in "clean" ROMs. Note the request for your participation in the management of those lists.

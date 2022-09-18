@@ -1,0 +1,186 @@
+//////////////////////////////
+.org				0x0808520E
+mov	r1,	#0x84		@This instruction follows the end of
+lsl	r1,	r1,	#0x4	@the loop for loading stats for LA unit selection
+
+Range: 0x00-0x34
+
+@LA hack - translate to WRAM for selection
+@Tested and working!
+.thumb
+@Hook
+.org				0x0808520E
+@-------------------------------@F256
+@-------------------------------@FF03
+bl				0x082DC018
+
+.org				0x082DC018
+push	{r0, r2, lr}		@B505
+@-------------------------------@F7FF
+@-------------------------------@FFE3
+bl				0x082DBFE4
+mov	r1,	#0x84		@2184
+lsl	r1,	r1,	#0x4	@0109
+
+pop	{r0, r2, pc}		@BD05
+
+.org				0x082DC024
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////////////////////////////
+.org				0x0808646C
+mov	r0,	#0xD8		@This instruction follows the end of
+mov	r1,	r8		@the loop for loading stats for LA roster viewing/battling
+
+Range: 0x00-0x34
+
+@LA hack - translate to WRAM for viewing/battling
+@Tested and working!
+.thumb
+@Hook
+.org				0x0808646C
+@-------------------------------@F255
+@-------------------------------@FDDA
+bl				0x082DC024
+
+.org				0x082DC024
+push	{r2, lr}		@B504
+@-------------------------------@F7FF
+@-------------------------------@FFDD
+bl				0x082DBFE4
+mov	r0,	#0xD8		@20D8
+mov	r1,	r8		@4641
+
+pop	{r2, pc}		@BD04
+
+.org				0x082DC030
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////////////////////////////
+.org				0x080863F4
+mov	r4,	r8		@This instruction comes before the loop
+mov	r6,	#0x04		@for storing stats for saving a new LA team
+
+Range: 0x3E-0x43
+
+@LA hack - translate to SRAM
+@Tested and working!
+.thumb
+@Hook
+.org				0x080863F4
+@-------------------------------@F255
+@-------------------------------@FE1C
+bl				0x082DC030
+
+.org				0x082DC030
+push	{r0-r2, lr}		@B507
+mov	r0,	#0x3E		@203E
+mov	r1,	#0x43		@2143
+mov	r2,	#0x01		@2201
+@-------------------------------@F7FF
+@-------------------------------@FFBC
+bl				TRANSLATE_STATS_FOR_RANGE
+mov	r4,	r8		@4644
+mov	r6,	#0x04		@2604
+
+pop	{r0-r2, pc}		@BD07
+nop
+
+.org				0x082DC044
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////////////////////////////
+.org				0x0808640E
+mov	r1,	sp		@This instruction comes after the loop
+mov	r0,	#0x02		@for storing stats for saving a new LA team
+
+Range: 0x3E-0x43
+
+@LA hack - fix loaded data in WRAM, part 1
+@Tested and working!
+.thumb
+@Hook
+.org				0x0808640E
+@-------------------------------@F255
+@-------------------------------@FE19
+bl				0x082DC044
+
+.org				0x082DC044
+push	{r2, lr}		@B504
+mov	r0,	#0x3E		@203E
+mov	r1,	#0x43		@2143
+mov	r2,	#0x00		@2200
+@-------------------------------@F7FF
+@-------------------------------@FFB2
+bl				TRANSLATE_STATS_FOR_RANGE
+mov	r1,	sp		@4669
+mov	r0,	#0x02		@2002
+
+pop	{r2, pc}		@BD04
+nop
+
+.org				0x082DC058
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////////////////////////////
+.org				0x080393D2
+mov	r7,	#0x00		@Occurs after loading of stats for LA battles
+add	r2,	r6,	#0x1	@which happens once per team to load
+
+@LA hack - fix loaded data in WRAM, part 2
+@Tested and working!
+.thumb
+@Hook
+.org				0x080393D2
+@-------------------------------@F2A2
+@-------------------------------@FE41
+bl				0x082DC058
+
+.org				0x082DC058
+mov	r7,	#0x00		@2700
+add	r2,	r6,	#0x1	@1C72
+push	{r0-r2, lr}		@B507
+
+@Optimization hax
+@-------------------------------@F7FF
+@-------------------------------@FFCB
+bl				0x082DBFF8
+
+pop	{r0-r2, pc}		@BD07
+
+.org				0x082DC064
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////////////////////////////
+.org				0x08039462
+mov	r1,	#0x00		@Occurs after loading of all stats
+strb	r1,	[r0]		@for LA battles (only once)
+
+Range: 0x00-0x89
+
+@LA hack - fix loaded data in WRAM, part 3
+@Tested and working!
+.thumb
+@Hook
+.org				0x08039462
+@-------------------------------@F2A2
+@-------------------------------@FDFF
+bl				0x082DC064
+
+.org				0x082DC064
+mov	r1,	#0x00		@2100
+strb	r1,	[r0]		@7001
+push	{r0-r2, lr}		@B507
+
+mov	r0,	#0x00		@2000
+mov	r1,	#0x89		@2189
+mov	r2,	#0x00		@2200
+@-------------------------------@F7FF
+@-------------------------------@FFA0
+bl				TRANSLATE_STATS_FOR_RANGE
+
+pop	{r0-r2, pc}		@BD07
+nop
+
+.org				0x082DC078
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

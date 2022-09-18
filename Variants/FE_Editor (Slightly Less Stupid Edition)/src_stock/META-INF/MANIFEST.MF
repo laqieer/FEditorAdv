@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Class-Path: 
+ lib/appframework-1.0.3.jar 
+ lib/swing-worker-1.1.jar 
+Main-Class: FEditorAdvance.App

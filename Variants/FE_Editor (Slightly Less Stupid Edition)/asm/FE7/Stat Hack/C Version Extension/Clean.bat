@@ -1,0 +1,10 @@
+@echo off
+echo y | del "program1.cpp.asm"
+echo y | del "program1.cpp.formatted.asm"
+echo y | del "program2.cpp.asm"
+echo y | del "program2.cpp.formatted.asm"
+echo y | del "program1.cpp.formatted.arm.disasm"
+echo y | del "program1.cpp.formatted.thumb.disasm"
+echo y | del "program1.cpp.formatted.symbols.log"
+echo y | del "program1.preprocessed.txt"
+echo y | del "program2.preprocessed.txt"

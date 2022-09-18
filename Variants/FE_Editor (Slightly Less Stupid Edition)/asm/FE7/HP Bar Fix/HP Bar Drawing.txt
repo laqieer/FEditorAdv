@@ -1,0 +1,53 @@
+//////////////////////////////
+.org				0x0804CB7E
+@-------------------------------@Source
+ldr	r0,			=#0x02016E48
+@-------------------------------@Dest
+ldr	r1,			=#0x06013000
+mov	r2,	#0x80		@
+lsl	r2,	r2,	#0x4	@Size = 0x0800 bytes (u16)
+@-------------------------------@Memory copy call
+bl				0x08003078
+
+.org				0x0804C334
+mov	r6,	#0x0		@
+mov	r9,	r7		@
+mov	r5,	#0x0		@
+lsl	r3,	r6,	#0x1	@
+.org				0x0804C33C
+
+Hack to fix HP bar screwage:
+
+.org				0x0804C334
+				@F07F
+				@F91A
+bl				0x080CB56C
+
+.org				0x080CB56C
+mov	r6,	#0x0		@2600
+mov	r9,	r7		@46B9
+				@r0 is the source address.
+				@At this point it will be equal to the stack pointer.
+				@The stack pointer has 0 written to it just prior to
+				@this code's execution guaranteed. Since this is
+				@the value we want to copy anyway we do not have to
+				@initialize r0 to anything.
+				@There's a word for this...
+				@I think it's like "hack", or something.
+				@4901
+ldr	r1,			graphics
+				@4A02
+ldr	r2,			fill
+swi	#0x0C			@DF0C; CpuFastSet
+bx	lr			@4770
+.align				2
+				@Destination
+				graphics:
+.long				0x02016E48
+				@0x01?????? means we are filling with repeats of
+				@the few bytes at "source", not copying
+				@a block of memory.
+				fill:
+.long				0x01000200
+.org				0x080CB580
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

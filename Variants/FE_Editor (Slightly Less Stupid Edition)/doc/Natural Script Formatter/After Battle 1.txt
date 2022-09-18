@@ -1,0 +1,45 @@
+[OpenFarRight][LoadFace][0x30][0x01][OpenLeft][LoadFace][0x16][0x01]We've seized Caelin, yet I feel
+like something is missing.[A][OpenFarRight][ToggleMouthMove]...[ToggleMouthMove]So much violence[ToggleMouthMove]...[ToggleMouthMove] I[ToggleMouthMove]...[ToggleMouthMove] I
+never realized how much[A]
+destruction this war has
+caused[ToggleMouthMove]...[ToggleMouthMove][A]
+[OpenLeft]I'm sorry, Shon. You're still
+too young[ToggleMouthMove]...[ToggleMouthMove][A][OpenFarRight]Nonsense! We've liberated
+Caelin. I-I can handle this. I'm
+your son, right?[A]
+[OpenLeft]That is true. You've proven your
+skill today Shon. You are no[A]
+longer my apprentice, you are my
+peer[ToggleMouthMove]...[ToggleMouthMove]Sir Shon.[A]
+[OpenFarRight]Father, I don't need a title. I
+want to fight for a world where[A]
+all people are free. I want to
+fight for a world where there is[A]
+no hunger or war, only peace and
+prosperity. I don't need to be a[A]
+knight to do that. All I need is
+to fight by your side.[A]
+[OpenLeft]Shon[ToggleMouthMove]...[ToggleMouthMove]that is your dream?[A][OpenFarRight]Yes.[A][OpenLeft]A noble one indeed. However
+you'll find that it won't be
+that easy.[A]
+[OpenFarRight]I know the road will be rough,
+but I think I can fulfill my
+dream.[A]
+[OpenLeft]Well, then I am committed to
+helping you see it through.[A][OpenFarRight]Really?[A][OpenLeft]But before you can make positive
+changes to the world you have to[A]
+reverse the negative changes.
+Seizing Caelin was a vital first[A]
+step towards restoring the world
+to it's former glory. Once we[A]
+fulfill that goal you can work
+on yours.[A]
+[OpenFarRight]Alright father. I shall go send
+a messenger to Anakin to relay
+the news of our success. I'm[A]
+going to take Shuuda and Inanna
+with me into the castle first.[A]
+We've time to rest before they
+embark on their journey.[A]
+[ClearFace][OpenLeft][ClearFace]
+[X]

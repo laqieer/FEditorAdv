@@ -1,0 +1,105 @@
+~~~~~~~~~~~~~~~~~~~
+~~~ Delete Mode ~~~
+~~~~~~~~~~~~~~~~~~~
+
+This mode is for marking a range of bytes as "free". What is being done here is similar to using the "delete" keyword in C/C++, which frees memory so that other things can go there. Hence, the name "Delete Mode".
+
+When this mode is selected, you will need to specify the starting address of the range of memory to free, and the length. The length will be determined automatically for you if you choose to treat the data as "LZ77 Compressed", but if the data at the location you've specified is not LZ77 compressed, then there will be problems.
+
+Once you've specified the start address and either the length of the data or that the data is compressed, click "Manage Memory" to free the bytes.
+
+This mode does not use any checkboxes but the compression checkbox.
+
+This mode does not use the "Addr. of ptr. to update" field.
+
+This mode does not use the file path selector.
+
+~~~~~~~~~~~~~~~~
+~~~ Cut Mode ~~~
+~~~~~~~~~~~~~~~~
+
+This mode is for extracting data from the ROM and marking the data that was extracted as "free". This is like the "Delete Mode", except you must specify a file path. The data that is "deleted" will be stored as raw binary data at the location specified.
+
+Note that you must select the mode prior to selecting the file for the dialog to allow specification of a new location.
+
+The extracted data will not be compressed if it was to begin with. The data length is determined automatically if the data is to be treated as compressed, and problems will arise if the data at the location specified can not be decompressed.
+
+This mode does not use any checkboxes but the compression checkbox.
+
+This mode does not use the "Addr. of ptr. to update" field.
+
+~~~~~~~~~~~~~~~~~
+~~~ Copy Mode ~~~
+~~~~~~~~~~~~~~~~~
+
+This mode dumps data to the file specified. The offset the data will come from must be specified but the length will be determined automatically if the data can be decompressed and is treated as compressed.
+
+This mode does not use any checkboxes but the compression checkbox.
+
+This mode does not use the "Addr. of ptr. to update" field.
+
+~~~~~~~~~~~~~~~~~~
+~~~ Paste Mode ~~~
+~~~~~~~~~~~~~~~~~~
+
+This mode inserts data into the ROM. The location it is placed at is determined automatically, as is the length. The path to a raw binary file must be specified. If the data is to be compressed, the "Treat as compressed" checkbox must be checked.
+
+After the data is written, a pointer may be modified automatically to point to it. This can be done by checking the "Update pointer" checkbox. The address of the pointer that is to be updated must be specified in the field labeled "Addr. of ptr. to update".
+
+If the "Fix other pointers?" checkbox is checked, all addresses in the entire ROM that "seem to be" pointing to the same location as the pointer at the address specified in the "Addr. of ptr. to update" field will be replaced as well.
+
+WARNING: If there are any bytes that are aligned (address divided by 4 has a remainder of 0) and have the values needed to point to the location that the specified pointer points to that are not actually pointers, these bytes will be mistakenly replaced as well. If you're worried there are such bytes, don't use the "Fix other pointers?" option. However, it is so unlikely that this will happen that is is usually safer to check the option to avoid missing any other pointers that actually do need changing.
+
+This mode does not use the start address field.
+
+This mode does not use the length field.
+
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~ Deallocate Mode ~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+
+This mode is for marking a range of bytes as "used". What is being done here is the opposite of using the "delete" keyword in C/C++, which frees memory so that other things can go there. Instead, data is being "deallocated", which means the memory is no longer "safe" to put new data at.
+
+When this mode is selected, you will need to specify the starting address of the range of memory to deallocate, and the length. The length will be determined automatically for you if you choose to treat the data as "LZ77 Compressed", but if the data at the location you've specified is not LZ77 compressed, then there will be problems.
+
+Once you've specified the start address and either the length of the data or that the data is compressed, click "Manage Memory" to mark the bytes as "used".
+
+This mode does not use any checkboxes but the compression checkbox.
+
+This mode does not use the "Addr. of ptr. to update" field.
+
+This mode does not use the file path selector.
+
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~ List Free Space ~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The debug output window will have the ROM's current set of free space ranges printed to it. I don't recommend clicking this button rapidly.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~ Dump free space... ~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This will let you save a text file that lists the free space for the open ROM.
+
+The format is like
+
+"[Exhaustive]" followed by newline delimited numbers representing address and length pairs.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~ Import free space... ~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This will allow you to update the open ROM's free space by importing from a file in a format similar to that which is produced by choosing "Dump free space...".
+
+Files must be formatted such that there are base 16 numbers which are newline delimited representing addresses and lengths in an alternating fashion.
+
+If the first line of the file is "[Exhaustive]", the entire ROM will be marked as "not free" before applying the free space regions listed in the file so that only the regions in the file are marked as free upon importing.
+
+If the first line of the file is "[Deallocate]", then the regions listed in the file will be marked as "not free" rather than "free".
+
+If the first line of the file is something else, the regions listed in the file will be marked as "free", and regions already marked as "free" in the ROM will be kept as well.
+
+Except for when the first line of the file matches the two cases mentioned above, all lines that are not base 16 numbers will be ignored.
+
+If a number is presumed to be an address of an address/length pair and no length is specified before the file ends, the address will be discarded and no extra free space will be marked or unmarked.

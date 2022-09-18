@@ -1,0 +1,1278 @@
+FEditor Adv by Hextator ;D
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Future
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Known issues:
+
+These are pretty terrible issues, but with so little support from the community I do not have the energy to deal with them. The expertise and ability, definitely, but not the energy.
+
+If you need more information to help resolve these (assuming you're even willing to) refer to documentation at:
+
+"doc/Game Documentation"
+
+--	With custom spells, sheets were updated about one "spell frame" earlier than they should be
+	The simplest solution was to hijack the function (at 0x080032E0 in FE 7's case)
+	which copies OAM data to the actual OAM area and have that handle actual updating of
+	map and graphical sheet data in the VRAM at that time, then have the code in the Custom
+	Spell Animation Processing System leave a pointer for said code to reference in place
+	of doing that work (while continuing to queue the OAM to be written).
+	Something similar needed to be done for purposes of having palette changes
+	synchronize with sheet changes for the BG/map layer.
+	However, FE6 and FE8's CSAP systems are BOTH MISSING these fixes for synchronizing
+	sprite sheet updates with OAM updates and map sheet udpates with map palette updates.
+--	FE 7 free space ranges are apparently inaccurate and need to be determined with accuracy
+--	FE 6 custom spell system should be relocated
+--	Little to no support for recovering manually moved arrays
+--	Class animation manager's resizing option isn't tested
+--	Spell animation inserter's memory management isn't tested
+--	Staff EXP editing hack for FE 7 not ported to FE 6/8 (probably won't be)
+--	Unsupported editing features (such as a full chapter editor; may not ever get done)
+
+Planned/suggested features (in order):
+
+--	None, at the moment
+
+Canned planned/suggested features (also in order):
+
+--	Add dropdown to Text Editor for selecting control codes
+--	Implementation of a ROM writing queue or better use of writing latches to make
+	one-editor-at-a-time mechanic obsolete
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Present and past
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Version format is (date) YYYYMMDD.(1-based count of builds that day)
+
+Format of the info below is
+
+Version
+	Amendment notes
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ (Day separator)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20140801.1
+	Changes by Hextator:
+		Implemented versioning via Mercurial
+		Updated FE7 CSAPS to asynchronously load map layer sheets when the map layer's palette is loaded,
+		thus synchronizing the two
+			WARNING: This will change the base pointer to your custom spells.
+			Follow the instructions in "doc/Updating.txt" BEFORE opening any files with FEditor!
+			Remember: Be wary of and report bugs
+		FE7 CSAPS now zero fills the map layer sheet data during custom spell initialization to avoid displaying
+		a short moment of garbage data at the start of spells (a bug which was in the original game)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20140718.1
+	Changes by Hextator:
+		Modified building scripts/metadata so that FEditor properly builds using the python script instead of relying on being imported into NetBeans.
+		Fixified the CSAPS for FE7 to properly load OAM sheets asynchronously for custom spells.
+			WARNING: This will change the base pointer to your custom spells.
+			Follow the instructions in "doc/Updating.txt" BEFORE opening any files with FEditor!
+			Sort of warning: Minimal testing done; should work, but do report bugs with custom spells or issues with battle animations.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20111222.1
+	Change by Camtech/Hextator:
+		- "Apply changes" detection and implementation added (fixed?) for PortraitEditor class
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20111221.1
+	Fixed synchronization issues with GUI update in PortraitEditor (I think)
+	Changes by Camtech:
+		- Added "applyChanges" method, to be called for the non-creation based editors.
+		- Edited the interface to prompt the user if there is unsaved data.
+		- Removed an implementation of ActionListener to mimic other Editors (as per FIXME)
+		- Fiddled with the "isSaved" method in the TextEditor class.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20110104.1 (Date of writing 20110702)
+	"FEditor Adv/doc/Manual Patches.txt" updated
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20110104.1 (Date of writing 20110701)
+	Look up. See the thing about FE 7's free space being wrong in the "Future" section?
+		If you don't it's because someone fixed it, but for the moment it needs to be altered.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20110104.1
+	Huge documentation update - previously excluded and much more extensive documentation regarding the games themselves added so that potential contributors to this project may pick up precisely where work was left off
+	Specifically, a folder has been added to the "doc" folder titled "Game Documentation" and files called "Game Documentation.txt" and "Free Space.txt" have been added as well to provide further information about the contents of the similarly named directories
+	The contents of the "asm" directory have been added to as well (specifically within the directory for "Fire Emblem 8")
+	Documentation has been updated (specifically "doc/Updating.txt" and "doc/Manual Patches.txt") to be more accurate
+	FE 7 spell system, HP bar graphic fix, stat hacks and the item icon array expansion fix hack have been relocated such that the spell system is now at the end
+	"Melee and Magic Fix" manual patches added for all 3 games which resolve issues with units who have weapon levels for both melee and magic weapons
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20101228.1
+	Doc updated - please see "Manual Patches.txt"	
+	SUPAR META OLOL - Contents of THIS file - "Release Info.txt" - shifted around a bit.
+	Stuff typed here. Okay, that's enough of that.
+	"Readme.txt" updated
+	Code cleaned some more
+	Updated the top of this file with information on how YOU YES YOU can help because I
+		am completely sick of working on this thing.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+2010XMAS.1
+	"Advanced" detection and handling of hacked ROMs added to facilitate upgrading to new versions
+	Doc updated with instructions on how to easily upgrade to new versions with as little manual work as possible
+		See "doc/Updating.txt"
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20101223.1
+	Annoying unhandled exception business fixed in Class Animation Manager
+	"Readme.txt" updated
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20100731.1
+	Date of changes is 20101214; previous version number retained due to negligible changes:
+	Code made compliant with latest JDK specification
+	Lots of class renaming
+	Copyright information updated
+	ROM mapping functionality inspired by "Wipe" version imported
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20100731.1
+	Provisions in Memory and Free Space Manager for dumping and importing free space added
+		Doc updated appropriately
+	Bugfix in bounds checking for un/marking free space
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20100601.1
+	Information has been added to the doc about how to correct a bug this application has in applying auto patches to FE 6
+		(Please refer to "FE 6 Auto Patch Notice.txt" in the /doc/ folder)
+	Note to developers: "/internal/TODO.txt" was updated in the previous revision.
+		It contains information on planned features and, as such, what unused code/documentation exists for producing such features.
+		Don't let that code go to waste!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20100531.1
+	Custom spell animations for FE 6 and FE 7 can now miss without crashing the game
+		(supposedly, anyway; you'll need to open the ROM and save it with FEditor to fix it)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20100513.1
+	Debug output clearing functionality added
+		(Ctrl+L will clear it as well as closing ROMs and clicking the Clear button)
+	Doc updated with example usage of Natural Script Formatter
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20100304.1
+	Text dumping now uses system dependent newline formatting
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20100302.1
+	A bit of code cleaning done; command line support fixed
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20100117.2
+	Bugfix in metadata class
+	Improvement to API being used for the debug output
+20100117.1
+	Bugfix in text free space marking
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20100116.1
+	Assembly source code for auto patches included with editor now in "asm" folder in root
+	CG_Image class updated a smidge
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20100114.1
+	Doc updates (to the Readme as well as the files in the doc folder)
+	Debug output frame now able to be closed and shown at will; no longer shown by default
+		Incidentally, while it was annoying to have it shown by default, now it can't be anyway because of look and feel issues that weren't relevant prior to the refactoring that has led to the creation of the "ModelessFrame" class and "ScrollableComponent" interface, which together seem to do an awesome job of providing an API for modeless dialogs that communicate with other objects
+	Fixed bug in choosing BG color from input images
+	Added regular expression support to the text editor
+	Still more improvements to the debug output and error reporting systems
+	Default editor modified to allow editing of integers and dereferencing of word aligned pointers
+	Resource collisions are detected now, so if two portraits share the same image data, editing one will not screw up the other
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20091228.2
+	More bugfixing and debug output cleaning
+	Doc updated to explain the new editor
+20091228.1
+	CG_Image model "completed" - images can be generated from CG data in addition to CG data being generated from an image
+	Rather disturbing bug in the text array model fixed
+	Poor memory management regarding trying to manually collect garbage based on status of editors removed
+	Doc updated with information regarding FE 6 free space
+	All pointers to moved arrays are updated instead of just one, like they used to be
+		Users of versions before this update and after the big refactoring should consider redoing their hacks
+	User interface for free space management added
+	Nasty free space removal bug fixed
+	Debug output cleaned
+	Spell animation array now properly frees resources
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20091202.1
+	ColorReducer class added for internal simplification of images
+	getARGB method in Palette class corrected to use old logic of setting bottom 3 bits of an 8 bit color made from a 5 bit color equal to the top 3 bits of the 5 bit color
+	CG_Image class added and only needs raw data constructor to be completed
+	Batch file for using CG_Image class to create custom CGs added to root folder
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20091019.1
+	Error/debug message improvements; debug output now redirected to separate dialog
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20091018.1
+	Modularity improvements: Most dialog calls in Model have been replaced with exceptions that are caught by the View layer
+	Some error message improvements
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20091006.1
+	Bugfixes:
+		The FE 6 and 8 auto patches for having stats over 31 were missing important hacks to get them working for chapter restarting. They have been programmed and implemented.
+		Custom animations used to be built without the spare column. Without it and a proper use of the palette stored in the serial file, loading the sheets back would cause background color glitches if the top right pixel wasn't the background color. While I haven't bothered to settle for the proper solution by properly using the palette data in the serial file, I have simply reinstated dumping of the spare column, which has fixed this bug.
+		Inserting animations, built or dumped from other games, as well as modifying the name of an animation, all of which is done in the Class Animation Manager would not update the GUI afterward, forcing users to look at another animation and then the one they had modified to see their changes. This has been fixed.
+		[LoadFace][0x10] was turning into [LoadFace][LoadFace][0x]. This has been fixed.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090818.1
+	Bugfixes and temporary disabling of FE 8 Resume/LA hack autopatch due to bug
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090711.1
+	LOTS of /doc improvements, but still not "finished".
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090702.1
+	LZ77 compression algorithm updated to match NL's improvements to his own application.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090701.0
+	Recovered from wisdom teeth removal. Good lord. *Is agnostic*
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090623.1
+	Clipboard system for class animations implemented and tested
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090622.1
+	Natural script formatter implemented and tested
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090619.1
+	Hefty improvements to class animation manager
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090609.2
+	Housekeeping
+20090609.1
+	Zahlman:
+		- Initial work on code to render animation frames. Added a script which
+		dumps PCA data for all animations along with all rendered animation frames.
+		(Warning, output consists of a LOT of tiny PNG files in subfolders; takes
+		up about 30MB on disk)
+		- Further enhancements and bugfixes for spell animation inserter
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090608.2
+	Spell animation inserter view enhancements and implementation of spell PC array model
+20090608.1
+	Support for custom spell animations added to FE 8
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090606.3
+	Zahlman: Re-enabled and fixed up the Graphics Editor.
+20090606.2
+	View bugfixes for the class animation manager
+20090606.1
+	GBA_Image bugfixes
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090605.4
+	Support for custom spell animations added to FE 6
+20090605.3
+	Zahlman: Fixed reverse compatibility for FEditor moved arrays.
+		Also fixed the code that handles 0-based vs. 1-based
+		indexing (IS is very inconsistent about this).
+20090605.2
+	Added reverse compatibility for FEditor moved arrays
+20090605.1
+	Zahlman: Added "Save a copy without footer" functionality.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090604.1
+	Zahlman: New interface for class animations: a separate "creator" used for
+		running scripts, and "manager" for dumping or inserting entries into the
+		array. Animations are saved in a common format, with OAM sheets and frame
+		data saved separately for easier editing.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090603.1
+	Battle animation importer implemented and debugged (except for array resizing)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090601.1
+	Animation importing model implemented and tested
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090531.2
+	Zahlman: Initial footer system and freespace tracking implemented and debugged.
+		The rest of the code uses new allocation routines to find freespace.
+		There is legacy support for searching for freespace regions marked with long runs
+		of 0xF0 and adding them to the list tracked by the new system.
+
+20090531.1
+	FE 8 auto patches for LA/Resume hacks implemented and debugged
+		(there weren't any bugs! :D)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090530.1
+	FE 6 auto patches for LA/Resume hacks debugged
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090529.2
+	FE 6 auto patches for Link Arena/Resume Chapter stats implemented
+		(in testing phase)
+20090529.1
+	Zahlman:
+		- Fixed up logic for switching between editors and closing ROMs. This involved a
+		minor structural change. The new system behaves much more like "normal" apps.
+		- Fixed up detection of unsaved changes.
+		- Tweaked a bunch of internal stuff. In particular, long-running processes are now
+		a little more robust.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090528.4
+	Zahlman: Cleaned up support for cards (new cards are actually in the same
+		format) and some other miscellaneous behind-the-scenes stuff. Elaborated
+		a little on portrait editor doc.
+20090528.3
+	Comment fixes and some "magic number removal"
+20090528.2
+	Portrait view was dumping cards without the legacy background color specification
+		column even though it expects it when loading the image (as part of the only
+		sane way to allow background color specification within the image without
+		forcing users to avoid using the top right pixel for the actual image);
+		this is fixed
+	Portrait view wasn't accepting cards at all, actually - legacy or otherwise. Fixed.
+20090528.1
+	Zahlman:
+		- Added a safeguard to the index spinner in the weapon animation inserter.
+		TODO: there is currently still no way to resize the array; this needs to be
+		addressed.
+		- Added proper error handling for attempts to use the spell animation
+		inserter with non-FE7 ROMs.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090527.5
+	Zahlman:
+		- Added legacy support for portrait spritesheets in the old format.
+		- Adjusted portrait editor template to make sure top-right corner is
+		unused (so it can always hold the transparent colour).
+		- Fixed up documentation for portrait editor.
+20090527.4
+	Updated credits and license. Updated standard GPL header, and ensured it is
+	applied to all source files.
+20090527.3
+	Zahlman:
+		- Fixed up portrait editor to handle the bogus index 0 properly, by not
+		even including it in the in-memory array. Added support to the base
+		pointer array to allow this (by having an "offset" from the base pointer
+		to the actual array data).
+		- Fixed the text editing dialog so that when you save, the index doesn't
+		change, and when you change the index, the previous entry isn't
+		automatically saved.
+20090527.2
+	Zahlman: 
+		- Miscellaneous minor cleanups of comments and so forth
+		- Fixed portrait editor so that insertion at previously-invalid indices
+		will work
+		- Fixed error handling in portrait editor for loading invalid images
+20090527.1
+	More bugfixes; very close to next release
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090526.1
+	Lots of bugs fixed in the OAM model
+	Minor bug (that was crashing the app D:) fixed in Class/Spell animation models
+	Class animation and spell animation inserters both functional again in all ways
+		except expansion (spell animation expansion is static; class animation
+		expansion isn't present at all)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090525.2
+	LOTS of bugs fixed/found and plenty to work on still
+	Spells are broken again (they weren't actually fixed - OAM wasn't being processed;
+		when testing revealed this, bugfixes got the OAM to be processed and loaded,
+		but incorrectly)
+20090525.1
+	WeaponAnimation model reviewed by Hextator. Almost working again; still needs
+		debugging.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090524.3
+	Spell animation inserter working again!
+	IMPORTANT: Class animation model may still have bugs
+20090524.2
+	Crashes fixed! Yay! Now to test the output (again...yeah, adding support for...
+		OLD...features is kinda lame)
+20090524.1
+	Locations of bugs identified
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090523.2
+	Spell animation model finally ready for debugging (of course, it crashed)
+20090523.1
+	LOTS of methods ready for testing in the spell animation model
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090522.1
+	Screwing around with various model classes to set up the foundation for
+		the differences between the spell animation model and the class
+		animation model
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090520.2
+	Zahlman:
+		- Fixed it so that the window contents refresh properly when the same
+		editor is dismissed twice in a row, this time in a non-hacky way (to avoid
+		flickering).
+		- Improved interface for long-running processes.
+		- Fixed timing issues with dialogs etc. for text modules.
+20090520.1
+	Zahlman:
+		- Updated some documentation
+		- Tweaked GBA_Image so that when it loads from a file, the "rendered" image
+		cache is cleared afterwards. This way, if the file has colours with the
+		low bits set, they will be cleared in the displayed image (and in any copy
+		saved by the editor).
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090517.1
+	Zahlman:
+		- Changes to view classes so that editors are displayed in the main panel
+		instead of separate windows. Added a hack to make window contents refresh
+		properly when the same editor is dismissed twice in a row (the window size
+		is forcibly changed, which triggers a refresh).
+		- Fixed a bug in file saving whereby checksums were written with the wrong
+		endianness (thanks, Java IO library :/ )
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090516.2
+	Zahlman: Basic fixes for the view for spell animation inserter. Next up, the
+	model class, and proper safeguards for FE6/8. Also need to start the array
+	off pre-expanded or something. Actually, the UI strategy for handling array
+	size needs rethinking.
+20090516.1
+	Zahlman:
+		- Cleaned up the GUI code for the weapon animation inserter. The interface
+		needs a lot of redesign.
+		- Changed the types of exceptions thrown by the GBA_Image File constructor.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090514.1
+	Zahlman:
+		- Converted the weapon animation module to use the new system, and
+		re-enabled it. There are new helper classes to represent OAM data and
+		animation command data.
+		- Tweaked LZ77 interface to allow for checking of "raw" pointers.
+		- Removed unused dependencies from View.
+		- Added cloning functionality for Images.
+		- Fixed ROM class so that when the ROM is saved, the "there are unsaved
+		changes; prompt for saving when the ROM is closed" flag gets reset.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090512.1
+	Zahlman:
+		- Set up caching of "is card" property for portraits so that it isn't
+		wrongly calculated in the middle of the process of changing an image.
+		FIXME: Warn if user imports a non-card to a slot that currently contains
+		a card or vice versa. Or something.
+		- Fixed code for freeing array resources so that the corresponding pointer
+		is zeroed out (otherwise it would just be "dangling", which caused
+		problems: in some cases, data could be written into the freespace and then
+		the pointer would be re-freed, corrupting the new data).
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090509.1
+	Zahlman:
+		- Improved handling of absent chibis (especially for FE6)
+		- Added drag-and-drop support to the portrait editor for positioning the
+		mouth (and eyes, for FE7/8). This greatly simplifies the GUI.
+		- Fixed a few more bugs in the portrait editor. Exporting a portrait from
+		FE7 and importing it into FE6 *almost* works now.
+20090509.1
+	Zahlman:
+		- Fixed some stupid bugs in the new version of the LZ module
+		- Simplified listener interface for the hex spinner wrapper
+		- Implemented a a data model for portrait arrays, and re-enabled the
+		portrait editor. It appears to work, at least for basic stuff...
+		- Fixed text editing dialog and find-and-replace so they will actually
+		save changes (not tested!)
+		- Fixed GBA_Image so that image dimensions are always in tiles
+		- Added image synthesis/decomposition logic to game-specific portrait
+		array classes. This allows support for a common portrait spritesheet format
+		for all three games.
+		- Slight interface change in base pointer array; also fixed a bug in the
+		code for reserving space for an expanded array.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090507.2
+	Zahlman:
+		- Cleaned up the auto-generated code in the main View class for the main
+		window GUI. Deleted the .form XML file that was used to generate the old
+		version (which was incredibly messy). Did similar cleanup for the About
+		dialog box as well.
+		- Fixed Huffman compression module and text pointer arrays so that plain
+		text items include the null terminator (important for dump/insert
+		functionality).
+		- Fixed checksum validation for modified ROMs.
+		- Renamed a few classes to remove redundancy (e.g. fe_editor.FE_EditorApp
+		became just fe_editor.App).
+20090507.1
+	Zahlman:
+		- Fixed overzealous sanity check in ROM Pointer constructor
+		- Improved the "process" system for displaying status of long-running
+		updates; it now supports "indeterminate mode". Cleaned up the text inserter
+		to use the new system.
+		- Miscellaneous minor cleanups to class interfaces.
+		- Fixed find-and-replace so that the replacer actually iterates through
+		the array (oops!)
+		- Fixed busy cursor so it actually spins when appropriate
+		- Removed some unnecessary/unused functionality from View.
+		- Implemented a useful heuristic for freespace searches. (This will be
+		obsolete when freelists are introduced, but right now it reduces the time
+		needed for 'insert' operations from minutes to seconds.)
+		
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090506.1
+	Zahlman:
+		- Fixed a subtle bug in Huffman decoding which caused the length of
+		encoded text to be miscounted.
+		- Implemented a new system for managing long-running tasks that update
+		the progress bar, and set up the text modules to use it.
+		- Fixed the constructor for ROMs so that if the file is not found, a dialog
+		will be displayed instead of the program crashing with an exception.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090505.2
+	Zahlman:
+		- Fixed cancel button for find/replace dialog
+		- Replaced the old "Execute FE *.bat" scripts with a single script, since
+		the editor now auto-detects the ROM type.
+		- Fixed a corrupt patch for FE8.
+		- Fixed drag-and-drop support for the new batch script, while cleaning up
+		the application startup logic.
+		- Created a "smart" composite component for hex spinners, which is now
+		used by the text editing dialog.		
+20090505.1
+	Zahlman: Completely new code structure, intended to keep things properly
+		organized (by enforcing model/view/controller separation). All modules
+		except text are currently broken.
+		- The old ROM_IO wrapper has become a ROM object, which is contained by a
+		Game object, which is subclassed to hold game-specific information
+		(replacing the old traits classes).
+		- This ROM wrapper provides a "Pointer" inner class used for iteration
+		tasks, and compression code etc. has been adapted to use these Pointers.
+		- The FE_* packages have been eliminated entirely.
+		- The editor now automatically identifies the base ROM type for the ROM
+		opened by the user, instead of expecting the user to provide that
+		information.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090430.1
+	Zahlman:
+		- Renamed Format_Converter_4BPP as GBA_Image, and cleaned up the interface
+		a little. Also fixed bugs in the new code for blitting.
+		- Simplified the interface for file chooser dialogs; fixed up the calling
+		code to match.
+		- Pulled the "palette dumper" utility into its own class file.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090429.1
+	Zahlman: Cleaned up the image loading functionality (Format_Converter_4BPP
+	more or less rewritten entirely; Image_Converter removed as no longer needed;
+	the rest of the code adapted to the new interface. Portrait code from FE7 was
+	"promoted" for general use, temporarily breaking support for FE6 and FE8.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090428.1
+	Zahlman:
+		Improved the auto-patch system.
+		Removed the "thread manager" code, doing that work in the main View class
+		instead. Also cleaned up other aspects of the View class a little.
+		Added a utility function for marking freespace in the ROM.
+		Did some behind-the-scenes work trying to isolate differences between
+		portrait modules for the three FE versions.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090427.1
+	Zahlman: Redid the weapon animation inserter so that the same code is reused
+		for all three FE versions, grabbing information from the helper classes
+		where needed.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090426.2
+	Zahlman: Redid the text modules so that the same code is reused for all three
+		FE versions, grabbing information from the helper classes where needed.
+20090426.1
+	Zahlman: Began work on the "new" FEditor. Started by making some of the
+		framework code a little more object-oriented. Made some helper classes to
+		store ROM-specific (FE6 vs. 7 vs. 8) information.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090409.1
+	FE 6 01 animation command hack fixed (I recorded the wrong value in my notes for the BL
+		opcode used to call the function that returns the boolean of whether it is
+		safe to terminate a loop and so it was always returning something other
+		than "true" due to a misaligned call - amazing how such tiny mistakes can
+		cause so much trouble; the value was off by only 2 bits!)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090406.2
+	FE 7 CSA system has had support for HP stealing added to it
+		(See the important note in 20090226.1's release info)
+20090406.1
+	Graphic editor side-application completed
+	Minor improvements
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090227.1
+	Bugfixes
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090226.3
+	Complete completion of LA hack (last time it was usable; this time, unit listings display
+		properly as well)
+20090226.2
+	Completion of LA hack
+20090226.1
+	Major bugfixes for FE 7 CSA system; if you've already used the CSA Inserter, you will need
+		to overwrite 0x000CB684 AFTER using this version with the contents that 0x000CB684
+		had BEFORE using this version. You may also want to delete the checksum at the end of
+		your ROM as the editor will not know to delete it should you make this necessary change
+		(not making this change means all your CSAs will be lost because nothing will point
+		to them anymore)
+	New auto patch for FE 7 that fixes a separate save routine so that the Resume Hack's logic
+		will work for the Link Arena as well
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090225.1
+	Minor bugfix for FE 7 CSA system
+	HP bar graphics drawing bugfix for FE 7 via auto patch (note that this is me fixing a bug of
+		IS's, not a bug of my own)
+	"Resume Chapter" methods modified to store the stats a character has gained since their class
+		bases rather than the actual stats themselves (auto patch)
+	Doc update about auto patches
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090222.1
+	FE 8 auto patch conflict fix
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090220.1
+	Bugfixes and general improvements
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090216.1
+	Bugfixes
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090215.1
+	Battle animation 01 command hack fixed for all three FEs
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090214.3
+	Another bugfix v_V
+20090214.2
+	Bugfix in CSA system for CSAs that miss
+20090214.1
+	Happy V-Day you magnificent bastards. More bugfixes just for you~
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090213.5
+	More CSA system bugfixes
+20090213.4
+	CSA system bugfixes and documentation update
+20090213.3
+	Spell animation data interface bugfixes (for free methods)
+20090213.2
+	Spell animation insertion dialog script reading bugfix
+	Better doc on custom spell animations
+20090213.1
+	FE 8 auto patching bugfixes
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090212.1
+	Bugfixes
+	Completion of CSA system for FE 7
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090211.1
+	Custom spell animation data interface completed for FE 7
+	Custom spell animation insertion dialog implemented by GUI
+		However, the dialog itself is not yet complete (script loading not yet supported)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090210.2
+	Corrections in CSA processor code
+20090210.1
+	Huffman compression interface removed from shared package due to game-specific locations of
+		frequency tables
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090209.1
+	FE 7 custom spell animation system patch implemented in auto-patching system but not yet
+		implemented by editor
+	Partial completion of spell animation data interface implementation of CSA system auto-patch
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090205.1
+	Hefty doc cleaning
+	Compression interface now shared between the FE packages to save space and propagate
+		modularity
+	Class animation data interface bugfixes related to lazy copying/pasting of code
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090204.1
+	Documenation update ("Invalid ROM!" message finally discussed)
+	Corrections/improvements to class animation data interface, including more accurate recoloring
+		code and better use of the progress bar and status message label when reporting ROM
+		writing status
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090202.1
+	Animation insertion dialog bugfix
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090201.1
+	Auto patching and implementation of animation command 48 hacks (to allow playing of any sound
+		or music in a custom battle animation)
+	Code cleaning (new standard for handling array entry sizes and calculating expansion sizes;
+		old method uses hardcoded multiplication that lacked clarity)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090124.1
+	More code cleaning (you guys need to learn Java so these code cleaning updates will matter D:)
+	Animation insertion interfaces updated to report animations that use too much of the GBA's RAM
+	updateProgressBar(int val) method refactored into updateProgressInfo(int val, String message);
+		code that used updateProgressBar now reports the status of the program in the
+		appropriate label
+	Info about the file that caused "vulnerable" data to be written (data containing the free
+		space marker in copious amounts) is now reported in the error dialog
+	Improved script dumping and insertion now outputs/recognizes hexadecimal indices
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090123.1
+	General editor improvements (including code and documentation enhancements)
+	Bugfix in animation insertion interface palette sharing code
+	Bugfixes in logic for "L" commands in animations
+	Bugfixes in animation inserter script processing code
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090122.4
+	Animation insertion feature ported to FE 6
+20090122.3
+	Index maximum constant regarding FE 7 animation insertion interface corrected
+		to reflect earlier change to range of index spinner (from 0-254 to 1-255)
+	Animation insertion feature ported to FE 8
+20090122.2
+	Nasty animation insertion bugfix
+20090122.1
+	Code cleaning (again - this time I removed cape flow animation code)
+	Animation inserter dialog improvements/bugfixes
+	Support for loop specification in animations completed
+	Find/Replace dialogs made to report hexadecimal indices
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090121.1
+	close() method applied vigorously to methods using file streaming classes
+	Code cleaning...lots of code cleaning
+	Weapon/shield/other 32x32 pixel sized sprites to throw by "toss" animation
+		commands can now be specified for animations to insert
+	Improvements to animation inserter interface
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090119.1
+	Text editor bugfixes
+	Transparency support for image container
+	Palette output in top right corner when dumping images with 4BPP container
+	Auto-palette sharing between inserted animation frames
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090118.2
+	Certain spinners changed to function in base 16
+20090118.1
+	Bugfixes
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090117.1
+	expand method of animation insertion interface fixed to use correct free space
+		marking value
+	Modes 2 and 4 of an inserted animation are now properly handled by the animation
+		inserter during parsing of mode 1 and 3 data
+	Index seen in animation insertion dialog is now equivalent to the index to
+		reference the inserted animation by within other data of the game
+	Reset button added to animation insertion dialog for clearing parsed animation
+		data
+	Animation insertion dialog updated to have more detailed diagnostics
+	Animation insertion interface updated to make use of the progress bar
+	Overlooked text control code addition
+	Important documentation updates
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090114.2
+	Image container format conversion error reporting is now much more descriptive
+20090114.1
+	Another lousy bugfix
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090113.2
+	Lousy bugfix
+20090113.1
+	ROM_IO now reports vulnerable data it is about to write (data which has a long
+		string of free space marked within it)
+	Finalized optimization for Class Animation insertion interface (minor yet
+		intuitive changes)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090112.1
+	Completion and implementation of optimization code
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090111.1
+	freeAnimation related methods fixed to use correct free space marking value
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090110.1
+	Hefty documentation improvements
+	Bugfix - animations in mode "complete" can no longer have "garbage data" appended
+		onto them
+	Block commenting added to animation inserter script parser's list of recognized
+		sequences
+	Code cleaning to make room for optimization code
+	Minor sheet usage optimization
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090109.1
+	Animation inserter bugfixes regarding OAM horizontal flipping code and frame reusing
+		code
+	Animation inserter's script reader has had an awesome upgrade ;D
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090108.2
+	VERY basic Battle animation script reader added to animation insertion dialog
+20090108.1
+	Team color correction for inserted animation palettes added
+	Reuse of similar frame data for recognized reuses of existing frames implemented
+	freeGraphics method bugfix
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090107.2
+	Animation inserter...completed?
+20090107.1
+	Animation inserter tested and working
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090106.1
+	Animation inserter test build
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090102.2
+	As it turns out, the text command "LoadFace" may use "0xFFFF" as an argument, as seen in
+		FE 7's default text of ID 2386. This has been implemented. Nasty related bugfix
+		thus.
+20090102.1
+	freePortrait bugfix v_V
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20090101.1
+	LOL Bugfix for the first release of '09
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081230.1
+	Fiddling with class animations of FE 7
+	Resizing of Find and Replace dialog disabled for aesthetic purposes
+	Redo of free space management system
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20thBday.1
+	It's my bloody birthday. Thanks for the presents. "Presents? I didn't get you any presents."
+		Exactly. You jerk.
+	Bugfixes in this release.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081219.2
+	Bugfix (that's right, ONE bugfix)
+	Encapsulation correction for portrait freeing
+20081219.1
+	Script dumping/insertion feature added
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081218.1
+	Bugfixes and FE 6 standardization
+	App rename. :D
+	"doc" folder added that contains short and to the point notes about how to use the editor
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081217.1
+	General improvements
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081216.3
+	FE 8 mug data inserting bugfix
+20081216.2
+	FE 6 text loading bugfix
+20081216.1
+	Completion of FE 6 implementations of current features
+	Better representation/use of compression related constants
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081215.6
+	Completed text control code documentation/implementation
+	FE 6 package added and built into project - no tailoring has been applied and the package; has
+		not yet been implemented by the GUI
+20081215.5
+	Editor settings modifications - this includes things like setting the default maximum heap size
+		to allow bigger ROMs the ability to be opened by the editor
+20081215.4
+	Other bugfixes
+20081215.3
+	Yet another tacky ROM writing bugfix (I'm sure making a lot of those lately :/)
+20081215.2
+	More ROM writing bugfixes. Seriously, how did I not have that down to begin with? I'm such a
+		bad coder D:
+	Various other bugfixes
+20081215.1
+	Misaligned writes to ROM? Whoa! What an amateur coding mistake. I apologize; it's fixed, now!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081214.6
+	Ported all that jazz into FE 8
+20081214.5
+	More finishing touches; finalized
+	Still need to port all that jazz to FE 8
+20081214.4
+	Finishing touches on portrait editor added
+20081214.3
+	Once again I teach myself more about threading and get the damn portrait viewer to finish
+		the call to freePortrait without killing its thread
+20081214.2
+	Implemented method for freeing deprecated LZ77 data
+20081214.1
+	LZ77 compression code fixed (search function was borked)
+	Bugfixes
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081213.2
+	Basic portrait inserter started using viewer as basis
+	Portrait viewer canned
+20081213.1
+	LZ77 compression code by Nintenlord rewritten and implemented
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081212.7
+	Optimized LZ77 decompression code
+20081212.6
+	FE 8 portrait viewer implemented
+20081212.5
+	Text editing dialog bug fixes
+20081212.4
+	Portrait viewer fully functional
+20081212.3
+	Interface for creating blank GBA images completed
+20081212.2
+	Interface improvements
+20081212.1
+	Integration of text viewing into text editing dialog completed
+	Some annoying error messages removed/improved
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081209.1
+	Portrait viewing dialog completed and implemented (currently only works for FE 7)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081208.3
+	Working LZ77 decompression method completed (by me, this time)
+20081208.2
+	Bugfixes in my code (not Nintenlord's though, unfortunately :/)
+20081208.1
+	Portrait extraction code completed; a few bugs exist
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081207.2
+	All methods for encoding GBA graphics into BMP files completed
+	Method for extracting portions of images as new separate images completed
+20081207.1
+	All methods for decoding valid BMP files into GBA graphics completed
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081206.1
+	Method for verifying if a BMP file is correctly formatted completed
+	Method for decoding palette data from BMP files completed
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081205.2
+	Went through the head ache of deciding on and starting an implementation of
+		a class to convert between the raw GBA graphical format and a more common format;
+		the choice was bitmap (PNGs are ridiculously tedious to decode)
+20081205.1
+	Added Portrait interfacing class to FE 7 package
+	Added LZ77 interfacing class to FE 7 package
+	Improved package tree to be more organized
+	LZ77 decomp routine received and implemented courtesy of Nintenlord
+	Test build of project following package tree changes done; confirmed no apparent damage
+		to references
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081123.1
+	Command line support for FE 8 added
+	Removal of deprecated test package
+	Menu item touch ups
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081121.2
+	AH auto-patch for FE 8 added; AH patch modified prior by me (Hextator)
+20081121.1
+	Support for FE 8 by current features attempted
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081118.1
+	Progress bar implemented by Find and Replace operation
+	Annoying dialog call removed from text viewing mode
+	Prefixing of package specification on operations that are expected to differ between
+		games
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081116.1
+	Bugfixes for Find mode of Find and Replace dialog
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081115.11
+	Text loading bugfix
+20081115.10
+	Hotkey fixes
+20081115.9
+	Bugfixes
+20081115.8
+	Title of Find and Replace dialog corrected
+	Menu items touched up
+	ROM writing algorithm changed (possibly temporarily) to only look for free space after
+		the usual end of the ROM
+	Padding requirement now updated to include padding after array to write	as well as
+		before (like it has been doing), except when appending to the end of the ROM
+20081115.7
+	Added warning/cancellation dialog for Find and Replace mode
+	Added handling for attempts to use uninitialized text pointers when performing
+		Find and Replace operation on ROM with expanded pointer array
+	Added "operation complete" notice for Find and Replace process
+20081115.6
+	Find and Replace mode of Find and Replace dialog confirmed to be working
+	Bug in text loading improvement fixed
+20081115.5
+	Find mode of Find and Replace dialog fixed
+20081115.4
+	Find and Replace implemented
+	Text loading improvement
+20081115.3
+	Find and Replace menu item and action configured
+20081115.2
+	Code cleaning
+	Text Find and Replace dialog class completed (not yet implemented)
+20081115.1
+	Added command line support in the style of
+		java -jar FE_Editor.jar "Path to ROM" "FE X" <- where X is the version to edit
+	Fixed execution batch file to allow drag and drop of ROM onto the batch file for
+		automatic opening upon loading of the application
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081114.6
+	Interface improvements
+20081114.5
+	Improved and more secure implementation of backslash escaping of text editor input
+	Improved text viewing of text with escaped control literals
+20081114.4
+	Improved and more secure implementation of backslash escaping of text editor input
+20081114.3
+	Added and implemented method for freeing space where old uncompressed text was located
+20081114.2
+	Bugfixes/related aesthetic fixes
+	Aesthetic fixes that weren't necessary, but wanted
+20081114.1
+	Bugfixes/related aesthetic fixes
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081113.6
+	Bugfixes/related aesthetic fixes
+20081113.5
+	Aesthetic fixes
+20081113.4
+	Spinner added to text editing dialog for better index input
+20081113.3
+	Logic errors involving expansion of the text pointer array and accesses of it using
+		indices that are considered to be negative by Java's "short"
+		primitive ammended
+20081113.2
+	Logic error involving identification of uninitialized text pointers ammended
+20081113.1
+	Handling of uninitialized expanded pointers added
+	More accurate portrayal of the text pointer array is reflected in the methods
+	More accurate encapsulation of the wait mechanism during execution of child threads
+		is reflected in the methods
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081112.6
+	Previously unnoticed error in definition of original number of text pointers fixed
+20081112.5
+	Build info in about dialog ammended (info on license)
+20081112.4
+	Build info in about dialog ammended (version)
+	License added
+20081112.3
+	Ctrl+ style shortcuts amended
+20081112.2
+	Logic error in post-save checksum removal addressed; fully functional text editing
+	New batch file added for Windows users to quickly invoke the jar
+20081112.1
+	Text viewer integrated, logic errors regarding editing integrity addressed
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081111.2
+	Threading issues resolved
+	Plans for a GNU license are pondered
+20081111.1
+	Text editor completed and integrated; threading issues
+	Batch file present for invoking the class made for quick test runs outside the main GUI
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20081107.0
+	Project started
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+20080720.0
+	Project planned
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
