@@ -1,0 +1,19 @@
+Again, animation 0 is reserved. You don't get to touch it.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Little documentation will be provided; this feature is similar enough to the class animation creator.
+
+Perhaps the biggest changes between the battle animation system and this one are:
+
+- "~" only terminates the animation if the caster is going to miss
+- The button on the dialog that actually terminates the animation also writes it to the index specified
+- The C commands now are in the format XXYYZZ, with ZZ being the command ID and XXYY being the arguments
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you need help with how to size input images, refer to the example animation.
+
+The example animation can be found along with other related documentation in the "Custom Spell Animations" folder.
+
+Note that background images will be stretched to be twice as high when being displayed on the screen.

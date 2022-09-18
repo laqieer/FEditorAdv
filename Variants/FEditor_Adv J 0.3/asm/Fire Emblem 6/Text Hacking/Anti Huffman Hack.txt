@@ -1,0 +1,51 @@
+// Original source and concept by Hextator
+// Rewritten by Nintenlord
+// Bugfixes by Hextator
+
+arch gba.thumb
+
+org $0800384c
+	push {r0, r1, lr}
+	add sp, #8
+	lsr r2, r0, #31
+	cmp r2, #0
+	beq compressed
+	
+uncompressed:
+	ldr r2, [pc, #20]
+	mov pc, r2
+	
+compressed:
+	ldr r2, [pc, #12]
+	ldr r2, [r2, #0]
+	bl $0809df18	
+	
+end:
+	pop {r0}
+	bx r0
+	lsl r0, r0, #0
+	
+dd $03003780
+dd main
+
+org $08e00000
+
+main:
+	mov r3, #0x80
+	lsl r3, r3, #24
+	sub r0, r0, r3
+	
+.loop:
+	ldrb r2, [r0, #0]
+	strb r2, [r1, #0]
+	add r1, #1
+	add r0, #1
+	cmp r2, #0
+	bne main.loop
+
+.Cend:
+	ldr r2, [pc, #4]
+	mov pc, r2
+	lsl r0, r0, #0
+
+dd end //0x8003862

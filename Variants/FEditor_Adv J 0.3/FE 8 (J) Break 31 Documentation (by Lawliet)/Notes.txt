@@ -1,0 +1,1975 @@
+这两大处历娴际上就是把游戏数据每一位进行处历煮存葋E坏刂防丒丒这个处历正后我们用16进制就看不出是什么数据了.然后把存葋E坏刂防丒娴氖菰僖来涡吹接蜗反娴稻迪笄丒0E000000),实际上这个镜象区就是我们打开游戏SAVE的00000000对应(0E000000),因为对游戏的位进行处历正了
+
+=============================================================================================================================
+=============================================================================================================================
+数据存葋EOM处纴E建议和读取处历以应起来看.很难修改!!!
+=============================================================================================================================
+=============================================================================================================================
+
+080A9A28   B5F0 push r4-r7, lr
+080A9A2A   4657 mov r7, r10
+080A9A2C   464E mov r6, r9
+080A9A2E   4645 mov r5, r8
+080A9A30   B4E0 push r5-r7
+080A9A32   B0A4 sub sp, 90h
+080A9A34   4682 mov r10, r0
+080A9A36 F837F7FE bl 80A7AA8h<--------------得出ROM指諄E使R0=0E003FC4
+080A9A3A   1C07 mov r7, r0
+080A9A3C   2003 mov r0, 3h
+080A9A3E FCFBF000 bl 80AA438h<----------03007CEC+4栈地址赋200A,03007CEC+8栈地址赋0E0000D4等等,目前未知为什么当某值为FF又变化了
+080A9A42   4C36 ldr r4, [pc, D8h]    ([000A9B1C]=0202BCEC)
+080A9A44   4650 mov r0, r10
+080A9A46   7320 strb r0, [r4, Ch]
+080A9A48 F946F757 bl 8000CD8h
+080A9A4C   6020 str r0, [r4, 0h]
+080A9A4E   1C20 mov r0, r4
+080A9A50   1C39 mov r1, r7
+080A9A52   224C mov r2, 4Ch<------------循环次数数据
+080A9A54 FD78F02C bl 80D6548h<-----------在bl 80D6420h纴E202BCEC的值转移到0E003FC4,一一对应,循环4C次!在bl 80D65C8h纴E?0E003FC4的值0202BCEC的值一一比较,不同有数据变化!
+080A9A58   A904 add r1, sp, 10h
+080A9A5A   4688 mov r8, r1
+080A9A5C   4668 mov r0, sp
+080A9A5E   3074 add r0, 74h
+080A9A60   9023 str r0, [sp, 8Ch]
+
+080A9A62   1C3C mov r4, r7<------R7=0E003FC4
+080A9A64   344C add r4, 4Ch<------R4=[R7+4C=0E003FC4+4C=0E004010]
+080A9A66   2600 mov r6, 0h
+080A9A68   492D ldr r1, [pc, B4h]    ([000A9B20]=0202BE48)
+080A9A6A   4689 mov r9, r1
+080A9A6C   2532 mov r5, 32h<------为使bl 80A9D54h循环处纴E0次的必要赋值!
+080A9A6E   4649 mov r1, r9
+080A9A70   1870 add r0, r6, r1
+080A9A72   1C21 mov r1, r4
+080A9A74 F96EF000 bl 80A9D54h<----这纴E婵梢郧宄牧私獾饺宋丒菸裁词?31的能力上限,因为左右移动使数据得硜E从这纴E涂梢灾牢裁创娴凳莶缓酶牡脑蛄?...和读档程序一样是大型程衼E.........!还有相似的地方:比葋E规划8种武器的蕘E范妊?"在这个转移纴E?080AA132H,而读档程序在080AA374H,这纴E娴?080D6442就是对一个人蝸E氖荽嫒丒娴?,和其他地方联合修改可以对上限修改,但是真的好难!这纴E歉纳舷薜墓丶丒丒!!
+080A9A78   3424 add r4, 24h<--------为读下一个人的必要偏移,例如第一次为0E004010,那第二个人就在0E004010+24=0E004034处
+080A9A7A   3648 add r6, 48h
+080A9A7C   3D01 sub r5, 1h<------为使bl 80AA1ACh循环处历桫出的必要条件!
+080A9A7E   2D00 cmp r5, 0h
+080A9A80   DAF5 bge 80A9A6Eh
+
+080A9A82   4640 mov r0, r8
+080A9A84 FE72F7FD bl 80A776Ch<--------对存档的头文件的修改,将栈地址03007d14的值存葋EE000000,循环64次,数据一一对应.
+080A9A88   2400 mov r4, 0h
+080A9A8A   4E25 ldr r6, [pc, 94h]    ([000A9B20]=0202BE48)
+080A9A8C   2532 mov r5, 32h
+080A9A8E   19A0 add r0, r4, r6
+080A9A90   6800 ldr r0, [r0, 0h]
+080A9A92   7900 ldrb r0, [r0, 4h]
+080A9A94   4641 mov r1, r8
+080A9A96 FBA9F7FE bl 80A81ECh<--------对bl 80A9D54h存葋E氖莞春?,是否成立,对数据有影蟻E
+080A9A9A   3448 add r4, 48h
+080A9A9C   3D01 sub r5, 1h
+080A9A9E   2D00 cmp r5, 0h
+080A9AA0   DAF5 bge 80A9A8Eh<--------复核没有蛠E?,返回!
+
+080A9AA2   2400 mov r4, 0h<------------以下的和读档程序参看,不蟻E谘芯苛?
+080A9AA4   4640 mov r0, r8
+080A9AA6 FEA1F7FD bl 80A77ECh
+080A9AAA   21EF mov r1, EFh
+080A9AAC   00C9 lsl r1, r1, 3h
+080A9AAE   1878 add r0, r7, r1
+080A9AB0 FCA2F000 bl 80AA3F8h
+080A9AB4   491B ldr r1, [pc, 6Ch]    ([000A9B24]=0000079C)
+080A9AB6   1878 add r0, r7, r1
+080A9AB8 F8B6F7FE bl 80A7C28h
+080A9ABC   491A ldr r1, [pc, 68h]    ([000A9B28]=0000084C)
+080A9ABE   1878 add r0, r7, r1
+080A9AC0 F8F2F7FF bl 80A8CA8h
+080A9AC4   4919 ldr r1, [pc, 64h]    ([000A9B2C]=00000CAC)
+080A9AC6   1878 add r0, r7, r1
+080A9AC8 F900F7FF bl 80A8CCCh
+080A9ACC   1C38 mov r0, r7
+080A9ACE FE59F7FF bl 80A9784h
+080A9AD2   4917 ldr r1, [pc, 5Ch]    ([000A9B30]=00000D6C)
+080A9AD4   1878 add r0, r7, r1
+080A9AD6 F85DF7FE bl 80A7B94h
+080A9ADA   4916 ldr r1, [pc, 58h]    ([000A9B34]=00000D8C)
+080A9ADC   1878 add r0, r7, r1
+080A9ADE   4916 ldr r1, [pc, 58h]    ([000A9B38]=03005270)
+080A9AE0 FFF2F001 bl 80ABAC8h
+080A9AE4   9823 ldr r0, [sp, 8Ch]
+080A9AE6 FA47F78E bl 8037F78h
+080A9AEA   20DB mov r0, DBh
+080A9AEC   0100 lsl r0, r0, 4h
+080A9AEE   1839 add r1, r7, r0
+080A9AF0   9823 ldr r0, [sp, 8Ch]
+080A9AF2   2218 mov r2, 18h
+080A9AF4 FD28F02C bl 80D6548h
+080A9AF8   4810 ldr r0, [pc, 40h]    ([000A9B3C]=00040624)
+080A9AFA   9000 str r0, [sp, 0h]
+080A9AFC   4668 mov r0, sp
+080A9AFE   7184 strb r4, [r0, 6h]
+080A9B00   4651 mov r1, r10
+080A9B02 FF69F7FD bl 80A79D8h
+080A9B06   4650 mov r0, r10
+080A9B08 FE5CF7FF bl 80A97C4h
+080A9B0C   B024 add sp, 90h
+080A9B0E   BC38 pop r3-r5
+080A9B10   4698 mov r8, r3
+080A9B12   46A1 mov r9, r4
+080A9B14   46AA mov r10, r5
+080A9B16   BCF0 pop r4-r7
+080A9B18   BC01 pop r0
+080A9B1A   4700 bx r0
+-----------------------
+这一段看起来没什么用,实际上都是指諄E!!
+080A9B1C   BCEC pop r2-r3,r5-r7
+080A9B1E   0202 lsl r2, r0, 8h<-------0202BCEC
+080A9B20   BE48 bkpt
+080A9B22   0202 lsl r2, r0, 8h<-------0202BE48
+080A9B24   079C lsl r4, r3, 1Eh
+080A9B26   0000 lsl r0, r0, 0
+080A9B28   084C lsr r4, r1, 1h<--------084C
+080A9B2A   0000 lsl r0, r0, 0
+080A9B2C   0CAC lsr r4, r5, 12h<-------0CAC
+080A9B2E   0000 lsl r0, r0, 0
+080A9B30   0D6C lsr r4, r5, 15h<-------0D6C
+080A9B32   0000 lsl r0, r0, 0
+080A9B34   0D8C lsr r4, r1, 16h<-------0D8C
+080A9B36   0000 lsl r0, r0, 0
+080A9B38   5270 strh r0, [r6, r1]
+080A9B3A   0300 lsl r0, r0, Ch<-----03005270
+080A9B3C   0624 lsl r4, r4, 18h
+080A9B3E   0004 lsl r4, r0, 0
+
+=============================================================================================================================
+=============================================================================================================================
+数据从ROM读取处纴E建议和存葋E杂ζ鹄纯?.很难修改!!!
+=============================================================================================================================
+=============================================================================================================================
+
+bl 80D65C8h<--------从ROM中读出数据就是藖E?.
+===========================
+
+080A9B40   B5F0 push r4-r7, lr
+080A9B42   464F mov r7, r9
+080A9B44   4646 mov r6, r8
+080A9B46   B4C0 push r6-r7
+080A9B48   B086 sub sp, 18h
+080A9B4A   4681 mov r9, r0
+080A9B4C F804F7FE bl 80A7B58h<--从存档0E000064读出数据存葋E3007D68栈纴E二者依次加1,数据一一对应
+080A9B50   1C07 mov r7, r0
+080A9B52   482D ldr r0, [pc, B4h]    ([000A9C08]=0202BCAC)
+080A9B54   7901 ldrb r1, [r0, 4h]
+080A9B56   2040 mov r0, 40h
+080A9B58   4008 and r0, r1
+080A9B5A   2800 cmp r0, 0h
+080A9B5C   D102 bne 80A9B64h
+080A9B5E   2003 mov r0, 3h
+080A9B60 FC6AF000 bl 80AA438h
+080A9B64   4829 ldr r0, [pc, A4h]    ([000A9C0C]=03006790)
+080A9B66   4C2A ldr r4, [pc, A8h]    ([000A9C10]=0202BCEC)
+080A9B68   6803 ldr r3, [r0, 0h]
+080A9B6A   1C38 mov r0, r7
+080A9B6C   1C21 mov r1, r4
+080A9B6E   224C mov r2, 4Ch
+080A9B70 FD2AF02C bl 80D65C8h
+080A9B74   6820 ldr r0, [r4, 0h]<-------------[r4=0202BCEC]=005803E7
+080A9B76 F8B5F757 bl 8000CE4h<-------------[r4=0202BCEC]=005803E7=>str[03000010]<---小程衼E不用蟻E丒
+080A9B7A   4648 mov r0, r9
+080A9B7C   7320 strb r0, [r4, Ch]
+080A9B7E FCF5F76D bl 801756Ch<-----------见第一级+ONE
+
+080A9B82   2600 mov r6, 0h
+080A9B84   1C3C mov r4, r7
+080A9B86   344C add r4, 4Ch<---------[r4+4C]=0E004010
+080A9B88   4922 ldr r1, [pc, 88h]    ([000A9C14]=0202BE48)<-------在老金中0202BE48 xxxx   是 "人蝸E丒开始!!
+080A9B8A   4688 mov r8, r1
+080A9B8C   2532 mov r5, 32h<------为使bl 80AA1ACh循环处纴E0次的必要赋值!
+080A9B8E   4642 mov r2, r8
+080A9B90   18B1 add r1, r6, r2
+080A9B92   1C20 mov r0, r4
+080A9B94 FB0AF000 bl 80AA1ACh<------------这纴E婵梢郧宄牧私獾饺宋丒菸裁词?31的能力上限,因为左右移动使数据得硜E从这纴E涂梢灾牢裁创娴凳莶缓酶牡脑蛄?...
+080A9B98   3648 add r6, 48h
+080A9B9A   3424 add r4, 24h<--------为读下一个人的必要偏移,例如第一次为0E004010,那第二个人就在0E004010+24=0E004034处
+080A9B9C   3D01 sub r5, 1h<------为使bl 80AA1ACh循环处历桫出的必要条件!
+080A9B9E   2D00 cmp r5, 0h
+080A9BA0   DAF5 bge 80A9B8Eh<------为使bl 80AA1ACh循环处纴E0次的必要返回!
+
+080A9BA2   21EF mov r1, EFh
+080A9BA4   00C9 lsl r1, r1, 3h
+080A9BA6   1878 add r0, r7, r1<---------------r0=[r7+r1=0E003FC4+EF*3=0E003FC4+778=0E00473C]
+080A9BA8 FC36F000 bl 80AA418h<----------------见第一级+TWO
+080A9BAC   4A1A ldr r2, [pc, 68h]    ([000A9C18]=0000079C)
+080A9BAE   18B8 add r0, r7, r2<---------------r0=[r7+r2=0E003FC4+79C=0E004760]
+080A9BB0 F87EF7FE bl 80A7CB0h<----------------和第一级+TWO阐位秮E只是因为RO不同所以处历纨据不同
+080A9BB4   4919 ldr r1, [pc, 64h]    ([000A9C1C]=00000D6C)
+080A9BB6   1878 add r0, r7, r1<---------------r0=[r7+r1=0E003FC4+D6C=0E004D30]
+080A9BB8 F810F7FE bl 80A7BDCh<----------------和第一级+TWO阐位秮E只是因为RO不同所以处历纨据不同
+080A9BBC   4A18 ldr r2, [pc, 60h]    ([000A9C20]=0000084C)
+080A9BBE   18B8 add r0, r7, r2<---------------r0=[r7+r2=0E003FC4+84C=0E004810]
+080A9BC0 F84EF7FF bl 80A8C60h<----------------和第一级+TWO阐位秮E只是因为RO不同所以处历纨据不同
+080A9BC4   4917 ldr r1, [pc, 5Ch]    ([000A9C24]=00000CAC)
+080A9BC6   1878 add r0, r7, r1<---------------r0=[r7+r2=0E003FC4+CAC=0E004C70]
+080A9BC8 F860F7FF bl 80A8C8Ch<----------------和第一级+TWO阐位秮E只是因为RO不同所以处历纨据不同
+080A9BCC   1C38 mov r0, r7<-------------------r0=[r7=0E003FC4]
+080A9BCE FDE7F7FF bl 80A97A0h<----------------和第一级+TWO有点出葋E把RO竵E脑诶丒媪?,还是处历纨据而不同
+080A9BD2   4A15 ldr r2, [pc, 54h]    ([000A9C28]=00000D8C)
+080A9BD4   18B8 add r0, r7, r2<---------------r0=[r7+r2=0E003FC4+D8C=0E004D50]
+080A9BD6   4915 ldr r1, [pc, 54h]    ([000A9C2C]=03005270)
+080A9BD8 FFBAF001 bl 80ABB50h<----------------和第一级+TWO阐位秮E只是因为RO不同所以处历纨据不同
+080A9BDC   490B ldr r1, [pc, 2Ch]    ([000A9C0C]=03006790)
+080A9BDE   22DB mov r2, DBh
+080A9BE0   0112 lsl r2, r2, 4h
+080A9BE2   18B8 add r0, r7, r2<---------------r0=[r7+r2=0E003FC4+DB*4=0E004D74]
+080A9BE4   680B ldr r3, [r1, 0h]
+080A9BE6   4669 mov r1, sp
+080A9BE8   2218 mov r2, 18h
+080A9BEA FCEDF02C bl 80D65C8h
+080A9BEE   4668 mov r0, sp
+080A9BF0 F9CEF78E bl 8037F90h
+080A9BF4   4648 mov r0, r9
+080A9BF6 FDE5F7FF bl 80A97C4h
+080A9BFA   B006 add sp, 18h
+080A9BFC   BC18 pop r3-r4
+080A9BFE   4698 mov r8, r3
+080A9C00   46A1 mov r9, r4
+080A9C02   BCF0 pop r4-r7
+080A9C04   BC01 pop r0
+080A9C06   4700 bx r0
+=======================
+注襾E03002AB0这纴E诔绦蚶丒荒苌柚弥卸辖丒只能从080A9B4C F804F7FE bl 80A7B58h处跟絹E该程序不得随意修改增减，因为有个bx r15 可以说跳转条件很苛刻。
+
+03002AB0开始从存档0E000064读出数据存葋E3007D68栈纴E二者依次加1,数据一一对应,该程序为循环,16次后跳硜E而且这一段程序ROM纴E敲挥械?!!!
+    其中[0E000064+4]=[0E000068]=0A,[0E000064+5]=[0E000069]=20,和起来是200A,如不等,那么第一个存档数据无效,具体就因为080A7962出设置的跳转条件就是200A。
+    其中[0E00006C]=C4,[0E00006D]=3F,和起来是3FC4;[0E00006E]=C8,[0E00006F]=0D,和起来是0DC8;则在次进葋E3002AB0从[3FC4+0E000000]=[0E003FC4]处读出数据存葋E2020188纴E二者依次加1,数据一一对应,该程序仍然循环,循环的次数就是0DC8!!!。处历閬E院笤?0800360处有关于[02020188]数据处历涯ARM程序，0DC8还是作为循环的次数，只是在ARM下是-2，很明显ARM加縼E舜５玫降?9D0907E7是一个比较数。数据0E0000D4存葋E降刂穂3007D64+8]，后来因为有值等于FF而使得[3007D64+8]重新存葋E。
+    080D6442开始当r5=[03007D64],r4=[0E000094]的时候，开始从03007D64栈读出数据存葋E娴涤成淝丒E000064,二者依次加1,数据一一对应,该程序为循环,16次后跳出，觼E3002AB0程序有相似之处。
+--------------------------
+==========================
+第一级+ONE
+----------------
+对ROM中085C2A50指諄E婊?,循环R5=>FF次
+
+0801756C   B5F0 push r4-r7, lr
+0801756E   2500 mov r5, 0h
+08017570   4F09 ldr r7, [pc, 24h]    ([00017598]=085C2A50)
+08017572   26FF mov r6, FFh
+08017574   1C28 mov r0, r5
+08017576   4030 and r0, r6
+08017578   0080 lsl r0, r0, 2h
+0801757A   19C0 add r0, r0, r7
+0801757C   6804 ldr r4, [r0, 0h]
+0801757E   2C00 cmp r4, 0h
+08017580   D003 beq 801758Ah
+08017582   1C20 mov r0, r4
+08017584 F80AF000 bl 801759Ch<-------------指諄E婊咛宄绦丒没什么可研究的.就是把数据清羴E
+08017588   72E5 strb r5, [r4, Bh]
+0801758A   3501 add r5, 1h
+0801758C   2DFF cmp r5, FFh
+0801758E   DDF1 ble 8017574h
+08017590   BCF0 pop r4-r7
+08017592   BC01 pop r0
+08017594   4700 bx r0
+=====================
+
+人蝸E菸裁词?31的能力上限
+080AA1AC   B5F0 push r4-r7, lr
+080AA1AE   4647 mov r7, r8
+080AA1B0   B480 push r7
+080AA1B2   B089 sub sp, 24h
+080AA1B4   1C0C mov r4, r1
+080AA1B6   498E ldr r1, [pc, 238h]    ([000AA3F0]=03006790)
+080AA1B8   680B ldr r3, [r1, 0h]
+080AA1BA   4669 mov r1, sp
+080AA1BC   2224 mov r2, 24h
+080AA1BE FA03F02C bl 80D65C8h<----ROM中0E004010数据读出到030077D40栈,二者依次加1(升衼E,数据一一对应,该程序为循环,24H次后跳硜E
+080AA1C2   4668 mov r0, sp<-----------030077D40栈地址返回
+080AA1C4   7D00 ldrb r0, [r0, 14h]<---读取030077D40+14H栈地址数据,实际上就是处纴EE004024处的数据,例:这纴E谝桓鍪?0F为伊弗列姆
+080AA1C6 FFB9F76E bl 801913Ch<---当R0不等于0则得出R0=8858288+r0*34,这是一个觼EOM数据合成地址;当R0不等于0则R0=0,合成地址没有
+------
+角色篇
+地址计算公式
+(角色代聛E1)X34+8582BC=(角色代聛EX34+858288
+-------------------------------------------
+080AA1CA   6020 str r0, [r4, 0h]<---第一次处历n4=202BE48
+080AA1CC   4668 mov r0, sp<-----------030077D40栈地址返回
+080AA1CE   7800 ldrb r0, [r0, 0h]<-----------读取030077D40H栈地址数据,实际上就是处纴EE004010处的数据
+080AA1D0   0640 lsl r0, r0, 19h
+080AA1D2   0E40 lsr r0, r0, 19h<--------屏蔽前25位,保留簛E位
+080AA1D4 FFA2F76E bl 801911Ch
+------
+职业篇
+地址计算公式
+(职业代聛E1)X54+85B6BC=(职业代聛EX54+85B668
+-------------------------------------------
+080AA1D8   6060 str r0, [r4, 4h]<---第一次处历wR4+4=202BE48+4]=[0202BE4C]
+080AA1DA   4668 mov r0, sp<-----------030077D40栈地址返回
+080AA1DC   8800 ldrh r0, [r0, 0h]<-----------读取030077D40H栈地址数据,实际上就是处纴EE004011~0E004010处的数据
+080AA1DE   0500 lsl r0, r0, 14h
+080AA1E0   0EC0 lsr r0, r0, 1Bh
+080AA1E2   7220 strb r0, [r4, 8h]<--------前絹E0位,后退27位,即级别只用了5位2进制柄婢,赃31........
+080AA1E4   9800 ldr r0, [sp, 0h]
+080AA1E6   0340 lsl r0, r0, Dh
+080AA1E8   0E43 lsr r3, r0, 19h
+080AA1EA   7263 strb r3, [r4, 9h]<--------前絹E3位,后退25位,即经验只用13~19位共7位2进制柄婢,赃255........
+080AA1EC   4668 mov r0, sp
+080AA1EE   8840 ldrh r0, [r0, 2h]
+080AA1F0   05C0 lsl r0, r0, 17h
+080AA1F2   0E80 lsr r0, r0, 1Ah
+080AA1F4   7420 strb r0, [r4, 10h]<--------前絹E3位,后退26位,即X坐眮E挥?7~9位共3位2进制柄婢,赃7?........
+080AA1F6   4668 mov r0, sp
+080AA1F8   78C0 ldrb r0, [r0, 3h]
+080AA1FA   0640 lsl r0, r0, 19h
+080AA1FC   0E80 lsr r0, r0, 1Ah
+080AA1FE   7460 strb r0, [r4, 11h]<--------即Y坐眮E同X坐眮E丒
+080AA200   9801 ldr r0, [sp, 4h]
+080AA202   0380 lsl r0, r0, Eh
+080AA204   0E80 lsr r0, r0, 1Ah
+080AA206   74A0 strb r0, [r4, 12h]<--------前絹E4位,后退26位,即HP只用17~12位共6位2进制柄婢,赃63........
+080AA208   4668 mov r0, sp
+080AA20A   7980 ldrb r0, [r0, 6h]
+080AA20C   0640 lsl r0, r0, 19h
+080AA20E   0EC0 lsr r0, r0, 1Bh
+080AA210   7520 strb r0, [r4, 14h]<--------前絹E5位,后退27位,即力量只用7~3位共5位2进制柄婢,赃31........
+080AA212   4668 mov r0, sp
+080AA214   88C0 ldrh r0, [r0, 6h]
+080AA216   0500 lsl r0, r0, 14h
+080AA218   0EC0 lsr r0, r0, 1Bh
+080AA21A   7560 strb r0, [r4, 15h]<--------技蕘E同力量处纴E
+080AA21C   4668 mov r0, sp
+080AA21E   79C1 ldrb r1, [r0, 7h]
+080AA220   0909 lsr r1, r1, 4h
+080AA222   7A00 ldrb r0, [r0, 8h]
+080AA224   2501 mov r5, 1h
+080AA226   4028 and r0, r5
+080AA228   0100 lsl r0, r0, 4h
+080AA22A   4308 orr r0, r1
+080AA22C   75A0 strb r0, [r4, 16h]<------速度,同力量处纴E但因为数据读取和位问虂E所以组合处纴E算法蛘目的实际就是将数据还原
+080AA22E   4668 mov r0, sp
+080AA230   7A00 ldrb r0, [r0, 8h]
+080AA232   0680 lsl r0, r0, 1Ah
+080AA234   0EC0 lsr r0, r0, 1Bh
+080AA236   75E0 strb r0, [r4, 17h]<--------守备,同力量处纴E
+080AA238   4668 mov r0, sp
+080AA23A   8900 ldrh r0, [r0, 8h]
+080AA23C   0540 lsl r0, r0, 15h
+080AA23E   0EC0 lsr r0, r0, 1Bh
+080AA240   7620 strb r0, [r4, 18h]<--------防觼E同力量处纴E
+080AA242   4668 mov r0, sp
+080AA244   7A40 ldrb r0, [r0, 9h]
+080AA246   08C0 lsr r0, r0, 3h
+080AA248   7660 strb r0, [r4, 19h]<------运苼E同速度处纴E但因为数据读取和位问虂E所以组合处纴E算法蛘目的实际就是将数据还原
+080AA24A   4668 mov r0, sp
+080AA24C   7A80 ldrb r0, [r0, Ah]
+080AA24E   06C0 lsl r0, r0, 1Bh
+080AA250   0EC0 lsr r0, r0, 1Bh
+080AA252   76A0 strb r0, [r4, 1Ah]<------体竵E附加值)
+080AA254   4668 mov r0, sp
+080AA256   8940 ldrh r0, [r0, Ah]
+080AA258   0580 lsl r0, r0, 16h
+080AA25A   0EC0 lsr r0, r0, 1Bh
+080AA25C   7760 strb r0, [r4, 1Dh]<------同行人蝸E
+080AA25E   4668 mov r0, sp
+080AA260   7AC1 ldrb r1, [r0, Bh]
+080AA262   0889 lsr r1, r1, 2h
+080AA264   7B00 ldrb r0, [r0, Ch]
+080AA266   0180 lsl r0, r0, 6h
+080AA268   4308 orr r0, r1
+080AA26A   83E0 strh r0, [r4, 1Eh]<------第一武器\蝸E稲4=202BE48
+080AA26C   9803 ldr r0, [sp, Ch]
+080AA26E   0280 lsl r0, r0, Ah
+080AA270   0C80 lsr r0, r0, 12h
+080AA272   8420 strh r0, [r4, 20h]<------第二武器\蝸E?
+080AA274   4668 mov r0, sp
+080AA276   89C2 ldrh r2, [r0, Eh]
+080AA278   0992 lsr r2, r2, 6h
+080AA27A   7C00 ldrb r0, [r0, 10h]
+080AA27C   210F mov r1, Fh
+080AA27E   4008 and r0, r1
+080AA280   0280 lsl r0, r0, Ah
+080AA282   4310 orr r0, r2
+080AA284   8460 strh r0, [r4, 22h]<------第三武器\蝸E?
+080AA286   9804 ldr r0, [sp, 10h]
+080AA288   0380 lsl r0, r0, Eh
+080AA28A   0C80 lsr r0, r0, 12h
+080AA28C   84A0 strh r0, [r4, 24h]<------第四武器\蝸E?
+080AA28E   4668 mov r0, sp
+080AA290   8A40 ldrh r0, [r0, 12h]
+080AA292   0880 lsr r0, r0, 2h
+080AA294   84E0 strh r0, [r4, 26h]<------第五武器\蝸E?
+080AA296   2B63 cmp r3, 63h
+080AA298   D901 bls 80AA29Eh<--------经验觼E9比较[低于或同于(无符号)]
+080AA29A   20FF mov r0, FFh<------大于99则得FF,这可以使得"经验升级系统"不执行的跳出条件
+080AA29C   7260 strb r0, [r4, 9h]<--------R4=202BE48
+080AA29E   2000 mov r0, 0h
+080AA2A0   60E0 str r0, [r4, Ch]<-----未知
+080AA2A2   4668 mov r0, sp
+080AA2A4   78C1 ldrb r1, [r0, 3h]
+080AA2A6   09C9 lsr r1, r1, 7h<--------处纴EE004013的数据,只保留第8位
+080AA2A8   8880 ldrh r0, [r0, 4h]<--------处纴EE004015~0E004014的数据,只保留簛E2位
+080AA2AA   4A52 ldr r2, [pc, 148h]    ([000AA3F4]=00000FFF)
+080AA2AC   4010 and r0, r2
+080AA2AE   0040 lsl r0, r0, 1h<------保留簛E2位前移一位,在觼E?0E004013的数据,只保留的第8位求粊E得到13位数据
+080AA2B0   4308 orr r0, r1
+080AA2B2   4028 and r0, r5<-----------觼E求觼E
+080AA2B4   2800 cmp r0, 0h
+080AA2B6   D001 beq 80AA2BCh
+080AA2B8   2005 mov r0, 5h
+080AA2BA   60E0 str r0, [r4, Ch]<-----未知
+080AA2BC   4668 mov r0, sp
+080AA2BE   8880 ldrh r0, [r0, 4h]<--------处纴EE004015~0E004014的数据,只保留簛E2位
+080AA2C0   4010 and r0, r2
+080AA2C2   0040 lsl r0, r0, 1h
+080AA2C4   2102 mov r1, 2h<-----------觼E求觼E
+080AA2C6   4008 and r0, r1
+080AA2C8   2800 cmp r0, 0h
+080AA2CA   D003 beq 80AA2D4h<-------男主角的反正是不跳了,因为R0=2
+080AA2CC   68E0 ldr r0, [r4, Ch]
+080AA2CE   2109 mov r1, 9h
+080AA2D0   4308 orr r0, r1
+080AA2D2   60E0 str r0, [r4, Ch]<-------R0=9
+080AA2D4   4668 mov r0, sp
+080AA2D6   8880 ldrh r0, [r0, 4h]<--------处纴EE004015~0E004014的数据,只保留簛E2位
+080AA2D8   4010 and r0, r2
+080AA2DA   0040 lsl r0, r0, 1h
+080AA2DC   2104 mov r1, 4h<-----------觼E求觼E
+080AA2DE   4008 and r0, r1
+080AA2E0   2800 cmp r0, 0h
+080AA2E2   D004 beq 80AA2EEh
+080AA2E4   68E0 ldr r0, [r4, Ch]
+080AA2E6   2180 mov r1, 80h
+080AA2E8   01C9 lsl r1, r1, 7h
+080AA2EA   4308 orr r0, r1<-----------觼E0求粊E
+080AA2EC   60E0 str r0, [r4, Ch]
+080AA2EE   4668 mov r0, sp
+080AA2F0   8880 ldrh r0, [r0, 4h]
+080AA2F2   4010 and r0, r2
+080AA2F4   0040 lsl r0, r0, 1h
+080AA2F6   2108 mov r1, 8h<-----------觼E求觼E
+080AA2F8   4008 and r0, r1
+080AA2FA   2800 cmp r0, 0h
+080AA2FC   D004 beq 80AA308h
+080AA2FE   68E0 ldr r0, [r4, Ch]
+080AA300   2180 mov r1, 80h
+080AA302   0209 lsl r1, r1, 8h
+080AA304   4308 orr r0, r1<-----------觼E0求粊E
+080AA306   60E0 str r0, [r4, Ch]
+080AA308   4668 mov r0, sp
+080AA30A   8880 ldrh r0, [r0, 4h]
+080AA30C   4010 and r0, r2
+080AA30E   0040 lsl r0, r0, 1h
+080AA310   2110 mov r1, 10h<-----------觼E0求觼E
+080AA312   4008 and r0, r1
+080AA314   2800 cmp r0, 0h
+080AA316   D004 beq 80AA322h
+080AA318   68E0 ldr r0, [r4, Ch]
+080AA31A   2180 mov r1, 80h
+080AA31C   0189 lsl r1, r1, 6h
+080AA31E   4308 orr r0, r1<-----------觼E0求粊E
+080AA320   60E0 str r0, [r4, Ch]
+080AA322   4668 mov r0, sp
+080AA324   8880 ldrh r0, [r0, 4h]
+080AA326   4010 and r0, r2
+080AA328   0040 lsl r0, r0, 1h
+080AA32A   2120 mov r1, 20h<-----------觼E0求觼E
+080AA32C   4008 and r0, r1
+080AA32E   2800 cmp r0, 0h
+080AA330   D004 beq 80AA33Ch
+080AA332   68E0 ldr r0, [r4, Ch]
+080AA334   2180 mov r1, 80h
+080AA336   0249 lsl r1, r1, 9h
+080AA338   4308 orr r0, r1<-----------觼E0求粊E
+080AA33A   60E0 str r0, [r4, Ch]
+080AA33C   4668 mov r0, sp
+080AA33E   8880 ldrh r0, [r0, 4h]
+080AA340   4010 and r0, r2
+080AA342   0040 lsl r0, r0, 1h
+080AA344   2140 mov r1, 40h<-----------觼E0求觼E
+080AA346   4008 and r0, r1
+080AA348   2800 cmp r0, 0h
+080AA34A   D004 beq 80AA356h
+080AA34C   68E0 ldr r0, [r4, Ch]
+080AA34E   2180 mov r1, 80h
+080AA350   0489 lsl r1, r1, 12h
+080AA352   4308 orr r0, r1<-----------觼E0求粊E
+080AA354   60E0 str r0, [r4, Ch]
+080AA356   4668 mov r0, sp
+080AA358   8880 ldrh r0, [r0, 4h]
+080AA35A   4010 and r0, r2
+080AA35C   0040 lsl r0, r0, 1h
+080AA35E   2180 mov r1, 80h<-----------觼E0求觼E
+080AA360   4008 and r0, r1
+080AA362   2800 cmp r0, 0h
+080AA364   D004 beq 80AA370h
+080AA366   68E0 ldr r0, [r4, Ch]
+080AA368   2180 mov r1, 80h
+080AA36A   0389 lsl r1, r1, Eh
+080AA36C   4308 orr r0, r1<-----------觼E0求粊E
+080AA36E   60E0 str r0, [r4, Ch]<-----未知终于结蕘E共觼E,2,4,8,10,20,40,80比较,就只是为了改变[r4, Ch]的数据
+
+080AA370   2200 mov r2, 0h
+080AA372   1C27 mov r7, r4<--------R4=202BE48
+080AA374   3732 add r7, 32h<-------R7=[R4+32=0202BE48+32=0202BE7A]
+080AA376   466E mov r6, sp
+080AA378   361D add r6, 1Dh<-------R6=[SP+1D=03007D40+1D=03007D5D]
+080AA37A   2039 mov r0, 39h
+080AA37C   1900 add r0, r0, r4<----R0=[R4+39=0202BE48+39=0202BE81]
+080AA37E   4680 mov r8, r0<--------R8=[0202BE81]
+080AA380   1C25 mov r5, r4
+080AA382   3528 add r5, 28h<-------R5=[R4+28=0202BE48+28=0202BE70]
+080AA384   466B mov r3, sp
+080AA386   3315 add r3, 15h<-------R3=[SP+15=03007D40+15=03007D55]
+080AA388   18A8 add r0, r5, r2
+080AA38A   1899 add r1, r3, r2
+080AA38C   7809 ldrb r1, [r1, 0h]
+080AA38E   7001 strb r1, [r0, 0h]
+080AA390   3201 add r2, 1h
+080AA392   2A07 cmp r2, 7h
+080AA394   DDF8 ble 80AA388h<-------规划8种武器的蕘E范妊?
+---------------------------
+0202BE70 xx　　　　 剑蕘E范?
+0202BE71 xx　　　　 枪蕘E范?
+0202BE72 xx　　　　 斧蕘E范?
+0202BE73 xx　　　　 弓蕘E范?
+0202BE74 xx　　　　 杖蕘E范?
+0202BE75 xx　　　　 历鎭E范?
+0202BE76 xx　　　 　光蕘E范?
+0202BE77 xx　　　 　暗蕘E范?
+----------------------------
+080AA396   2200 mov r2, 0h
+080AA398   1C3D mov r5, r7
+080AA39A   1C33 mov r3, r6
+080AA39C   18A8 add r0, r5, r2
+080AA39E   1899 add r1, r3, r2
+080AA3A0   7809 ldrb r1, [r1, 0h]
+080AA3A2   7001 strb r1, [r0, 0h]
+080AA3A4   3201 add r2, 1h
+080AA3A6   2A06 cmp r2, 6h
+080AA3A8   DDF8 ble 80AA39Ch<-------规划7个支援人蝸E?
+-------------------------
+0202BE7A xx　　　　第一人
+0202BE7B xx　　　　第二人
+0202BE7C xx　　　　第三人
+0202BE7D xx　　　　第四人
+0202BE7E xx　　　　第五人
+0202BE7F xx        第六人
+0202BE80 xx        第七人
+-------------------------
+080AA3AA   1C20 mov r0, r4
+080AA3AC FD7AF76E bl 8018EA4h<------看第二级
+080AA3B0   1C01 mov r1, r0
+080AA3B2   1C20 mov r0, r4
+080AA3B4 FE44F76E bl 8019040h<------看第二级
+080AA3B8   2000 mov r0, 0h
+080AA3BA   4641 mov r1, r8
+080AA3BC   7008 strb r0, [r1, 0h]
+080AA3BE   7A60 ldrb r0, [r4, 9h]<--------经验处纴E
+080AA3C0   287F cmp r0, 7Fh
+080AA3C2   D101 bne 80AA3C8h
+080AA3C4   20FF mov r0, FFh
+080AA3C6   7260 strb r0, [r4, 9h]
+080AA3C8   7C21 ldrb r1, [r4, 10h]该人蝸E牡赝甲丒XY謥E?
+080AA3CA   2010 mov r0, 10h
+080AA3CC   5620 ldrsb r0, [r4, r0]该人蝸E牡赝甲丒X謥E?
+080AA3CE   283F cmp r0, 3Fh
+080AA3D0   D101 bne 80AA3D6h
+080AA3D2   20FF mov r0, FFh
+080AA3D4   7420 strb r0, [r4, 10h]
+080AA3D6   7C61 ldrb r1, [r4, 11h]该人蝸E牡赝甲丒XY謥E?
+080AA3D8   2011 mov r0, 11h
+080AA3DA   5620 ldrsb r0, [r4, r0]该人蝸E牡赝甲丒Y謥E?
+080AA3DC   283F cmp r0, 3Fh
+080AA3DE   D101 bne 80AA3E4h
+080AA3E0   20FF mov r0, FFh
+080AA3E2   7460 strb r0, [r4, 11h]
+080AA3E4   B009 add sp, 24h
+080AA3E6   BC08 pop r3
+080AA3E8   4698 mov r8, r3
+080AA3EA   BCF0 pop r4-r7
+080AA3EC   BC01 pop r0
+080AA3EE   4700 bx r0<---------一个人判定蛠E?,返回
+--------------------
+=--------------------
+第一级,和第一级+ONE处历豚反!!!
+
+080A9D54   B5F0 push r4-r7, lr
+080A9D56   4657 mov r7, r10
+080A9D58   464E mov r6, r9
+080A9D5A   4645 mov r5, r8
+080A9D5C   B4E0 push r5-r7
+080A9D5E   B09C sub sp, 70h
+080A9D60   1C07 mov r7, r0
+080A9D62   911B str r1, [sp, 6Ch]
+080A9D64   4669 mov r1, sp
+080A9D66   6838 ldr r0, [r7, 0h]
+080A9D68   7900 ldrb r0, [r0, 4h]
+080A9D6A   7508 strb r0, [r1, 14h]
+080A9D6C   466B mov r3, sp
+080A9D6E   6878 ldr r0, [r7, 4h]
+080A9D70   7901 ldrb r1, [r0, 4h]
+080A9D72   207F mov r0, 7Fh
+080A9D74   4001 and r1, r0
+080A9D76   781A ldrb r2, [r3, 0h]
+080A9D78   2580 mov r5, 80h
+080A9D7A   426D neg r5, r5
+080A9D7C   1C28 mov r0, r5
+080A9D7E   4010 and r0, r2
+080A9D80   4308 orr r0, r1
+080A9D82   7018 strb r0, [r3, 0h]
+080A9D84   683C ldr r4, [r7, 0h]
+080A9D86   2C00 cmp r4, 0h
+080A9D88   D10A bne 80A9DA0h
+080A9D8A   AF09 add r7, sp, 24h
+080A9D8C   1C38 mov r0, r7
+080A9D8E FC05F76D bl 801759Ch
+080A9D92   4668 mov r0, sp
+080A9D94   7504 strb r4, [r0, 14h]
+080A9D96   466A mov r2, sp
+080A9D98   7811 ldrb r1, [r2, 0h]
+080A9D9A   1C28 mov r0, r5
+080A9D9C   4008 and r0, r1
+080A9D9E   7010 strb r0, [r2, 0h]
+080A9DA0   466C mov r4, sp
+080A9DA2   2108 mov r1, 8h
+080A9DA4   5679 ldrsb r1, [r7, r1]
+080A9DA6   201F mov r0, 1Fh
+080A9DA8   4681 mov r9, r0
+080A9DAA   4648 mov r0, r9
+080A9DAC   4001 and r1, r0
+080A9DAE   01C9 lsl r1, r1, 7h
+080A9DB0   8822 ldrh r2, [r4, 0h]
+080A9DB2   4BEB ldr r3, [pc, 3ACh]    ([000AA160]=FFFFF07F)
+080A9DB4   1C18 mov r0, r3
+080A9DB6   4010 and r0, r2
+080A9DB8   4308 orr r0, r1
+080A9DBA   8020 strh r0, [r4, 0h]
+080A9DBC   7A7A ldrb r2, [r7, 9h]
+080A9DBE   217F mov r1, 7Fh
+080A9DC0   468A mov r10, r1
+080A9DC2   400A and r2, r1
+080A9DC4   0312 lsl r2, r2, Ch
+080A9DC6   9800 ldr r0, [sp, 0h]
+080A9DC8   49E6 ldr r1, [pc, 398h]    ([000AA164]=FFF80FFF)
+080A9DCA   4008 and r0, r1
+080A9DCC   4310 orr r0, r2
+080A9DCE   9000 str r0, [sp, 0h]
+080A9DD0   2110 mov r1, 10h
+080A9DD2   5679 ldrsb r1, [r7, r1]
+080A9DD4   203F mov r0, 3Fh
+080A9DD6   4001 and r1, r0
+080A9DD8   00C9 lsl r1, r1, 3h
+080A9DDA   8862 ldrh r2, [r4, 2h]
+080A9DDC   48E2 ldr r0, [pc, 388h]    ([000AA168]=FFFFFE07)
+080A9DDE   4010 and r0, r2
+080A9DE0   4308 orr r0, r1
+080A9DE2   8060 strh r0, [r4, 2h]
+080A9DE4   2111 mov r1, 11h
+080A9DE6   5679 ldrsb r1, [r7, r1]
+080A9DE8   203F mov r0, 3Fh
+080A9DEA   4001 and r1, r0
+080A9DEC   0049 lsl r1, r1, 1h
+080A9DEE   78E2 ldrb r2, [r4, 3h]
+080A9DF0   207F mov r0, 7Fh
+080A9DF2   4240 neg r0, r0
+080A9DF4   4010 and r0, r2
+080A9DF6   4308 orr r0, r1
+080A9DF8   70E0 strb r0, [r4, 3h]
+080A9DFA   2212 mov r2, 12h
+080A9DFC   56BA ldrsb r2, [r7, r2]
+
+080A9DFE   263F mov r6, 3Fh
+080A9E00   4032 and r2, r6
+080A9E02   0312 lsl r2, r2, Ch
+080A9E04   9801 ldr r0, [sp, 4h]
+080A9E06   49D9 ldr r1, [pc, 364h]    ([000AA16C]=FFFC0FFF)
+080A9E08   4008 and r0, r1
+080A9E0A   4310 orr r0, r2
+080A9E0C   9001 str r0, [sp, 4h]
+080A9E0E   2114 mov r1, 14h
+080A9E10   5679 ldrsb r1, [r7, r1]
+080A9E12   251F mov r5, 1Fh
+080A9E14   4029 and r1, r5
+080A9E16   0089 lsl r1, r1, 2h
+080A9E18   79A2 ldrb r2, [r4, 6h]
+080A9E1A   207D mov r0, 7Dh
+080A9E1C   4240 neg r0, r0
+080A9E1E   4010 and r0, r2
+080A9E20   4308 orr r0, r1
+080A9E22   71A0 strb r0, [r4, 6h]
+080A9E24   466A mov r2, sp
+080A9E26   2015 mov r0, 15h
+080A9E28   5638 ldrsb r0, [r7, r0]
+080A9E2A   464C mov r4, r9
+080A9E2C   4020 and r0, r4
+080A9E2E   01C0 lsl r0, r0, 7h
+080A9E30   88D1 ldrh r1, [r2, 6h]
+080A9E32   400B and r3, r1
+080A9E34   4303 orr r3, r0
+080A9E36   80D3 strh r3, [r2, 6h]
+080A9E38   466C mov r4, sp
+080A9E3A   2316 mov r3, 16h
+080A9E3C   56FB ldrsb r3, [r7, r3]
+
+080A9E3E   200F mov r0, Fh
+080A9E40   4680 mov r8, r0
+080A9E42   1C19 mov r1, r3
+080A9E44   4001 and r1, r0
+080A9E46   0109 lsl r1, r1, 4h
+080A9E48   79E2 ldrb r2, [r4, 7h]
+080A9E4A   4010 and r0, r2
+080A9E4C   4308 orr r0, r1
+080A9E4E   71E0 strb r0, [r4, 7h]
+080A9E50   091B lsr r3, r3, 4h
+
+080A9E52   2101 mov r1, 1h
+080A9E54   468C mov r12, r1
+080A9E56   400B and r3, r1
+080A9E58   7A21 ldrb r1, [r4, 8h]
+080A9E5A   2002 mov r0, 2h
+080A9E5C   4240 neg r0, r0
+080A9E5E   4008 and r0, r1
+080A9E60   4318 orr r0, r3
+080A9E62   7220 strb r0, [r4, 8h]
+080A9E64   466B mov r3, sp
+080A9E66   2117 mov r1, 17h
+080A9E68   5679 ldrsb r1, [r7, r1]
+080A9E6A   4029 and r1, r5
+080A9E6C   0049 lsl r1, r1, 1h
+080A9E6E   223F mov r2, 3Fh
+080A9E70   4252 neg r2, r2
+080A9E72   4010 and r0, r2
+080A9E74   4308 orr r0, r1
+080A9E76   7218 strb r0, [r3, 8h]
+080A9E78   2118 mov r1, 18h
+080A9E7A   5679 ldrsb r1, [r7, r1]
+080A9E7C   464C mov r4, r9
+080A9E7E   4021 and r1, r4
+080A9E80   0189 lsl r1, r1, 6h
+080A9E82   891A ldrh r2, [r3, 8h]
+080A9E84   48BA ldr r0, [pc, 2E8h]    ([000AA170]=FFFFF83F)
+080A9E86   4010 and r0, r2
+080A9E88   4308 orr r0, r1
+080A9E8A   8118 strh r0, [r3, 8h]
+080A9E8C   2119 mov r1, 19h
+080A9E8E   5679 ldrsb r1, [r7, r1]
+080A9E90   00C9 lsl r1, r1, 3h
+080A9E92   7A5A ldrb r2, [r3, 9h]
+080A9E94   2007 mov r0, 7h
+080A9E96   4010 and r0, r2
+080A9E98   4308 orr r0, r1
+080A9E9A   7258 strb r0, [r3, 9h]
+080A9E9C   211A mov r1, 1Ah
+080A9E9E   5679 ldrsb r1, [r7, r1]
+080A9EA0   4029 and r1, r5
+080A9EA2   7A9A ldrb r2, [r3, Ah]
+080A9EA4   2020 mov r0, 20h
+080A9EA6   4240 neg r0, r0
+080A9EA8   4010 and r0, r2
+080A9EAA   4308 orr r0, r1
+080A9EAC   7298 strb r0, [r3, Ah]
+080A9EAE   211D mov r1, 1Dh
+080A9EB0   5679 ldrsb r1, [r7, r1]
+080A9EB2   4021 and r1, r4
+080A9EB4   0149 lsl r1, r1, 5h
+080A9EB6   895A ldrh r2, [r3, Ah]
+080A9EB8   48AE ldr r0, [pc, 2B8h]    ([000AA174]=FFFFFC1F)
+080A9EBA   4010 and r0, r2
+080A9EBC   4308 orr r0, r1
+080A9EBE   8158 strh r0, [r3, Ah]
+080A9EC0   8BFA ldrh r2, [r7, 1Eh]
+080A9EC2   1C11 mov r1, r2
+080A9EC4   4031 and r1, r6
+080A9EC6   0089 lsl r1, r1, 2h
+080A9EC8   7ADC ldrb r4, [r3, Bh]
+
+080A9ECA   2503 mov r5, 3h
+080A9ECC   1C28 mov r0, r5
+080A9ECE   4020 and r0, r4
+080A9ED0   4308 orr r0, r1
+080A9ED2   72D8 strb r0, [r3, Bh]
+080A9ED4   0992 lsr r2, r2, 6h
+080A9ED6   731A strb r2, [r3, Ch]
+080A9ED8   8C3A ldrh r2, [r7, 20h]
+080A9EDA   4CA7 ldr r4, [pc, 29Ch]    ([000AA178]=00003FFF)
+080A9EDC   4022 and r2, r4
+080A9EDE   0212 lsl r2, r2, 8h
+080A9EE0   9803 ldr r0, [sp, Ch]
+080A9EE2   49A6 ldr r1, [pc, 298h]    ([000AA17C]=FFC000FF)
+080A9EE4   4008 and r0, r1
+080A9EE6   4310 orr r0, r2
+080A9EE8   9003 str r0, [sp, Ch]
+080A9EEA   8C79 ldrh r1, [r7, 22h]
+080A9EEC   48A4 ldr r0, [pc, 290h]    ([000AA180]=000003FF)
+080A9EEE   4008 and r0, r1
+080A9EF0   0180 lsl r0, r0, 6h
+080A9EF2   89DA ldrh r2, [r3, Eh]
+080A9EF4   4016 and r6, r2
+080A9EF6   4306 orr r6, r0
+080A9EF8   81DE strh r6, [r3, Eh]
+080A9EFA   0A89 lsr r1, r1, Ah
+080A9EFC   4640 mov r0, r8
+080A9EFE   4001 and r1, r0
+080A9F00   7C1A ldrb r2, [r3, 10h]
+080A9F02   2010 mov r0, 10h
+080A9F04   4240 neg r0, r0
+080A9F06   4010 and r0, r2
+080A9F08   4308 orr r0, r1
+080A9F0A   7418 strb r0, [r3, 10h]
+080A9F0C   8CB9 ldrh r1, [r7, 24h]
+080A9F0E   4021 and r1, r4
+080A9F10   0109 lsl r1, r1, 4h
+080A9F12   9804 ldr r0, [sp, 10h]
+080A9F14   4A9B ldr r2, [pc, 26Ch]    ([000AA184]=FFFC000F)
+080A9F16   4010 and r0, r2
+080A9F18   4308 orr r0, r1
+080A9F1A   9004 str r0, [sp, 10h]
+080A9F1C   466A mov r2, sp
+080A9F1E   8CF8 ldrh r0, [r7, 26h]
+080A9F20   0080 lsl r0, r0, 2h
+080A9F22   8A51 ldrh r1, [r2, 12h]
+080A9F24   400D and r5, r1
+080A9F26   4305 orr r5, r0
+080A9F28   8255 strh r5, [r2, 12h]
+080A9F2A   4669 mov r1, sp
+080A9F2C   78C8 ldrb r0, [r1, 3h]
+080A9F2E   4655 mov r5, r10
+080A9F30   4005 and r5, r0
+080A9F32   70CD strb r5, [r1, 3h]
+080A9F34   888A ldrh r2, [r1, 4h]
+080A9F36   4E94 ldr r6, [pc, 250h]    ([000AA188]=FFFFF000)
+080A9F38   1C30 mov r0, r6
+080A9F3A   4010 and r0, r2
+080A9F3C   8088 strh r0, [r1, 4h]
+080A9F3E   68F8 ldr r0, [r7, Ch]
+080A9F40   2104 mov r1, 4h
+080A9F42   4688 mov r8, r1
+080A9F44   4008 and r0, r1
+080A9F46   2800 cmp r0, 0h
+080A9F48   D00F beq 80A9F6Ah
+080A9F4A   4668 mov r0, sp
+080A9F4C   8882 ldrh r2, [r0, 4h]
+080A9F4E   4C8F ldr r4, [pc, 23Ch]    ([000AA18C]=00000FFF)
+080A9F50   4022 and r2, r4
+080A9F52   4660 mov r0, r12
+080A9F54   0841 lsr r1, r0, 1h
+080A9F56   01C0 lsl r0, r0, 7h
+080A9F58   4328 orr r0, r5
+080A9F5A   70D8 strb r0, [r3, 3h]
+080A9F5C   4311 orr r1, r2
+080A9F5E   4021 and r1, r4
+080A9F60   889A ldrh r2, [r3, 4h]
+080A9F62   1C30 mov r0, r6
+080A9F64   4010 and r0, r2
+080A9F66   4308 orr r0, r1
+080A9F68   8098 strh r0, [r3, 4h]
+080A9F6A   68F8 ldr r0, [r7, Ch]
+080A9F6C   2108 mov r1, 8h
+080A9F6E   4689 mov r9, r1
+080A9F70   4008 and r0, r1
+080A9F72   2800 cmp r0, 0h
+080A9F74   D019 beq 80A9FAAh
+080A9F76   466B mov r3, sp
+080A9F78   4668 mov r0, sp
+080A9F7A   78C4 ldrb r4, [r0, 3h]
+080A9F7C   09E1 lsr r1, r4, 7h
+080A9F7E   8882 ldrh r2, [r0, 4h]
+080A9F80   4D82 ldr r5, [pc, 208h]    ([000AA18C]=00000FFF)
+080A9F82   402A and r2, r5
+080A9F84   0052 lsl r2, r2, 1h
+080A9F86   430A orr r2, r1
+080A9F88   2002 mov r0, 2h
+080A9F8A   4302 orr r2, r0
+080A9F8C   1C11 mov r1, r2
+080A9F8E   4660 mov r0, r12
+080A9F90   4001 and r1, r0
+080A9F92   01C9 lsl r1, r1, 7h
+080A9F94   4650 mov r0, r10
+080A9F96   4020 and r0, r4
+080A9F98   4308 orr r0, r1
+080A9F9A   70D8 strb r0, [r3, 3h]
+080A9F9C   0852 lsr r2, r2, 1h
+080A9F9E   402A and r2, r5
+080A9FA0   8899 ldrh r1, [r3, 4h]
+080A9FA2   1C30 mov r0, r6
+080A9FA4   4008 and r0, r1
+080A9FA6   4310 orr r0, r2
+080A9FA8   8098 strh r0, [r3, 4h]
+080A9FAA   68F8 ldr r0, [r7, Ch]
+080A9FAC   2180 mov r1, 80h
+080A9FAE   01C9 lsl r1, r1, 7h
+080A9FB0   4008 and r0, r1
+080A9FB2   2800 cmp r0, 0h
+080A9FB4   D019 beq 80A9FEAh
+080A9FB6   466B mov r3, sp
+080A9FB8   4668 mov r0, sp
+080A9FBA   78C4 ldrb r4, [r0, 3h]
+080A9FBC   09E2 lsr r2, r4, 7h
+080A9FBE   8881 ldrh r1, [r0, 4h]
+080A9FC0   4D72 ldr r5, [pc, 1C8h]    ([000AA18C]=00000FFF)
+080A9FC2   4029 and r1, r5
+080A9FC4   0049 lsl r1, r1, 1h
+080A9FC6   4311 orr r1, r2
+080A9FC8   4640 mov r0, r8
+080A9FCA   4301 orr r1, r0
+080A9FCC   1C0A mov r2, r1
+080A9FCE   4660 mov r0, r12
+080A9FD0   4002 and r2, r0
+080A9FD2   01D2 lsl r2, r2, 7h
+080A9FD4   4650 mov r0, r10
+080A9FD6   4020 and r0, r4
+080A9FD8   4310 orr r0, r2
+080A9FDA   70D8 strb r0, [r3, 3h]
+080A9FDC   0849 lsr r1, r1, 1h
+080A9FDE   4029 and r1, r5
+080A9FE0   889A ldrh r2, [r3, 4h]
+080A9FE2   1C30 mov r0, r6
+080A9FE4   4010 and r0, r2
+080A9FE6   4308 orr r0, r1
+080A9FE8   8098 strh r0, [r3, 4h]
+080A9FEA   68F8 ldr r0, [r7, Ch]
+080A9FEC   2180 mov r1, 80h
+080A9FEE   0209 lsl r1, r1, 8h
+080A9FF0   4008 and r0, r1
+080A9FF2   2800 cmp r0, 0h
+080A9FF4   D019 beq 80AA02Ah
+080A9FF6   466B mov r3, sp
+080A9FF8   4668 mov r0, sp
+080A9FFA   78C4 ldrb r4, [r0, 3h]
+080A9FFC   09E2 lsr r2, r4, 7h
+080A9FFE   8881 ldrh r1, [r0, 4h]
+080AA000   4D62 ldr r5, [pc, 188h]    ([000AA18C]=00000FFF)
+080AA002   4029 and r1, r5
+080AA004   0049 lsl r1, r1, 1h
+080AA006   4311 orr r1, r2
+080AA008   4648 mov r0, r9
+080AA00A   4301 orr r1, r0
+080AA00C   1C0A mov r2, r1
+080AA00E   4660 mov r0, r12
+080AA010   4002 and r2, r0
+080AA012   01D2 lsl r2, r2, 7h
+080AA014   4650 mov r0, r10
+080AA016   4020 and r0, r4
+080AA018   4310 orr r0, r2
+080AA01A   70D8 strb r0, [r3, 3h]
+080AA01C   0849 lsr r1, r1, 1h
+080AA01E   4029 and r1, r5
+080AA020   889A ldrh r2, [r3, 4h]
+080AA022   1C30 mov r0, r6
+080AA024   4010 and r0, r2
+080AA026   4308 orr r0, r1
+080AA028   8098 strh r0, [r3, 4h]
+080AA02A   68F8 ldr r0, [r7, Ch]
+080AA02C   2180 mov r1, 80h
+080AA02E   0189 lsl r1, r1, 6h
+080AA030   4008 and r0, r1
+080AA032   2800 cmp r0, 0h
+080AA034   D019 beq 80AA06Ah
+080AA036   466B mov r3, sp
+080AA038   4668 mov r0, sp
+080AA03A   78C4 ldrb r4, [r0, 3h]
+080AA03C   09E1 lsr r1, r4, 7h
+080AA03E   8882 ldrh r2, [r0, 4h]
+080AA040   4D52 ldr r5, [pc, 148h]    ([000AA18C]=00000FFF)
+080AA042   402A and r2, r5
+080AA044   0052 lsl r2, r2, 1h
+080AA046   430A orr r2, r1
+080AA048   2010 mov r0, 10h
+080AA04A   4302 orr r2, r0
+080AA04C   1C11 mov r1, r2
+080AA04E   4660 mov r0, r12
+080AA050   4001 and r1, r0
+080AA052   01C9 lsl r1, r1, 7h
+080AA054   4650 mov r0, r10
+080AA056   4020 and r0, r4
+080AA058   4308 orr r0, r1
+080AA05A   70D8 strb r0, [r3, 3h]
+080AA05C   0852 lsr r2, r2, 1h
+080AA05E   402A and r2, r5
+080AA060   8899 ldrh r1, [r3, 4h]
+080AA062   1C30 mov r0, r6
+080AA064   4008 and r0, r1
+080AA066   4310 orr r0, r2
+080AA068   8098 strh r0, [r3, 4h]
+080AA06A   68F8 ldr r0, [r7, Ch]
+080AA06C   2180 mov r1, 80h
+080AA06E   0249 lsl r1, r1, 9h
+080AA070   4008 and r0, r1
+080AA072   2800 cmp r0, 0h
+080AA074   D019 beq 80AA0AAh
+080AA076   466B mov r3, sp
+080AA078   4668 mov r0, sp
+080AA07A   78C4 ldrb r4, [r0, 3h]
+080AA07C   09E1 lsr r1, r4, 7h
+080AA07E   8882 ldrh r2, [r0, 4h]
+080AA080   4D42 ldr r5, [pc, 108h]    ([000AA18C]=00000FFF)
+080AA082   402A and r2, r5
+080AA084   0052 lsl r2, r2, 1h
+080AA086   430A orr r2, r1
+080AA088   2020 mov r0, 20h
+080AA08A   4302 orr r2, r0
+080AA08C   1C11 mov r1, r2
+080AA08E   4660 mov r0, r12
+080AA090   4001 and r1, r0
+080AA092   01C9 lsl r1, r1, 7h
+080AA094   4650 mov r0, r10
+080AA096   4020 and r0, r4
+080AA098   4308 orr r0, r1
+080AA09A   70D8 strb r0, [r3, 3h]
+080AA09C   0852 lsr r2, r2, 1h
+080AA09E   402A and r2, r5
+080AA0A0   8899 ldrh r1, [r3, 4h]
+080AA0A2   1C30 mov r0, r6
+080AA0A4   4008 and r0, r1
+080AA0A6   4310 orr r0, r2
+080AA0A8   8098 strh r0, [r3, 4h]
+080AA0AA   68F8 ldr r0, [r7, Ch]
+080AA0AC   2180 mov r1, 80h
+080AA0AE   0489 lsl r1, r1, 12h
+080AA0B0   4008 and r0, r1
+080AA0B2   2800 cmp r0, 0h
+080AA0B4   D019 beq 80AA0EAh
+080AA0B6   466B mov r3, sp
+080AA0B8   4668 mov r0, sp
+080AA0BA   78C4 ldrb r4, [r0, 3h]
+080AA0BC   09E1 lsr r1, r4, 7h
+080AA0BE   8882 ldrh r2, [r0, 4h]
+080AA0C0   4D32 ldr r5, [pc, C8h]    ([000AA18C]=00000FFF)
+080AA0C2   402A and r2, r5
+080AA0C4   0052 lsl r2, r2, 1h
+080AA0C6   430A orr r2, r1
+080AA0C8   2040 mov r0, 40h
+080AA0CA   4302 orr r2, r0
+080AA0CC   1C11 mov r1, r2
+080AA0CE   4660 mov r0, r12
+080AA0D0   4001 and r1, r0
+080AA0D2   01C9 lsl r1, r1, 7h
+080AA0D4   4650 mov r0, r10
+080AA0D6   4020 and r0, r4
+080AA0D8   4308 orr r0, r1
+080AA0DA   70D8 strb r0, [r3, 3h]
+080AA0DC   0852 lsr r2, r2, 1h
+080AA0DE   402A and r2, r5
+080AA0E0   8899 ldrh r1, [r3, 4h]
+080AA0E2   1C30 mov r0, r6
+080AA0E4   4008 and r0, r1
+080AA0E6   4310 orr r0, r2
+080AA0E8   8098 strh r0, [r3, 4h]
+080AA0EA   68F8 ldr r0, [r7, Ch]
+080AA0EC   2180 mov r1, 80h
+080AA0EE   0389 lsl r1, r1, Eh
+080AA0F0   4008 and r0, r1
+080AA0F2   2800 cmp r0, 0h
+080AA0F4   D019 beq 80AA12Ah
+080AA0F6   466B mov r3, sp
+080AA0F8   4668 mov r0, sp
+080AA0FA   78C4 ldrb r4, [r0, 3h]
+080AA0FC   09E1 lsr r1, r4, 7h
+080AA0FE   8882 ldrh r2, [r0, 4h]
+080AA100   4D22 ldr r5, [pc, 88h]    ([000AA18C]=00000FFF)
+080AA102   402A and r2, r5
+080AA104   0052 lsl r2, r2, 1h
+080AA106   430A orr r2, r1
+080AA108   2080 mov r0, 80h
+080AA10A   4302 orr r2, r0
+080AA10C   1C11 mov r1, r2
+080AA10E   4660 mov r0, r12
+080AA110   4001 and r1, r0
+080AA112   01C9 lsl r1, r1, 7h
+080AA114   4650 mov r0, r10
+080AA116   4020 and r0, r4
+080AA118   4308 orr r0, r1
+080AA11A   70D8 strb r0, [r3, 3h]
+080AA11C   0852 lsr r2, r2, 1h
+080AA11E   402A and r2, r5
+080AA120   8899 ldrh r1, [r3, 4h]
+080AA122   1C30 mov r0, r6
+080AA124   4008 and r0, r1
+080AA126   4310 orr r0, r2
+080AA128   8098 strh r0, [r3, 4h]
+080AA12A   2200 mov r2, 0h
+080AA12C   466D mov r5, sp
+080AA12E   351D add r5, 1Dh
+080AA130   1C3E mov r6, r7
+080AA132   3632 add r6, 32h
+080AA134   466C mov r4, sp
+080AA136   3415 add r4, 15h
+080AA138   1C3B mov r3, r7
+080AA13A   3328 add r3, 28h
+080AA13C   18A0 add r0, r4, r2
+080AA13E   1899 add r1, r3, r2
+080AA140   7809 ldrb r1, [r1, 0h]
+080AA142   7001 strb r1, [r0, 0h]
+080AA144   3201 add r2, 1h
+080AA146   2A07 cmp r2, 7h
+080AA148   DDF8 ble 80AA13Ch<-------规划8种武器的蕘E范妊?
+080AA14A   2200 mov r2, 0h
+080AA14C   1C2C mov r4, r5
+080AA14E   1C33 mov r3, r6
+080AA150   18A0 add r0, r4, r2
+080AA152   1899 add r1, r3, r2
+080AA154   7809 ldrb r1, [r1, 0h]
+080AA156   7001 strb r1, [r0, 0h]
+080AA158   3201 add r2, 1h
+080AA15A   2A06 cmp r2, 6h
+080AA15C   E018 b 80AA190h<-------规划7个支援人蝸E?
+
+080AA15E   0000 lsl r0, r0, 0----------->屏蔽数据
+080AA160 FFFFF07F bl 812A162h
+080AA164   0FFF lsr r7, r7, 1Fh
+080AA166 FE07FFF8 bl 8129D72h
+080AA16A   FFFF [???]
+080AA16C   0FFF lsr r7, r7, 1Fh
+080AA16E F83FFFFC bl 81291E2h
+080AA172 FC1FFFFF bl 81299A2h
+080AA176   FFFF [???]
+080AA178   3FFF sub r7, FFh
+080AA17A   0000 lsl r0, r0, 0
+080AA17C   00FF lsl r7, r7, 3h
+080AA17E   FFC0 [???]
+080AA180   03FF lsl r7, r7, Fh
+080AA182   0000 lsl r0, r0, 0
+080AA184   000F lsl r7, r1, 0
+080AA186   FFFC [???]
+080AA188 FFFFF000 bl 80AB18Ah
+080AA18C   0FFF lsr r7, r7, 1Fh
+080AA18E   0000 lsl r0, r0, 0<-----------屏蔽数据
+
+080AA190   DDDE ble 80AA150h
+080AA192   4668 mov r0, sp
+080AA194   991B ldr r1, [sp, 6Ch]
+080AA196   2224 mov r2, 24h
+080AA198 F9D6F02C bl 80D6548h
+080AA19C   B01C add sp, 70h
+080AA19E   BC38 pop r3-r5
+080AA1A0   4698 mov r8, r3
+080AA1A2   46A1 mov r9, r4
+080AA1A4   46AA mov r10, r5
+080AA1A6   BCF0 pop r4-r7
+080AA1A8   BC01 pop r0
+080AA1AA   4700 bx r0
+--------------------
+====================
+第一级+TWO
+
+080AA418   B500 push , lr
+080AA41A   B082 sub sp, 8h
+080AA41C   4905 ldr r1, [pc, 14h]    ([000AA434]=03006790)
+080AA41E   680B ldr r3, [r1, 0h]<------R3=03002AB1
+080AA420   4669 mov r1, sp<---------sp=03007D70
+080AA422   2208 mov r2, 8h
+080AA424 F8D0F02C bl 80D65C8h<-----从ROM中0E00473C读出数据到03007D70,还是一一对应.080AA422   2208 mov r2, 8h就是循环次数.
+080AA428   4668 mov r0, sp
+080AA42A FBF1F001 bl 80ABC10h<----可能是读出的数据处纴E?
+080AA42E   B002 add sp, 8h
+080AA430   BC01 pop r0
+080AA432   4700 bx r0
+=====================
+
+第二级
+-------------
+08018EA4   B510 push r4, lr
+08018EA6   1C04 mov r4, r0
+08018EA8 FD12F7FD bl 80168D0h<----------五竵E武器\蝸E?)判定顺位
+08018EAC   0400 lsl r0, r0, 10h
+08018EAE   0C00 lsr r0, r0, 10h
+08018EB0 F972F7FD bl 8016198h<--------武器的第0C位数据判定,0C位=附加属性
+08018EB4   1C01 mov r1, r0
+08018EB6   2012 mov r0, 12h
+08018EB8   5620 ldrsb r0, [r4, r0]
+08018EBA   1840 add r0, r0, r1
+08018EBC   BC10 pop r4
+08018EBE   BC02 pop r1
+08018EC0   4708 bx r1
+-----------------
+08019040   B530 push r4-r5, lr
+08019042   1C05 mov r5, r0
+08019044   74E9 strb r1, [r5, 13h]
+08019046   2413 mov r4, 13h
+08019048   572C ldrsb r4, [r5, r4]
+0801904A FC41F7FD bl 80168D0h<----------五竵E武器\蝸E?)判定顺位
+0801904E   0400 lsl r0, r0, 10h
+08019050   0C00 lsr r0, r0, 10h
+08019052 F8A1F7FD bl 8016198h<--------武器的第0C位数据判定,0C位=附加属性
+08019056   2112 mov r1, 12h
+08019058   5669 ldrsb r1, [r5, r1]
+0801905A   1809 add r1, r1, r0
+0801905C   428C cmp r4, r1
+0801905E   DD0A ble 8019076h
+08019060   1C28 mov r0, r5
+08019062 FC35F7FD bl 80168D0h<----------五竵E武器\蝸E?)判定顺位
+08019066   0400 lsl r0, r0, 10h
+08019068   0C00 lsr r0, r0, 10h
+0801906A F895F7FD bl 8016198h<--------武器的第0C位数据判定,0C位=附加属性
+0801906E   2112 mov r1, 12h
+08019070   5669 ldrsb r1, [r5, r1]
+08019072   1809 add r1, r1, r0
+08019074   74E9 strb r1, [r5, 13h]
+08019076   BC30 pop r4-r5
+08019078   BC01 pop r0
+0801907A   4700 bx r0
+--------------------记录存\读程序蛠E?
+==================================
+
+==================================================================================================
+
+===========================
+中断程衼E
+
+存档读出前数据清羴E
+0801756C   B5F0 push r4-r7, lr
+0801756E   2500 mov r5, 0h
+08017570   4F09 ldr r7, [pc, 24h]    ([00017598]=085C2A50)
+08017572   26FF mov r6, FFh
+08017574   1C28 mov r0, r5
+08017576   4030 and r0, r6
+08017578   0080 lsl r0, r0, 2h
+0801757A   19C0 add r0, r0, r7
+0801757C   6804 ldr r4, [r0, 0h]
+0801757E   2C00 cmp r4, 0h
+08017580   D003 beq 801758Ah
+08017582   1C20 mov r0, r4
+08017584 F80AF000 bl 801759Ch
+08017588   72E5 strb r5, [r4, Bh]
+0801758A   3501 add r5, 1h
+0801758C   2DFF cmp r5, FFh
+0801758E   DDF1 ble 8017574h
+08017590   BCF0 pop r4-r7
+08017592   BC01 pop r0
+08017594   4700 bx r0
+
+08017596   0000 lsl r0, r0, 0
+08017598   2A50 cmp r2, 50h
+0801759A   085C lsr r4, r3, 1h
+
+0801759C   B530 push r4-r5, lr
+0801759E   B081 sub sp, 4h
+080175A0   1C04 mov r4, r0
+080175A2   7AE5 ldrb r5, [r4, Bh]
+080175A4   4669 mov r1, sp
+080175A6   2000 mov r0, 0h
+080175A8   8008 strh r0, [r1, 0h]
+080175AA   4A05 ldr r2, [pc, 14h]    ([000175C0]=01000024)
+080175AC   4668 mov r0, sp
+080175AE   1C21 mov r1, r4
+080175B0 FEDEF0BE bl 80D6370h
+080175B4   72E5 strb r5, [r4, Bh]
+080175B6   B001 add sp, 4h
+080175B8   BC30 pop r4-r5
+080175BA   BC01 pop r0
+080175BC   4700 bx r0
+
+080175BE   0000 lsl r0, r0, 0
+080175C0   0024 lsl r4, r4, 0
+080175C2   0100 lsl r0, r0, 4h<--------([000175C0]=01000024)
+
+080175C4   B530 push r4-r5, lr
+080175C6   1C02 mov r2, r0
+080175C8   1C0C mov r4, r1
+080175CA   7AE5 ldrb r5, [r4, Bh]
+080175CC   1C20 mov r0, r4
+080175CE   1C11 mov r1, r2
+080175D0   2248 mov r2, 48h
+080175D2 F999F0BF bl 80D6908h
+080175D6   72E5 strb r5, [r4, Bh]
+080175D8   BC30 pop r4-r5
+080175DA   BC01 pop r0
+080175DC   4700 bx r0
+---------------------
+
+==================
+中断程序原程衼E
+
+前面＜－－－－－中断存档人蝸E莩绦丒
+
+中断读档恢复人蝸E莩绦丒
+
+080AAB30   B5F0 push r4-r7, lr
+080AAB32   4657 mov r7, r10
+080AAB34   464E mov r6, r9
+080AAB36   4645 mov r5, r8
+080AAB38   B4E0 push r5-r7
+080AAB3A   B093 sub sp, 4Ch
+080AAB3C   1C0E mov r6, r1
+080AAB3E   4990 ldr r1, [pc, 240h]    ([000AAD80]=03006790)
+080AAB40   680B ldr r3, [r1, 0h]
+080AAB42   4669 mov r1, sp
+080AAB44   2234 mov r2, 34h
+080AAB46 FD3FF02B bl 80D65C8h<-----读出数据觼E娴凳莨贸绦丒.这纴E嵌恋?.
+080AAB4A   4668 mov r0, sp
+080AAB4C   7800 ldrb r0, [r0, 0h]
+080AAB4E FAF5F76E bl 801913Ch
+080AAB52   6030 str r0, [r6, 0h]<------恢复人蝸E莸谝恢刚丒人蝸E丒
+080AAB54   4668 mov r0, sp
+080AAB56   7840 ldrb r0, [r0, 1h]
+080AAB58 FAE0F76E bl 801911Ch
+080AAB5C   6070 str r0, [r6, 4h]<------恢复人蝸E莸诙刚丒职业代聛E
+
+080AAB5E   A809 add r0, sp, 24h
+080AAB60   7800 ldrb r0, [r0, 0h]
+080AAB62   06C0 lsl r0, r0, 1Bh
+080AAB64   0EC0 lsr r0, r0, 1Bh<-------屏蔽数据,这纴Eτ丒卸洗娴凳萘闲薷?
+080AAB66   7230 strb r0, [r6, 8h]<------恢复人蝸E莸燃?(此类数值都是十六进制,如LV20=14)
+080AAB68   4668 mov r0, sp
+080AAB6A   7C00 ldrb r0, [r0, 10h]
+080AAB6C   7270 strb r0, [r6, 9h]<------恢复人蝸E菥丒
+080AAB6E   9801 ldr r0, [sp, 4h]
+080AAB70   60F0 str r0, [r6, Ch]
+080AAB72   4668 mov r0, sp
+080AAB74   8C80 ldrh r0, [r0, 24h]
+080AAB76   0540 lsl r0, r0, 15h
+080AAB78   0E80 lsr r0, r0, 1Ah<-------屏蔽数据,这纴Eτ丒卸洗娴凳萘闲薷?
+080AAB7A   7430 strb r0, [r6, 10h]<----该人蝸E牡赝甲丒X謥E
+080AAB7C   9809 ldr r0, [sp, 24h]
+080AAB7E   03C0 lsl r0, r0, Fh
+080AAB80   0E80 lsr r0, r0, 1Ah<-------屏蔽数据,这纴Eτ丒卸洗娴凳萘闲薷?
+080AAB82   7470 strb r0, [r6, 11h]<----该人蝸E牡赝甲丒Y謥E
+080AAB84   4668 mov r0, sp
+080AAB86   7B80 ldrb r0, [r0, Eh]
+080AAB88   74B0 strb r0, [r6, 12h]<----该人蝸E淖驢P(推荐为60=3C)
+080AAB8A   4668 mov r0, sp
+080AAB8C   7BC0 ldrb r0, [r0, Fh]
+080AAB8E   74F0 strb r0, [r6, 13h]<----该人蝸E南钟蠬P
+080AAB90   4668 mov r0, sp
+080AAB92   3026 add r0, 26h
+080AAB94   7800 ldrb r0, [r0, 0h]
+080AAB96   0680 lsl r0, r0, 1Ah
+080AAB98   0EC0 lsr r0, r0, 1Bh<-------屏蔽数据,这纴Eτ丒卸洗娴凳萘闲薷?
+080AAB9A   7530 strb r0, [r6, 14h]<-----力量
+080AAB9C   4668 mov r0, sp
+080AAB9E   8CC0 ldrh r0, [r0, 26h]
+080AABA0   0540 lsl r0, r0, 15h
+080AABA2   0EC0 lsr r0, r0, 1Bh<-------屏蔽数据,这纴Eτ丒卸洗娴凳萘闲薷?
+080AABA4   7570 strb r0, [r6, 15h]<-----技蕘E
+080AABA6   4668 mov r0, sp
+080AABA8   3027 add r0, 27h
+080AABAA   7800 ldrb r0, [r0, 0h]
+080AABAC   08C0 lsr r0, r0, 3h
+080AABAE   75B0 strb r0, [r6, 16h]<-----速度
+080AABB0   A80A add r0, sp, 28h
+080AABB2   7800 ldrb r0, [r0, 0h]
+080AABB4   06C0 lsl r0, r0, 1Bh
+080AABB6   0EC0 lsr r0, r0, 1Bh<-------屏蔽数据,这纴Eτ丒卸洗娴凳萘闲薷?
+080AABB8   75F0 strb r0, [r6, 17h]<-----守备
+080AABBA   4668 mov r0, sp
+080AABBC   8D00 ldrh r0, [r0, 28h]
+080AABBE   0580 lsl r0, r0, 16h
+080AABC0   0EC0 lsr r0, r0, 1Bh<-------屏蔽数据,这纴Eτ丒卸洗娴凳萘闲薷?
+080AABC2   7630 strb r0, [r6, 18h]<-----魔防
+080AABC4   4668 mov r0, sp
+080AABC6   3029 add r0, 29h
+080AABC8   7800 ldrb r0, [r0, 0h]
+080AABCA   0640 lsl r0, r0, 19h
+080AABCC   0EC0 lsr r0, r0, 1Bh<-------屏蔽数据,这纴Eτ丒卸洗娴凳萘闲薷?
+080AABCE   7670 strb r0, [r6, 19h]<-----幸运
+080AABD0   980A ldr r0, [sp, 28h]
+080AABD2   0300 lsl r0, r0, Ch
+080AABD4   0EC0 lsr r0, r0, 1Bh<-------屏蔽数据,这纴Eτ丒卸洗娴凳萘闲薷?
+080AABD6   76B0 strb r0, [r6, 1Ah]<-----体竵E
+080AABD8   4668 mov r0, sp
+080AABDA   302A add r0, 2Ah
+080AABDC   7800 ldrb r0, [r0, 0h]
+080AABDE   0640 lsl r0, r0, 19h
+080AABE0   1C34 mov r4, r6
+080AABE2   3430 add r4, 30h
+080AABE4   250F mov r5, Fh
+080AABE6   0F40 lsr r0, r0, 1Dh
+080AABE8   7821 ldrb r1, [r4, 0h]
+080AABEA   2710 mov r7, 10h
+080AABEC   427F neg r7, r7
+080AABEE   1C3B mov r3, r7
+080AABF0   400B and r3, r1
+080AABF2   4303 orr r3, r0
+080AABF4   7023 strb r3, [r4, 0h]<-----状态
+080AABF6   0718 lsl r0, r3, 1Ch
+080AABF8   0F02 lsr r2, r0, 1Ch<-------屏蔽数据,这纴E绦虿酱嫣?,保留了状态
+
+080AABFA   4668 mov r0, sp
+080AABFC   7881 ldrb r1, [r0, 2h]
+080AABFE   2080 mov r0, 80h
+080AAC00   4680 mov r8, r0
+080AAC02   4008 and r0, r1
+080AAC04   2800 cmp r0, 0h
+080AAC06   D001 beq 80AAC0Ch
+080AAC08   2008 mov r0, 8h
+080AAC0A   4302 orr r2, r0
+080AAC0C   4668 mov r0, sp
+080AAC0E   8D40 ldrh r0, [r0, 2Ah]
+080AAC10   0580 lsl r0, r0, 16h
+080AAC12   0F40 lsr r0, r0, 1Dh
+080AAC14   0100 lsl r0, r0, 4h
+080AAC16   402A and r2, r5
+080AAC18   4302 orr r2, r0
+080AAC1A   7022 strb r2, [r4, 0h]<-----再次状态
+080AAC1C   4668 mov r0, sp
+080AAC1E   302B add r0, 2Bh
+080AAC20   7801 ldrb r1, [r0, 0h]
+080AAC22   06C8 lsl r0, r1, 1Bh
+080AAC24   0F40 lsr r0, r0, 1Dh
+080AAC26   1C32 mov r2, r6
+080AAC28   3231 add r2, 31h
+080AAC2A   0949 lsr r1, r1, 5h
+080AAC2C   0109 lsl r1, r1, 4h
+080AAC2E   4028 and r0, r5
+080AAC30   4308 orr r0, r1
+080AAC32   7010 strb r0, [r2, 0h]
+080AAC34   4668 mov r0, sp
+080AAC36   78C0 ldrb r0, [r0, 3h]
+080AAC38   76F0 strb r0, [r6, 1Bh]<-----同行人蝸E
+080AAC3A   A80B add r0, sp, 2Ch
+080AAC3C   7800 ldrb r0, [r0, 0h]
+080AAC3E   0700 lsl r0, r0, 1Ch
+080AAC40   0F00 lsr r0, r0, 1Ch
+080AAC42   7770 strb r0, [r6, 1Dh]<----移动附加
+080AAC44   A80C add r0, sp, 30h
+080AAC46   7802 ldrb r2, [r0, 0h]
+080AAC48   207F mov r0, 7Fh
+080AAC4A   4010 and r0, r2
+080AAC4C   7730 strb r0, [r6, 1Ch]<-----未知 0202BE64 xx       ??
+080AAC4E   4668 mov r0, sp
+080AAC50   8905 ldrh r5, [r0, 8h]
+080AAC52   494C ldr r1, [pc, 130h]    ([000AAD84]=00003FFF)
+080AAC54   1C08 mov r0, r1
+080AAC56   4028 and r0, r5
+080AAC58   83F0 strh r0, [r6, 1Eh]<----第一武器\蝸E?
+080AAC5A   4668 mov r0, sp
+080AAC5C   8944 ldrh r4, [r0, Ah]
+080AAC5E   1C08 mov r0, r1
+080AAC60   4020 and r0, r4
+080AAC62   8430 strh r0, [r6, 20h]<----第二武器\蝸E?
+080AAC64   4668 mov r0, sp
+080AAC66   8983 ldrh r3, [r0, Ch]
+080AAC68   4019 and r1, r3
+080AAC6A   8471 strh r1, [r6, 22h]<----第三武器\蝸E?
+080AAC6C   980B ldr r0, [sp, 2Ch]
+080AAC6E   0380 lsl r0, r0, Eh
+080AAC70   0C80 lsr r0, r0, 12h
+080AAC72   84B0 strh r0, [r6, 24h]<----第四武器\蝸E?
+080AAC74   4668 mov r0, sp
+080AAC76   8DC0 ldrh r0, [r0, 2Eh]
+080AAC78   0880 lsr r0, r0, 2h
+080AAC7A   84F0 strh r0, [r6, 26h]<----第五武器\蝸E?
+
+080AAC7C   4641 mov r1, r8
+080AAC7E   4011 and r1, r2
+080AAC80   0609 lsl r1, r1, 18h
+080AAC82   0FC9 lsr r1, r1, 1Fh
+080AAC84   22C0 mov r2, C0h
+080AAC86   0212 lsl r2, r2, 8h
+080AAC88   1C10 mov r0, r2
+080AAC8A   4028 and r0, r5
+080AAC8C   0B40 lsr r0, r0, Dh
+080AAC8E   4308 orr r0, r1
+080AAC90   1C11 mov r1, r2
+080AAC92   4021 and r1, r4
+080AAC94   0AC9 lsr r1, r1, Bh
+080AAC96   4301 orr r1, r0
+080AAC98   401A and r2, r3
+080AAC9A   0A52 lsr r2, r2, 9h
+080AAC9C   430A orr r2, r1
+080AAC9E   1C30 mov r0, r6
+080AACA0   3039 add r0, 39h
+080AACA2   7002 strb r2, [r0, 0h]<-----未知 
+080AACA4   2200 mov r2, 0h
+080AACA6   1C37 mov r7, r6
+080AACA8   3732 add r7, 32h
+080AACAA   466D mov r5, sp
+080AACAC   351A add r5, 1Ah
+080AACAE   2142 mov r1, 42h
+080AACB0   1989 add r1, r1, r6
+080AACB2   468A mov r10, r1
+080AACB4   2021 mov r0, 21h
+080AACB6   4468 add r0, sp
+080AACB8   4684 mov r12, r0
+080AACBA   1C31 mov r1, r6
+080AACBC   3143 add r1, 43h
+080AACBE   910F str r1, [sp, 3Ch]
+080AACC0   2022 mov r0, 22h
+080AACC2   4468 add r0, sp
+080AACC4   4680 mov r8, r0
+080AACC6   3101 add r1, 1h
+080AACC8   9110 str r1, [sp, 40h]
+080AACCA   2023 mov r0, 23h
+080AACCC   4468 add r0, sp
+080AACCE   4681 mov r9, r0
+080AACD0   3101 add r1, 1h
+080AACD2   9111 str r1, [sp, 44h]
+080AACD4   1C30 mov r0, r6
+080AACD6   3040 add r0, 40h
+080AACD8   900E str r0, [sp, 38h]
+080AACDA   4669 mov r1, sp
+080AACDC   3131 add r1, 31h
+080AACDE   910D str r1, [sp, 34h]
+080AACE0   3006 add r0, 6h
+080AACE2   9012 str r0, [sp, 48h]<----地址柄真划
+080AACE4   1C34 mov r4, r6
+080AACE6   3428 add r4, 28h
+080AACE8   466B mov r3, sp
+080AACEA   3312 add r3, 12h
+080AACEC   18A0 add r0, r4, r2
+080AACEE   1899 add r1, r3, r2
+080AACF0   7809 ldrb r1, [r1, 0h]
+080AACF2   7001 strb r1, [r0, 0h]
+080AACF4   3201 add r2, 1h
+080AACF6   2A07 cmp r2, 7h
+080AACF8   DDF8 ble 80AACECh<-----蕘E范然乖?
+080AACFA   2200 mov r2, 0h
+080AACFC   1C3C mov r4, r7
+080AACFE   1C2B mov r3, r5
+080AAD00   18A0 add r0, r4, r2
+080AAD02   1899 add r1, r3, r2
+080AAD04   7809 ldrb r1, [r1, 0h]
+080AAD06   7001 strb r1, [r0, 0h]
+080AAD08   3201 add r2, 1h
+080AAD0A   2A06 cmp r2, 6h
+080AAD0C   DDF8 ble 80AAD00h<-----支援人蝸E乖?
+080AAD0E   4668 mov r0, sp
+080AAD10   7881 ldrb r1, [r0, 2h]
+080AAD12   207F mov r0, 7Fh
+080AAD14   4008 and r0, r1
+080AAD16   4651 mov r1, r10
+080AAD18   7008 strb r0, [r1, 0h]
+080AAD1A   4661 mov r1, r12
+080AAD1C   7808 ldrb r0, [r1, 0h]
+080AAD1E   990F ldr r1, [sp, 3Ch]
+080AAD20   7008 strb r0, [r1, 0h]
+080AAD22   4641 mov r1, r8
+080AAD24   7808 ldrb r0, [r1, 0h]
+080AAD26   9910 ldr r1, [sp, 40h]
+080AAD28   7008 strb r0, [r1, 0h]
+080AAD2A   4649 mov r1, r9
+080AAD2C   7808 ldrb r0, [r1, 0h]
+080AAD2E   9911 ldr r1, [sp, 44h]
+080AAD30   7008 strb r0, [r1, 0h]
+080AAD32   4668 mov r0, sp
+080AAD34   8E40 ldrh r0, [r0, 32h]
+080AAD36   990E ldr r1, [sp, 38h]
+080AAD38   8008 strh r0, [r1, 0h]
+080AAD3A   990D ldr r1, [sp, 34h]
+080AAD3C   7808 ldrb r0, [r1, 0h]
+080AAD3E   9912 ldr r1, [sp, 48h]
+080AAD40   7008 strb r0, [r1, 0h]<----地址柄真划
+080AAD42   4668 mov r0, sp
+080AAD44   7C40 ldrb r0, [r0, 11h]
+080AAD46   72B0 strb r0, [r6, Ah]<---不知道...---0202BE51 xx       经褋E 0202BE53 XX       人蝸E蕉匪澄坏氖荩?
+080AAD48   7A70 ldrb r0, [r6, 9h]
+080AAD4A   287F cmp r0, 7Fh
+080AAD4C   D101 bne 80AAD52h
+080AAD4E   20FF mov r0, FFh
+080AAD50   7270 strb r0, [r6, 9h]<-----经验规划
+080AAD52   7C31 ldrb r1, [r6, 10h]<----该人蝸E牡赝甲丒X謥E读取出来处纴E
+080AAD54   2010 mov r0, 10h
+080AAD56   5630 ldrsb r0, [r6, r0]<---??重复读硜E!
+080AAD58   283F cmp r0, 3Fh
+080AAD5A   D101 bne 80AAD60h
+080AAD5C   20FF mov r0, FFh
+080AAD5E   7430 strb r0, [r6, 10h]
+080AAD60   7C71 ldrb r1, [r6, 11h]<----该人蝸E牡赝甲丒Y謥E读取出来处纴E
+080AAD62   2011 mov r0, 11h
+080AAD64   5630 ldrsb r0, [r6, r0]<---??重复读硜E!
+080AAD66   283F cmp r0, 3Fh
+080AAD68   D101 bne 80AAD6Eh
+080AAD6A   20FF mov r0, FFh
+080AAD6C   7470 strb r0, [r6, 11h]
+080AAD6E   B013 add sp, 4Ch
+080AAD70   BC38 pop r3-r5
+080AAD72   4698 mov r8, r3
+080AAD74   46A1 mov r9, r4
+080AAD76   46AA mov r10, r5
+080AAD78   BCF0 pop r4-r7
+080AAD7A   BC01 pop r0
+080AAD7C   4700 bx r0
+
+080AAD7E   0000 lsl r0, r0, 0
+080AAD80   6790 str r0, [r2, 78h]
+080AAD82   0300 lsl r0, r0, Ch
+080AAD84   3FFF sub r7, FFh
+080AAD86   0000 lsl r0, r0, 0<-----指諄E?
+--------------------------
+
+
+中断存档人蝸E莩绦丒
+
+中断数据重0202BE48中读硜E经过处历煮放到02020188地址下面然后存放到0E00204C(这纴E?2档的中断),觼E锹汲绦蛴胁煌?!记录程序是用的栈地址.该程序是程序执行一个人就运行一次,相当频繁,所以俭省程序步可以有效的让程序省祦E
+
+080AA828   B5F0 push r4-r7, lr
+080AA82A   4657 mov r7, r10
+080AA82C   464E mov r6, r9
+080AA82E   4645 mov r5, r8
+080AA830   B4E0 push r5-r7
+080AA832   B089 sub sp, 24h
+080AA834   1C07 mov r7, r0
+080AA836   468C mov r12, r1
+080AA838   6838 ldr r0, [r7, 0h]
+080AA83A   2800 cmp r0, 0h
+080AA83C   D101 bne 80AA842h
+080AA83E   7008 strb r0, [r1, 0h]
+080AA840   E15D b 80AAAFEh<-------没有人蝸E纱司吞鲆韵率荽丒
+080AA842   7900 ldrb r0, [r0, 4h]<-----人蝸E莸谝恢刚丒人蝸E丒
+080AA844   4661 mov r1, r12
+080AA846   7008 strb r0, [r1, 0h]
+080AA848   6878 ldr r0, [r7, 4h]
+080AA84A   7900 ldrb r0, [r0, 4h]<------人蝸E莸诙刚丒职业代聛E
+080AA84C   7048 strb r0, [r1, 1h]
+080AA84E   2108 mov r1, 8h
+080AA850   5679 ldrsb r1, [r7, r1]<------人蝸E莸燃?(此类数值都是十六进制,如LV20=14)
+080AA852   4664 mov r4, r12
+080AA854   3424 add r4, 24h
+080AA856   251F mov r5, 1Fh
+080AA858   4029 and r1, r5
+080AA85A   7822 ldrb r2, [r4, 0h]
+080AA85C   2320 mov r3, 20h
+080AA85E   425B neg r3, r3
+080AA860   1C18 mov r0, r3
+080AA862   4010 and r0, r2
+080AA864   4308 orr r0, r1
+080AA866   7020 strb r0, [r4, 0h]
+080AA868   7A78 ldrb r0, [r7, 9h]<------人蝸E菥丒
+080AA86A   4662 mov r2, r12
+080AA86C   7410 strb r0, [r2, 10h]
+080AA86E   68F8 ldr r0, [r7, Ch]
+080AA870   6050 str r0, [r2, 4h]
+080AA872   2110 mov r1, 10h
+080AA874   5679 ldrsb r1, [r7, r1]<----该人蝸E牡赝甲丒X謥E
+080AA876   203F mov r0, 3Fh
+080AA878   4001 and r1, r0
+080AA87A   0149 lsl r1, r1, 5h
+080AA87C   8C92 ldrh r2, [r2, 24h]
+080AA87E   48A4 ldr r0, [pc, 290h]    ([000AAB10]=FFFFF81F)
+080AA880   4010 and r0, r2
+080AA882   4308 orr r0, r1
+080AA884   4661 mov r1, r12
+080AA886   8488 strh r0, [r1, 24h]
+080AA888   2211 mov r2, 11h
+080AA88A   56BA ldrsb r2, [r7, r2]<----该人蝸E牡赝甲丒Y謥E
+080AA88C   203F mov r0, 3Fh
+080AA88E   4002 and r2, r0
+080AA890   02D2 lsl r2, r2, Bh
+080AA892   6A48 ldr r0, [r1, 24h]
+080AA894   499F ldr r1, [pc, 27Ch]    ([000AAB14]=FFFE07FF)
+080AA896   4008 and r0, r1
+080AA898   4310 orr r0, r2
+080AA89A   4662 mov r2, r12
+080AA89C   6250 str r0, [r2, 24h]
+080AA89E   7CB8 ldrb r0, [r7, 12h]<----该人蝸E淖驢P(推荐为60=3C)
+080AA8A0   7390 strb r0, [r2, Eh]
+080AA8A2   7CF8 ldrb r0, [r7, 13h]<----该人蝸E南钟蠬P
+080AA8A4   73D0 strb r0, [r2, Fh]
+080AA8A6   2114 mov r1, 14h
+080AA8A8   5679 ldrsb r1, [r7, r1]<-----力量
+080AA8AA   3402 add r4, 2h
+080AA8AC   4029 and r1, r5
+080AA8AE   0049 lsl r1, r1, 1h
+080AA8B0   7822 ldrb r2, [r4, 0h]
+080AA8B2   203F mov r0, 3Fh
+080AA8B4   4240 neg r0, r0
+080AA8B6   4010 and r0, r2
+080AA8B8   4308 orr r0, r1
+080AA8BA   7020 strb r0, [r4, 0h]
+080AA8BC   2115 mov r1, 15h
+080AA8BE   5679 ldrsb r1, [r7, r1]<-----技蕘E
+080AA8C0   241F mov r4, 1Fh
+080AA8C2   4021 and r1, r4
+080AA8C4   0189 lsl r1, r1, 6h
+080AA8C6   4660 mov r0, r12
+080AA8C8   8CC2 ldrh r2, [r0, 26h]
+080AA8CA   4893 ldr r0, [pc, 24Ch]    ([000AAB18]=FFFFF83F)
+080AA8CC   4010 and r0, r2
+080AA8CE   4308 orr r0, r1
+080AA8D0   4661 mov r1, r12
+080AA8D2   84C8 strh r0, [r1, 26h]
+080AA8D4   2116 mov r1, 16h
+080AA8D6   5679 ldrsb r1, [r7, r1]<-----速度
+080AA8D8   2227 mov r2, 27h
+080AA8DA   4462 add r2, r12
+080AA8DC   4690 mov r8, r2
+080AA8DE   00C9 lsl r1, r1, 3h
+080AA8E0   7812 ldrb r2, [r2, 0h]
+080AA8E2   2607 mov r6, 7h
+080AA8E4   2007 mov r0, 7h
+080AA8E6   4010 and r0, r2
+080AA8E8   4308 orr r0, r1
+080AA8EA   4641 mov r1, r8
+080AA8EC   7008 strb r0, [r1, 0h]
+080AA8EE   2017 mov r0, 17h
+080AA8F0   5638 ldrsb r0, [r7, r0]<-----守备
+080AA8F2   4662 mov r2, r12
+080AA8F4   3228 add r2, 28h
+080AA8F6   4028 and r0, r5
+080AA8F8   7811 ldrb r1, [r2, 0h]
+080AA8FA   400B and r3, r1
+080AA8FC   4303 orr r3, r0
+080AA8FE   7013 strb r3, [r2, 0h]
+080AA900   2118 mov r1, 18h
+080AA902   5679 ldrsb r1, [r7, r1]<-----魔防
+080AA904   4021 and r1, r4
+080AA906   0149 lsl r1, r1, 5h
+080AA908   4660 mov r0, r12
+080AA90A   8D02 ldrh r2, [r0, 28h]
+080AA90C   4883 ldr r0, [pc, 20Ch]    ([000AAB1C]=FFFFFC1F)
+080AA90E   4010 and r0, r2
+080AA910   4308 orr r0, r1
+080AA912   4661 mov r1, r12
+080AA914   8508 strh r0, [r1, 28h]
+080AA916   2119 mov r1, 19h
+080AA918   5679 ldrsb r1, [r7, r1]<-----幸运
+080AA91A   4663 mov r3, r12
+080AA91C   3329 add r3, 29h
+080AA91E   4029 and r1, r5
+080AA920   0089 lsl r1, r1, 2h
+080AA922   781A ldrb r2, [r3, 0h]
+080AA924   207D mov r0, 7Dh
+080AA926   4240 neg r0, r0
+080AA928   4010 and r0, r2
+080AA92A   4308 orr r0, r1
+080AA92C   7018 strb r0, [r3, 0h]
+080AA92E   221A mov r2, 1Ah
+080AA930   56BA ldrsb r2, [r7, r2]<-----体竵E
+080AA932   241F mov r4, 1Fh
+080AA934   4022 and r2, r4
+080AA936   03D2 lsl r2, r2, Fh
+080AA938   4661 mov r1, r12
+080AA93A   6A88 ldr r0, [r1, 28h]
+080AA93C   4978 ldr r1, [pc, 1E0h]    ([000AAB20]=FFF07FFF)
+080AA93E   4008 and r0, r1
+080AA940   4310 orr r0, r2
+080AA942   4662 mov r2, r12
+080AA944   6290 str r0, [r2, 28h]
+080AA946   1C3D mov r5, r7
+080AA948   3530 add r5, 30h
+080AA94A   782A ldrb r2, [r5, 0h]
+080AA94C   0711 lsl r1, r2, 1Ch
+080AA94E   0F09 lsr r1, r1, 1Ch
+080AA950   202A mov r0, 2Ah
+080AA952   4460 add r0, r12
+080AA954   4680 mov r8, r0
+080AA956   4031 and r1, r6
+080AA958   0109 lsl r1, r1, 4h
+080AA95A   7803 ldrb r3, [r0, 0h]
+080AA95C   2071 mov r0, 71h
+080AA95E   4240 neg r0, r0
+080AA960   4018 and r0, r3
+080AA962   4308 orr r0, r1
+080AA964   4641 mov r1, r8
+080AA966   7008 strb r0, [r1, 0h]
+080AA968   0612 lsl r2, r2, 18h
+080AA96A   0F12 lsr r2, r2, 1Ch
+080AA96C   2007 mov r0, 7h
+080AA96E   4002 and r2, r0
+080AA970   01D2 lsl r2, r2, 7h
+080AA972   4660 mov r0, r12
+080AA974   8D41 ldrh r1, [r0, 2Ah]
+080AA976   486B ldr r0, [pc, 1ACh]    ([000AAB24]=FFFFFC7F)
+080AA978   4008 and r0, r1
+080AA97A   4310 orr r0, r2
+080AA97C   4661 mov r1, r12
+080AA97E   8548 strh r0, [r1, 2Ah]
+080AA980   1C38 mov r0, r7
+080AA982   3031 add r0, 31h
+080AA984   7802 ldrb r2, [r0, 0h]
+080AA986   0711 lsl r1, r2, 1Ch
+080AA988   0F09 lsr r1, r1, 1Ch
+080AA98A   202B mov r0, 2Bh
+080AA98C   4460 add r0, r12
+080AA98E   4680 mov r8, r0
+080AA990   4031 and r1, r6
+080AA992   0089 lsl r1, r1, 2h
+080AA994   7803 ldrb r3, [r0, 0h]
+080AA996   201D mov r0, 1Dh
+080AA998   4240 neg r0, r0
+080AA99A   4018 and r0, r3
+080AA99C   4308 orr r0, r1
+080AA99E   0912 lsr r2, r2, 4h
+080AA9A0   0152 lsl r2, r2, 5h
+080AA9A2   4020 and r0, r4
+080AA9A4   4310 orr r0, r2
+080AA9A6   4641 mov r1, r8
+080AA9A8   7008 strb r0, [r1, 0h]
+080AA9AA   7EF8 ldrb r0, [r7, 1Bh]<-----同行人蝸E
+080AA9AC   4662 mov r2, r12
+080AA9AE   70D0 strb r0, [r2, 3h]
+080AA9B0   211D mov r1, 1Dh
+080AA9B2   5679 ldrsb r1, [r7, r1]<----移动附加
+080AA9B4   4663 mov r3, r12
+080AA9B6   332C add r3, 2Ch
+080AA9B8   200F mov r0, Fh
+080AA9BA   4001 and r1, r0
+080AA9BC   781A ldrb r2, [r3, 0h]
+080AA9BE   2010 mov r0, 10h
+080AA9C0   4240 neg r0, r0
+080AA9C2   4010 and r0, r2
+080AA9C4   4308 orr r0, r1
+080AA9C6   7018 strb r0, [r3, 0h]
+080AA9C8   7F38 ldrb r0, [r7, 1Ch]<-----未知 0202BE64 xx       ??
+080AA9CA   217F mov r1, 7Fh
+080AA9CC   4001 and r1, r0
+080AA9CE   1C38 mov r0, r7
+080AA9D0   3039 add r0, 39h
+080AA9D2   7803 ldrb r3, [r0, 0h]
+080AA9D4   2001 mov r0, 1h
+080AA9D6   4018 and r0, r3
+080AA9D8   01C0 lsl r0, r0, 7h
+080AA9DA   4301 orr r1, r0
+080AA9DC   4660 mov r0, r12
+080AA9DE   3030 add r0, 30h
+080AA9E0   7001 strb r1, [r0, 0h]
+080AA9E2   8BF8 ldrh r0, [r7, 1Eh]<----第一武器\蝸E?
+080AA9E4   4A50 ldr r2, [pc, 140h]    ([000AAB28]=00003FFF)
+080AA9E6   1C11 mov r1, r2
+080AA9E8   4001 and r1, r0
+080AA9EA   2006 mov r0, 6h
+080AA9EC   4018 and r0, r3
+080AA9EE   0340 lsl r0, r0, Dh
+080AA9F0   4301 orr r1, r0
+080AA9F2   4660 mov r0, r12
+080AA9F4   8101 strh r1, [r0, 8h]
+080AA9F6   8C38 ldrh r0, [r7, 20h]<----第二武器\蝸E?
+080AA9F8   1C11 mov r1, r2
+080AA9FA   4001 and r1, r0
+080AA9FC   2018 mov r0, 18h
+080AA9FE   4018 and r0, r3
+080AAA00   02C0 lsl r0, r0, Bh
+080AAA02   4301 orr r1, r0
+080AAA04   4660 mov r0, r12
+080AAA06   8141 strh r1, [r0, Ah]
+080AAA08   8C78 ldrh r0, [r7, 22h]<----第三武器\蝸E?
+080AAA0A   1C11 mov r1, r2
+080AAA0C   4001 and r1, r0
+080AAA0E   2060 mov r0, 60h
+080AAA10   4018 and r0, r3
+080AAA12   0240 lsl r0, r0, 9h
+080AAA14   4301 orr r1, r0
+080AAA16   4660 mov r0, r12
+080AAA18   8181 strh r1, [r0, Ch]
+080AAA1A   8CB9 ldrh r1, [r7, 24h]<----第四武器\蝸E?
+080AAA1C   4011 and r1, r2
+080AAA1E   0109 lsl r1, r1, 4h
+080AAA20   6AC0 ldr r0, [r0, 2Ch]
+080AAA22   4A42 ldr r2, [pc, 108h]    ([000AAB2C]=FFFC000F)
+080AAA24   4010 and r0, r2
+080AAA26   4308 orr r0, r1
+080AAA28   4661 mov r1, r12
+080AAA2A   62C8 str r0, [r1, 2Ch]
+080AAA2C   8CF9 ldrh r1, [r7, 26h]<----第五武器\蝸E?
+080AAA2E   0089 lsl r1, r1, 2h
+080AAA30   4660 mov r0, r12
+080AAA32   8DC2 ldrh r2, [r0, 2Eh]
+080AAA34   2003 mov r0, 3h
+080AAA36   4010 and r0, r2
+080AAA38   4308 orr r0, r1
+080AAA3A   4661 mov r1, r12
+080AAA3C   85C8 strh r0, [r1, 2Eh]
+080AAA3E   2200 mov r2, 0h
+080AAA40   46A9 mov r9, r5
+080AAA42   4664 mov r4, r12
+080AAA44   341A add r4, 1Ah
+080AAA46   1C3E mov r6, r7
+080AAA48   3632 add r6, 32h
+080AAA4A   2042 mov r0, 42h
+080AAA4C   19C0 add r0, r0, r7
+080AAA4E   4680 mov r8, r0
+080AAA50   1C39 mov r1, r7
+080AAA52   3143 add r1, 43h
+080AAA54   9104 str r1, [sp, 10h]
+080AAA56   2021 mov r0, 21h
+080AAA58   4460 add r0, r12
+080AAA5A   4682 mov r10, r0
+080AAA5C   3101 add r1, 1h
+080AAA5E   9105 str r1, [sp, 14h]
+080AAA60   4660 mov r0, r12
+080AAA62   3022 add r0, 22h
+080AAA64   9000 str r0, [sp, 0h]
+080AAA66   3101 add r1, 1h
+080AAA68   9106 str r1, [sp, 18h]
+080AAA6A   3001 add r0, 1h
+080AAA6C   9001 str r0, [sp, 4h]
+080AAA6E   3905 sub r1, 5h
+080AAA70   9103 str r1, [sp, Ch]
+080AAA72   1C38 mov r0, r7
+080AAA74   3046 add r0, 46h
+080AAA76   9007 str r0, [sp, 1Ch]
+080AAA78   4661 mov r1, r12
+080AAA7A   3131 add r1, 31h
+080AAA7C   9102 str r1, [sp, 8h]
+080AAA7E   7AB8 ldrb r0, [r7, Ah]
+080AAA80   A908 add r1, sp, 20h
+080AAA82   7008 strb r0, [r1, 0h]
+080AAA84   4663 mov r3, r12
+080AAA86   3312 add r3, 12h
+080AAA88   3D08 sub r5, 8h
+080AAA8A   1898 add r0, r3, r2
+080AAA8C   18A9 add r1, r5, r2
+080AAA8E   7809 ldrb r1, [r1, 0h]
+080AAA90   7001 strb r1, [r0, 0h]
+080AAA92   3201 add r2, 1h
+080AAA94   2A07 cmp r2, 7h
+080AAA96   DDF8 ble 80AAA8Ah<-----蕘E范却娴笛?
+080AAA98   2200 mov r2, 0h
+080AAA9A   1C33 mov r3, r6
+080AAA9C   18A0 add r0, r4, r2
+080AAA9E   1899 add r1, r3, r2
+080AAAA0   7809 ldrb r1, [r1, 0h]
+080AAAA2   7001 strb r1, [r0, 0h]
+080AAAA4   3201 add r2, 1h
+080AAAA6   2A06 cmp r2, 6h
+080AAAA8   DDF8 ble 80AAA9Ch<-----支援人蝸E娴笛?
+080AAAAA   4642 mov r2, r8
+080AAAAC   7810 ldrb r0, [r2, 0h]
+080AAAAE   4661 mov r1, r12
+080AAAB0   7088 strb r0, [r1, 2h]
+080AAAB2   227F mov r2, 7Fh
+080AAAB4   4002 and r2, r0
+080AAAB6   4648 mov r0, r9
+080AAAB8   7801 ldrb r1, [r0, 0h]
+080AAABA   0709 lsl r1, r1, 1Ch
+080AAABC   0F09 lsr r1, r1, 1Ch
+080AAABE   2008 mov r0, 8h
+080AAAC0   4008 and r0, r1
+080AAAC2   2800 cmp r0, 0h
+080AAAC4   D001 beq 80AAACAh
+080AAAC6   2080 mov r0, 80h
+080AAAC8   4302 orr r2, r0
+080AAACA   4661 mov r1, r12
+080AAACC   708A strb r2, [r1, 2h]
+080AAACE   9A04 ldr r2, [sp, 10h]
+080AAAD0   7810 ldrb r0, [r2, 0h]
+080AAAD2   4651 mov r1, r10
+080AAAD4   7008 strb r0, [r1, 0h]
+080AAAD6   9A05 ldr r2, [sp, 14h]
+080AAAD8   7810 ldrb r0, [r2, 0h]
+080AAADA   9900 ldr r1, [sp, 0h]
+080AAADC   7008 strb r0, [r1, 0h]
+080AAADE   9A06 ldr r2, [sp, 18h]
+080AAAE0   7810 ldrb r0, [r2, 0h]
+080AAAE2   9901 ldr r1, [sp, 4h]
+080AAAE4   7008 strb r0, [r1, 0h]
+080AAAE6   9A03 ldr r2, [sp, Ch]
+080AAAE8   8810 ldrh r0, [r2, 0h]
+080AAAEA   4661 mov r1, r12
+080AAAEC   8648 strh r0, [r1, 32h]
+080AAAEE   9A07 ldr r2, [sp, 1Ch]
+080AAAF0   7810 ldrb r0, [r2, 0h]
+080AAAF2   9902 ldr r1, [sp, 8h]
+080AAAF4   7008 strb r0, [r1, 0h]
+080AAAF6   AA08 add r2, sp, 20h
+080AAAF8   7810 ldrb r0, [r2, 0h]
+080AAAFA   4662 mov r2, r12
+080AAAFC   7450 strb r0, [r2, 11h]
+080AAAFE   B009 add sp, 24h
+080AAB00   BC38 pop r3-r5
+080AAB02   4698 mov r8, r3
+080AAB04   46A1 mov r9, r4
+080AAB06   46AA mov r10, r5
+080AAB08   BCF0 pop r4-r7
+080AAB0A   BC01 pop r0
+080AAB0C   4700 bx r0
+
+080AAB0E   0000 lsl r0, r0, 0<-----屏蔽数据列眮E
+080AAB10 FFFFF81F bl 80D6B48h
+080AAB14   07FF lsl r7, r7, 1Fh
+080AAB16 F83FFFFE bl 80D5BC8h
+080AAB1A FC1FFFFF bl 80D6388h
+080AAB1E   FFFF [???]
+080AAB20   7FFF ldrb r7, [r7, 1Fh]
+080AAB22 FC7FFFF0 bl 80D6448h
+080AAB26   FFFF [???]
+080AAB28   3FFF sub r7, FFh
+080AAB2A   0000 lsl r0, r0, 0
+080AAB2C   000F lsl r7, r1, 0
+080AAB2E   FFFC [???]
+后面＜－－－－－－中断读档恢复人蝸E莩绦丒
+=========================原程序结蕘E
+
+================================
+
+

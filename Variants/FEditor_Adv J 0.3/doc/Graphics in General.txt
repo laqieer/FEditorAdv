@@ -1,0 +1,8 @@
+The Gameboy Advance uses 4BPP images most of the time. This is the only format I have written a container for as of yet, but if I write any more container formats in the future, they will likely follow these principles, just as the 4BPP container does.
+
+The container format is only for converting between the target format and the standard bitmap format. All other common formats, such as PNG, are converted to a bitmap prior to being used as input. Because of this, only the expected resulting bitmap you would get from converting an image your choice to the bitmap format needs to meet these criteria:
+
+- The image should have a height and width with pixel dimensions divisible evenly by 8.
+- The image should have 16 unique colors or less, after ignoring the bottom three bits of each color's red, green and blue intensity values (in other words, dividing them by 8).
+- The top right corner of an expected image should be the color intended to be the transparent "background" color.
+- Currently, all tools built into the editor that expect images will expect them to have dimensions that are specific to the tool, reinforcing the "pixel dimensions divisible by 8" rule extremely.

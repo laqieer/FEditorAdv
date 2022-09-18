@@ -1,0 +1,23 @@
+@Hack to realize 85 00 00 48
+@as "85 XX YY 48 - Play music of ID XXYY":
+
+@Hook
+.org				0x08067920
+@-------------------------------@Target address
+.long				0x080CB554
+
+.org				0x080CB554
+add	sp,	#0x1C		@B007
+ldr	r4,	[sp,	#0x0]	@9C00; Get pointer to interpretation phase data
+add	sp,	#-0x1C		@B087
+ldr	r4,	[r4,	#0x20]	@6A24; Get pointer to next frame to interpret
+sub	r4,	#0x4		@3C04
+ldr	r4,	[r4]		@6824; Load command being executed
+lsl	r4,	r4,	#0x8	@0224
+lsr	r4,	r4,	#0x10	@0C24; Extract music ID
+ldr	r0,	[pc,	#0x0]	@4800
+bx	r0			@4700; Branch to play routine
+@.align				2
+.org				0x080CB568
+.long				0x08067AED
+.org				0x080CB56C

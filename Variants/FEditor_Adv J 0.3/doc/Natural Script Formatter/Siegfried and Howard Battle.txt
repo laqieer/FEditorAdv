@@ -1,0 +1,9 @@
+[OpenMidLeft][LoadFace][0x47][0x01][OpenRight][LoadFace][0x16][0x01]Argh[ToggleMouthMove]...[ToggleMouthMove]gah! Hah[ToggleMouthMove]...[ToggleMouthMove]hah[ToggleMouthMove]...[ToggleMouthMove]so
+strong[ToggleMouthMove]...[ToggleMouthMove][A][OpenMidLeft]Lord Siegfried[ToggleMouthMove]...[ToggleMouthMove]you said there
+is no need for battle before.[A][OpenRight]Heh, are you expecting me to
+just give up? I still have some
+fight left in me. Who wishes to[A]
+fight against us? Who wants to
+die first?[A]
+
+[X]

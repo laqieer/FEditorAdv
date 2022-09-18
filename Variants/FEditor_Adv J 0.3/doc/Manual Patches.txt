@@ -1,0 +1,39 @@
+Within the "asm" directory in the root directory is the source code for the auto patches.
+
+As of recently there is now also the source code for manual patches, along with any number of "manual patches" that FEditor will not apply on its own - you must apply them yourself using the appropriate software.
+
+These patches will come with README files detailing them.
+
+The following is the proper procedure for applying such a patch and ANY other patch that must be manually applied.
+
+NOTE that this also applies to other types of "manual patches" as well, INCLUDING HEXADECIMAL EDITOR CHANGES.
+
+- Dump free space to a text file. The memory manager (see "Memory and Free Space Manager.txt") supports this functionality.
+- If the ROM has been edited with FEditor before, save a separate copy of the ROM without a footer using the special Save As option in FEditor (the one that mentions saving without a footer, obviously; I forget the exact name).
+- Compare your ROM and the copy without a footer and once you've determined which part is the footer in the original version which has one, cut out that data into a separate file and set it aside.
+- Back up your ROM (duh. DUH).
+- Delete the checksum at the end of your ROM
+- Apply the patch/binary edit/whatever it is.
+- If the patch is unsuccessful, you won't be able to use it. Revert to the ROM you had before following these instructions.
+- If the patch is successful, paste the footer you cut out earlier at the end of the ROM, making sure the ROM is padded with enough bytes to be a multiple of 4 bytes in length prior to appending the footer.
+- Replace the checksum at the end of your ROM with the corrected CRC32 (you can use an app called CRC32_It from my (Hextator's) Doc).
+- Load the ROM into FEditor. If your free space and other meta data appear to have been lost, recover it from the free space dump file you created.
+- FIX the free space.
+	- If you are applying a JFP patch, the JFP patcher I've written (referenced elsewhere in the doc near ".jfp" files) will output the memory ranges affected by the patch to a log file in a format that is acceptable for these purposes (just import the log file as used space by prepending "[Deallocate]" to the beginning of the file and import it as usual; please see "Memory and Free Space Manager.txt" for more information).
+	Otherwise,
+	- Use a hexadecimal editor (such as AXE) and do a DIFF between the ROM and the back up you made.
+	- Make sure ALL the bytes that were changed are NOT in the list produced by listing your free space.
+	- If there is any data you are SURE is no longer being used because you changed ALL (be sure it is ALL and not some) of the references to it to point to some other data you have added to replace it, this data should be ADDED to the free space list (disregarding the point above). You don't absolutely have to; no bugs will arise from not doing this (unlike when you fail to follow the previous instructions). However it will save you free space and thus overall file size, increasing the chances of the hack working smoothly and just generally being more efficient. Accurate, too.
+	The goal is to mark all data being used as used and all data no longer being used as free. If you aren't sure how to do this after reading the instructions, just mark everything as used. This is a terrible idea but it will guarantee FEditor won't mistake data you added to the ROM for free space.
+
+The Java application at the following location will append appropriate CRC32 checksums if you are having trouble completing this widely supported and simple task:
+
+In
+
+http://dl.dropbox.com/u/336940/Hextator%27s%20Doc.7z
+
+at
+
+Hextator's Doc/Development/Applications/Reformatting/Binary Reformatters/CRC32_It
+
+NOTE that more information about patches which may and probably should be applied to your hack resides within the depths of the "Game Documentation" folder, but be warned - the information therein is for potential developers (and other people who can actually reverse engineer) and will likely pass right over the heads of a typical user.

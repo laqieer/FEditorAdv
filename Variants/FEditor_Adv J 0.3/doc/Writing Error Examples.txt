@@ -1,0 +1,33 @@
+IMPORTANT: This only applies to seriously old versions of FEditor. There is a summary of when this information is relevant at the end of the document.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Refer to the contents of the "Writing Error Examples" folder with regard to the information below.
+
+The free space allocating system of the editor is excellent.
+
+It is not, however, flawless.
+
+Try inserting, for example, the "Portrait Error Example.png" file to any portrait index.
+
+The result should be the same as with any portrait insertion using a "valid" image, except you should get a "Writing error" dialog explaining that the data contains a string of bytes that may be mistaken as free space by the editor later on, in turn causing it to be corrupted should data written in the future fit in the space that caused the error.
+
+I used the palette specification system the GBA image class decodes to force the colors of the stripes in the example to be colors 0 and 15 of the resulting decoded palette. Had I not, the mouth frame area, which is the only area of the portrait not compressed and therefore the only vulnerable part of the portrait, would have been decoded first, because the decoding algorithm reads from left to right, bottom to top, in the order specified by the standard bitmap specification. Because of this, the colors in those stripes, assuming I had not manually specified the palette order, would have been assigned different color indices and thus the problem could not have occurred.
+
+In short, it should be VERY difficult to cause this error (and if you don't understand what the error even is yet, try the insertion example I suggested). Just as in my case, unless you intentionally try to cause the error, you should never expect to see it.
+
+If you do, however, reformat whatever data you're inserting to avoid the problem.
+
+This entails not using manual palette specifications that specify the color of a stripe that is between stripes of the background color in a portrait to be the 15th color and then placing those stripes over mouth frames, or for other FEs, anything that isn't compressed when inserted (example: mugs in FE 8).
+
+Don't type [0xF0] over and over in text you insert. [0xF0] isn't even valid in any of the games' text except as a portrait ID, and it takes MORE than 32 consecutive bytes of 0xF0 to cause an error.
+
+Lastly, when making your battle animations, don't...uh...well, pretty much everything battle animation related is compressed, so it should be near impossible to get the error.
+
+At the time of this writing, only portrait/text editing and battle animation insertion are available. If future features allow for the possibility of resulting decoded data to appear as a string of bytes of 0xF0, don't intentionally try to cause that result. You shouldn't ever need to.
+
+Intelligent Systems didn't. 32 bytes or more of 0xF0 never occur consecutively in any of the 3 games this editor supports; not on their own, anyway.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+TL;DR? Here's an even SHORTER summary. Read this file if and only if you get a dialog that says "Writing error" and has something about a stack trace in it.

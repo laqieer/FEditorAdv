@@ -1,0 +1,58 @@
+@Hack allowing XX of 85 00 XX 01
+@to become a word count of words to repeat
+@prior to the command during HP depletion
+
+.org				0x08005138
+ldr	r0,	[pc,	#0x00]	@4800
+bx	r0			@4700
+.long				0x08464421
+
+.org				0x08464420
+.thumb
+mov	r0,	#0xFF		@
+and	r0,	r3		@
+cmp	r0,	#0x1		@
+beq				Hack
+cmp	r0,	#0x18		@
+bhi				Return_08005158
+bne				Return_08005144
+ldr	r0,	[r2,	#0x20]	@
+sub	r0,	#0x4		@
+str	r0,	[r2,	#0x20]	@
+b				Normal_exit
+Return_08005144:
+ldr	r3,			First_return
+bx	r3			@
+Return_08005158:
+ldr	r3,			Second_return
+bx	r3			@
+Hack:
+lsl	r3,	r3,	#0x10	@
+lsr	r3,	r3,	#0x18	@
+lsl	r3,	r3,	#0x2	@
+adr	r1,			Call_Ret
+add	r1,	#0x1		@
+mov	lr,	r1		@
+ldr	r1,			Call_Addr
+bx	r1			@
+.align				2
+Call_Ret:
+cmp	r0,	#0x1		@
+bne				LOOP
+mov	r3,	#0x0		@
+LOOP:
+add	r3,	r3,	#0x4	@
+ldr	r0,	[r2,	#0x20]	@
+sub	r0,	r0,	r3	@
+str	r0,	[r2,	#0x20]	@
+Normal_exit:
+mov	r0,	r4		@
+pop	{r4, r5, pc}		@
+.align				2
+@-------------------------------@Return
+First_return:
+.long				0x08005145
+Second_return:
+.long				0x08005159
+Call_Addr:
+.long				0x080522CD

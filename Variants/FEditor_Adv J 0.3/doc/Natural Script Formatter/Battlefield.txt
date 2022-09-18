@@ -1,0 +1,30 @@
+[OpenFarLeft][LoadFace][0x47][0x01][OpenMidRight][LoadFace][0x16][0x01]The hell!?[A][OpenFarLeft][ToggleMouthMove]...[ToggleMouthMove]Marquees Caelin[ToggleMouthMove]...[ToggleMouthMove]it appears
+you have failed[ToggleMouthMove]...[ToggleMouthMove][A][OpenMidRight]What!? Who are you?[A][OpenFarLeft]I am called[ToggleMouthMove]...[ToggleMouthMove]Howard, general of
+Etruria. You must be Lord
+Siegfried[ToggleMouthMove]...[ToggleMouthMove][A]
+[OpenMidRight]Hmph, one of Etruria's tools,
+eh? This battle is over, retreat
+your men.[A]
+[OpenFarLeft][ToggleMouthMove]...[ToggleMouthMove]Such small number conquering
+so much. His Majesty wishes you[A]
+to be disposed of. But[ToggleMouthMove]...[ToggleMouthMove] you
+looks exhausted. It is[A]
+dishonourable to fight a
+weakened foe[ToggleMouthMove]...[ToggleMouthMove] Please, let us[A]
+hold off any battles until you
+are rested[ToggleMouthMove]...[ToggleMouthMove][A]
+[OpenMidRight]General, do you truly believe
+that this is honourable? Look[A]
+around at what Etruria has done.
+Invading and destroying lands,[A]
+killing innocent people and
+treating non-Etrurians like[A]
+trash! Would a true knight
+advocate this murder?[A]
+[OpenFarLeft][ToggleMouthMove]...[ToggleMouthMove]I do as His will desires[ToggleMouthMove]...[ToggleMouthMove][A][OpenMidRight]Hmph[ToggleMouthMove]...[ToggleMouthMove] Pathetic[ToggleMouthMove]...[ToggleMouthMove] I can't
+stand you people[ToggleMouthMove]...[ToggleMouthMove] You
+Etrurians are all murderers!!![A]
+You worthless bastard, I'll kill
+you![A]
+
+[X]

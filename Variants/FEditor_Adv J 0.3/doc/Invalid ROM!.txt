@@ -1,0 +1,39 @@
+IMPORTANT: This only applies to seriously old versions of FEditor.
+
+The information is mostly irrelevant now as FEditor is currently programmed to silently ignore loading failures and attempts to update successfully loaded ROMs to be compatible with the new meta data formats, decreasing the chances of a ROM being incompatible.
+
+The current version of the application doesn't even have this error message as far as I know.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When you get this message, you should be given the option to continue. This option will be available only if the game ID, which is located at 0x000000A0 of a ROM and is 12 bytes in size, is not modified or incorrect for any other reason.
+
+If you're confident your invalid ROM is not going to crash my editor, then go ahead and click continue and...well, continue.
+
+If you don't get the option to continue, don't try to force the editor to accept the ROM it has failed to open in some other way. Your ROM is the wrong one; get over it.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This feature is mostly so that people who are in a hurry don't accidentally select the wrong file in the open file dialog in their haste, only to realize too late that they've opened the wrong file. If you were expecting to open your hacked ROM and don't get the "Invalid!" message, you must have accidentally selected your clean ROM and may corrupt it if you don't pay attention. Conversely, you may intend to start with a fresh ROM only to find that the ROM you selected is "invalid". One could assume in this case that they didn't select the file they intended to and be able to avoid any problems as such.
+
+In case it wasn't obvious, no one is going to play a hack of yours if the patch you release cannot be applied to a clean ROM - the standard expectation of all ROM hacking communities for all ROMs.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Your ROM is edited, right?
+
+That means it's not a clean ROM.
+
+A valid ROM is clean, and yours is not. So, it must be invalid.
+
+Does that mean you can't edit it?
+
+No.
+
+Does it mean that your ROM could crash my editor if the changes you've made are poor?
+
+Yes, and I'm not going to give any attention to bug reports regarding such scenarios or offer any other form of help should you manage to crash my editor this way. "Invalid ROM!" means invalid ROM. That is your only warning.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Should you happen to choose to continue opening an "invalid" ROM only to find it crashing FEditor later, you will either need to restart your hack to be able to use FEditor again or you will need to "invalidate" the data that crashed the editor when loaded. This can be done by overwriting the pointers to the invalid data with "FF" (hexadecimal). I will not help you with this for reasons I shouldn't have to go into (something about "you shouldn't ever have to do this" and "you're perfectly capable of reading the source code of the editor to learn how it works so you can locate such pointers on your own, as per the license the program was released under").

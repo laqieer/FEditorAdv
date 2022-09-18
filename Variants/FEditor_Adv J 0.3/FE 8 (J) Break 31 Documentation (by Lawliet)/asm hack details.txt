@@ -1,0 +1,1598 @@
+bl 80D65C8h<-----read the data and command read-out program 
+
+load part
+
+080AA1AC   B5F0 push r4-r7, lr
+080AA1AE   4647 mov r7, r8
+080AA1B0   B480 push r7
+080AA1B2   B089 sub sp, 24h
+080AA1B4   1C0C mov r4, r1
+080AA1B6   498E ldr r1, [pc, 238h]    ([000AA3F0]=03006790)
+080AA1B8   680B ldr r3, [r1, 0h]
+080AA1BA   4669 mov r1, sp
+080AA1BC   2224 mov r2, 24h
+080AA1BE FA03F02C bl 80D65C8h
+080AA1C2   4668 mov r0, sp
+080AA1C4   7D00 ldrb r0, [r0, 14h]
+080AA1C6 FFB9F76E bl 801913Ch
+080AA1CA   6020 str r0, [r4, 0h]
+080AA1CC   4668 mov r0, sp
+080AA1CE   7800 ldrb r0, [r0, 0h]
+080AA1D0   0640 lsl r0, r0, 19h
+080AA1D2   0E40 lsr r0, r0, 19h
+080AA1D4 FFA2F76E bl 801911Ch
+080AA1D8   6060 str r0, [r4, 4h]
+080AA1DA   4668 mov r0, sp
+080AA1DC   8800 ldrh r0, [r0, 0h]
+080AA1DE   0500 lsl r0, r0, 14h
+080AA1E0   0EC0 lsr r0, r0, 1Bh
+080AA1E2   7220 strb r0, [r4, 8h]
+080AA1E4   9800 ldr r0, [sp, 0h]
+080AA1E6   0340 lsl r0, r0, Dh
+080AA1E8   0E43 lsr r3, r0, 19h
+080AA1EA   7263 strb r3, [r4, 9h]
+
+start edit from here!!!!!!!!!!!!!!!!!
+080AA1EC   466A mov r2, sp
+080AA1EE   8850 ldrh r0, [r2, 2h]
+080AA1F0   05C0 lsl r0, r0, 17h
+080AA1F2   0E80 lsr r0, r0, 1Ah
+080AA1F4   7420 strb r0, [r4, 10h]
+080AA1F6   78D0 ldrb r0, [r2, 3h]
+080AA1F8   0640 lsl r0, r0, 19h
+080AA1FA   0E80 lsr r0, r0, 1Ah
+080AA1FC   7460 strb r0, [r4, 11h]
+080AA1FE   9801 ldr r0, [sp, 4h]
+080AA200   0B00 lsr r0, r0, Ch
+080AA202   217F mov r1, 7Fh
+080AA204   4001 and r1, r0
+080AA206   74A1 strb r1, [r4, 12h]
+080AA208   09C0 lsr r0, r0, 7h
+080AA20A   2101 mov r1, 1h
+080AA20C   4001 and r1, r0
+080AA20E   7761 strb r1, [r4, 1Dh]
+080AA210   0840 lsr r0, r0, 1h
+080AA212   213F mov r1, 3Fh
+080AA214   4001 and r1, r0
+080AA216   7521 strb r1, [r4, 14h]
+080AA218   0981 lsr r1, r0, 6h
+080AA21A   7561 strb r1, [r4, 15h]
+080AA21C   6890 ldr r0, [r2, 8h]
+080AA21E   2216 mov r2, 16h
+080AA220   213F mov r1, 3Fh
+080AA222   4001 and r1, r0
+080AA224   54A1 strb r1, [r4, r2]
+080AA226   1C52 add r2, r2, 1h
+080AA228   0980 lsr r0, r0, 6h
+080AA22A   2A19 cmp r2, 19h
+080AA22C   DDF8 ble 80AA220h
+080AA22E   2103 mov r1, 3h
+080AA230   4001 and r1, r0
+080AA232   76A1 strb r1, [r4, 1Ah]
+080AA234   2501 mov r5, 1h
+080AA236   E012 b 80AA25Eh
+080AA238   0000 lsl r0, r0, 0
+080AA23A   0000 lsl r0, r0, 0
+080AA23C   0000 lsl r0, r0, 0
+080AA23E   0000 lsl r0, r0, 0
+080AA240   0000 lsl r0, r0, 0
+080AA242   0000 lsl r0, r0, 0
+080AA244   0000 lsl r0, r0, 0
+080AA246   0000 lsl r0, r0, 0
+080AA248   0000 lsl r0, r0, 0
+080AA24A   0000 lsl r0, r0, 0
+080AA24C   0000 lsl r0, r0, 0
+080AA24E   0000 lsl r0, r0, 0
+080AA250   0000 lsl r0, r0, 0
+080AA252   0000 lsl r0, r0, 0
+080AA254   0000 lsl r0, r0, 0
+080AA256   0000 lsl r0, r0, 0
+080AA258   0000 lsl r0, r0, 0
+080AA25A   0000 lsl r0, r0, 0
+080AA25C   0000 lsl r0, r0, 0
+080AA25E   1C01 mov r1, r0
+080AA260   4668 mov r0, sp
+edit over!!!!!!!!!!!!!!!!!!!!
+
+080AA262   0889 lsr r1, r1, 2h
+080AA264   7B00 ldrb r0, [r0, Ch]
+080AA266   0180 lsl r0, r0, 6h
+080AA268   4308 orr r0, r1
+080AA26A   83E0 strh r0, [r4, 1Eh]
+080AA26C   9803 ldr r0, [sp, Ch]
+080AA26E   0280 lsl r0, r0, Ah
+080AA270   0C80 lsr r0, r0, 12h
+080AA272   8420 strh r0, [r4, 20h]
+080AA274   4668 mov r0, sp
+080AA276   89C2 ldrh r2, [r0, Eh]
+080AA278   0992 lsr r2, r2, 6h
+080AA27A   7C00 ldrb r0, [r0, 10h]
+080AA27C   210F mov r1, Fh
+080AA27E   4008 and r0, r1
+080AA280   0280 lsl r0, r0, Ah
+080AA282   4310 orr r0, r2
+080AA284   8460 strh r0, [r4, 22h]
+080AA286   9804 ldr r0, [sp, 10h]
+080AA288   0380 lsl r0, r0, Eh
+080AA28A   0C80 lsr r0, r0, 12h
+080AA28C   84A0 strh r0, [r4, 24h]
+080AA28E   4668 mov r0, sp
+080AA290   8A40 ldrh r0, [r0, 12h]
+080AA292   0880 lsr r0, r0, 2h
+080AA294   84E0 strh r0, [r4, 26h]
+080AA296   2B63 cmp r3, 63h
+080AA298   D901 bls 80AA29Eh
+080AA29A   20FF mov r0, FFh
+080AA29C   7260 strb r0, [r4, 9h]
+080AA29E   2000 mov r0, 0h
+080AA2A0   60E0 str r0, [r4, Ch]
+080AA2A2   4668 mov r0, sp
+080AA2A4   78C1 ldrb r1, [r0, 3h]
+080AA2A6   09C9 lsr r1, r1, 7h
+080AA2A8   8880 ldrh r0, [r0, 4h]
+080AA2AA   4A52 ldr r2, [pc, 148h]    ([000AA3F4]=00000FFF)
+080AA2AC   4010 and r0, r2
+080AA2AE   0040 lsl r0, r0, 1h
+080AA2B0   4308 orr r0, r1
+080AA2B2   4028 and r0, r5
+080AA2B4   2800 cmp r0, 0h
+080AA2B6   D001 beq 80AA2BCh
+080AA2B8   2005 mov r0, 5h
+080AA2BA   60E0 str r0, [r4, Ch]
+080AA2BC   4668 mov r0, sp
+080AA2BE   8880 ldrh r0, [r0, 4h]
+080AA2C0   4010 and r0, r2
+080AA2C2   0040 lsl r0, r0, 1h
+080AA2C4   2102 mov r1, 2h
+080AA2C6   4008 and r0, r1
+080AA2C8   2800 cmp r0, 0h
+080AA2CA   D003 beq 80AA2D4h
+080AA2CC   68E0 ldr r0, [r4, Ch]
+080AA2CE   2109 mov r1, 9h
+080AA2D0   4308 orr r0, r1
+080AA2D2   60E0 str r0, [r4, Ch]
+080AA2D4   4668 mov r0, sp
+080AA2D6   8880 ldrh r0, [r0, 4h]
+080AA2D8   4010 and r0, r2
+080AA2DA   0040 lsl r0, r0, 1h
+080AA2DC   2104 mov r1, 4h
+080AA2DE   4008 and r0, r1
+080AA2E0   2800 cmp r0, 0h
+080AA2E2   D004 beq 80AA2EEh
+080AA2E4   68E0 ldr r0, [r4, Ch]
+080AA2E6   2180 mov r1, 80h
+080AA2E8   01C9 lsl r1, r1, 7h
+080AA2EA   4308 orr r0, r1
+080AA2EC   60E0 str r0, [r4, Ch]
+080AA2EE   4668 mov r0, sp
+080AA2F0   8880 ldrh r0, [r0, 4h]
+080AA2F2   4010 and r0, r2
+080AA2F4   0040 lsl r0, r0, 1h
+080AA2F6   2108 mov r1, 8h
+080AA2F8   4008 and r0, r1
+080AA2FA   2800 cmp r0, 0h
+080AA2FC   D004 beq 80AA308h
+080AA2FE   68E0 ldr r0, [r4, Ch]
+080AA300   2180 mov r1, 80h
+080AA302   0209 lsl r1, r1, 8h
+080AA304   4308 orr r0, r1
+080AA306   60E0 str r0, [r4, Ch]
+080AA308   4668 mov r0, sp
+080AA30A   8880 ldrh r0, [r0, 4h]
+080AA30A   8880 ldrh r0, [r0, 4h]
+080AA30C   4010 and r0, r2
+080AA30E   0040 lsl r0, r0, 1h
+080AA310   2110 mov r1, 10h
+080AA312   4008 and r0, r1
+080AA314   2800 cmp r0, 0h
+080AA316   D004 beq 80AA322h
+080AA318   68E0 ldr r0, [r4, Ch]
+080AA31A   2180 mov r1, 80h
+080AA31C   0189 lsl r1, r1, 6h
+080AA31E   4308 orr r0, r1
+080AA320   60E0 str r0, [r4, Ch]
+080AA322   4668 mov r0, sp
+080AA324   8880 ldrh r0, [r0, 4h]
+080AA326   4010 and r0, r2
+080AA328   0040 lsl r0, r0, 1h
+080AA32A   2120 mov r1, 20h
+080AA32C   4008 and r0, r1
+080AA32E   2800 cmp r0, 0h
+080AA330   D004 beq 80AA33Ch
+080AA332   68E0 ldr r0, [r4, Ch]
+080AA334   2180 mov r1, 80h
+080AA336   0249 lsl r1, r1, 9h
+080AA338   4308 orr r0, r1
+080AA33A   60E0 str r0, [r4, Ch]
+080AA33C   4668 mov r0, sp
+080AA33E   8880 ldrh r0, [r0, 4h]
+080AA340   4010 and r0, r2
+080AA342   0040 lsl r0, r0, 1h
+080AA344   2140 mov r1, 40h
+080AA346   4008 and r0, r1
+080AA348   2800 cmp r0, 0h
+080AA34A   D004 beq 80AA356h
+080AA34C   68E0 ldr r0, [r4, Ch]
+080AA34E   2180 mov r1, 80h
+080AA350   0489 lsl r1, r1, 12h
+080AA352   4308 orr r0, r1
+080AA354   60E0 str r0, [r4, Ch]
+080AA356   4668 mov r0, sp
+080AA358   8880 ldrh r0, [r0, 4h]
+080AA35A   4010 and r0, r2
+080AA35C   0040 lsl r0, r0, 1h
+080AA35E   2180 mov r1, 80h
+080AA360   4008 and r0, r1
+080AA362   2800 cmp r0, 0h
+080AA364   D004 beq 80AA370h
+080AA366   68E0 ldr r0, [r4, Ch]
+080AA368   2180 mov r1, 80h
+080AA36A   0389 lsl r1, r1, Eh
+080AA36C   4308 orr r0, r1
+080AA36E   60E0 str r0, [r4, Ch]
+080AA370   2200 mov r2, 0h
+080AA372   1C27 mov r7, r4
+080AA374   3732 add r7, 32h
+080AA376   466E mov r6, sp
+080AA378   361D add r6, 1Dh
+080AA37A   2039 mov r0, 39h
+080AA37C   1900 add r0, r0, r4
+080AA37E   4680 mov r8, r0
+080AA380   1C25 mov r5, r4
+080AA382   3528 add r5, 28h
+080AA384   466B mov r3, sp
+080AA386   3315 add r3, 15h
+080AA388   18A8 add r0, r5, r2
+080AA38A   1899 add r1, r3, r2
+080AA38C   7809 ldrb r1, [r1, 0h]
+080AA38E   7001 strb r1, [r0, 0h]
+080AA390   3201 add r2, 1h
+080AA392   2A07 cmp r2, 7h
+080AA394   DDF8 ble 80AA388h
+080AA396   2200 mov r2, 0h
+080AA398   1C3D mov r5, r7
+080AA39A   1C33 mov r3, r6
+080AA39C   18A8 add r0, r5, r2
+080AA39E   1899 add r1, r3, r2
+080AA3A0   7809 ldrb r1, [r1, 0h]
+080AA3A2   7001 strb r1, [r0, 0h]
+080AA3A4   3201 add r2, 1h
+080AA3A6   2A06 cmp r2, 6h
+080AA3A8   DDF8 ble 80AA39Ch
+080AA3AA   1C20 mov r0, r4
+080AA3AC FD7AF76E bl 8018EA4h
+080AA3B0   1C01 mov r1, r0
+080AA3B2   1C20 mov r0, r4
+080AA3B4 FE44F76E bl 8019040h
+080AA3B8   2000 mov r0, 0h
+080AA3BA   4641 mov r1, r8
+080AA3BC   7008 strb r0, [r1, 0h]
+080AA3BE   7A60 ldrb r0, [r4, 9h]
+080AA3C0   287F cmp r0, 7Fh
+080AA3C2   D101 bne 80AA3C8h
+080AA3C4   20FF mov r0, FFh
+080AA3C6   7260 strb r0, [r4, 9h]
+080AA3C8   7C21 ldrb r1, [r4, 10h]
+080AA3CA   2010 mov r0, 10h
+080AA3CC   5620 ldrsb r0, [r4, r0]
+080AA3CE   283F cmp r0, 3Fh
+080AA3D0   D101 bne 80AA3D6h
+080AA3D2   20FF mov r0, FFh
+080AA3D4   7420 strb r0, [r4, 10h]
+080AA3D6   7C61 ldrb r1, [r4, 11h]
+080AA3D8   2011 mov r0, 11h
+080AA3DA   5620 ldrsb r0, [r4, r0]
+080AA3DC   283F cmp r0, 3Fh
+080AA3DE   D101 bne 80AA3E4h
+080AA3E0   20FF mov r0, FFh
+080AA3E2   7460 strb r0, [r4, 11h]
+080AA3E4   B009 add sp, 24h
+080AA3E6   BC08 pop r3
+080AA3E8   4698 mov r8, r3
+080AA3EA   BCF0 pop r4-r7
+080AA3EC   BC01 pop r0
+080AA3EE   4700 bx r0
+080AA3F0   6790 str r0, [r2, 78h]
+080AA3F2   0300 lsl r0, r0, Ch<--------mask data,stack address
+080AA3F4   0FFF lsr r7, r7, 1Fh
+080AA3F6   0000 lsl r0, r0, 0<--------mask data,00000FFF
+
+-------------------------------
+
+save part
+
+080A9D54   B5F0 push r4-r7, lr
+080A9D56   4657 mov r7, r10
+080A9D58   464E mov r6, r9
+080A9D5A   4645 mov r5, r8
+080A9D5C   B4E0 push r5-r7
+080A9D5E   B09C sub sp, 70h
+080A9D60   1C07 mov r7, r0
+080A9D62   911B str r1, [sp, 6Ch]
+080A9D64   4669 mov r1, sp
+080A9D66   6838 ldr r0, [r7, 0h]
+080A9D68   7900 ldrb r0, [r0, 4h]
+080A9D6A   7508 strb r0, [r1, 14h]
+080A9D6C   466B mov r3, sp
+080A9D6E   6878 ldr r0, [r7, 4h]
+080A9D70   7901 ldrb r1, [r0, 4h]
+080A9D72   207F mov r0, 7Fh
+080A9D74   4001 and r1, r0
+080A9D76   781A ldrb r2, [r3, 0h]
+080A9D78   2580 mov r5, 80h
+080A9D7A   426D neg r5, r5
+080A9D7C   1C28 mov r0, r5
+080A9D7E   4010 and r0, r2
+080A9D80   4308 orr r0, r1
+080A9D82   7018 strb r0, [r3, 0h]
+080A9D84   683C ldr r4, [r7, 0h]
+080A9D86   2C00 cmp r4, 0h
+080A9D88   D10A bne 80A9DA0h
+080A9D8A   AF09 add r7, sp, 24h
+080A9D8C   1C38 mov r0, r7
+080A9D8E FC05F76D bl 801759Ch
+080A9D92   4668 mov r0, sp
+080A9D94   7504 strb r4, [r0, 14h]
+080A9D96   466A mov r2, sp
+080A9D98   7811 ldrb r1, [r2, 0h]
+080A9D9A   1C28 mov r0, r5
+080A9D9C   4008 and r0, r1
+080A9D9E   7010 strb r0, [r2, 0h]
+080A9DA0   466C mov r4, sp
+080A9DA2   2108 mov r1, 8h
+080A9DA4   5679 ldrsb r1, [r7, r1]
+080A9DA6   201F mov r0, 1Fh
+080A9DA8   4681 mov r9, r0
+080A9DAA   4648 mov r0, r9
+080A9DAC   4001 and r1, r0
+080A9DAE   01C9 lsl r1, r1, 7h
+080A9DB0   8822 ldrh r2, [r4, 0h]
+080A9DB2   4BEB ldr r3, [pc, 3ACh]    ([000AA160]=FFFFF07F)
+080A9DB4   1C18 mov r0, r3
+080A9DB6   4010 and r0, r2
+080A9DB8   4308 orr r0, r1
+080A9DBA   8020 strh r0, [r4, 0h]
+080A9DBC   7A7A ldrb r2, [r7, 9h]
+080A9DBE   217F mov r1, 7Fh
+080A9DC0   468A mov r10, r1
+080A9DC2   400A and r2, r1
+080A9DC4   0312 lsl r2, r2, Ch
+080A9DC6   9800 ldr r0, [sp, 0h]
+080A9DC8   49E6 ldr r1, [pc, 398h]    ([000AA164]=FFF80FFF)
+080A9DCA   4008 and r0, r1
+080A9DCC   4310 orr r0, r2
+080A9DCE   9000 str r0, [sp, 0h]
+080A9DD0   2110 mov r1, 10h
+080A9DD2   5679 ldrsb r1, [r7, r1]
+080A9DD4   203F mov r0, 3Fh
+080A9DD6   4001 and r1, r0
+080A9DD8   00C9 lsl r1, r1, 3h
+080A9DDA   8862 ldrh r2, [r4, 2h]
+080A9DDC   48E2 ldr r0, [pc, 388h]    ([000AA168]=FFFFFE07)
+080A9DDE   4010 and r0, r2
+080A9DE0   4308 orr r0, r1
+080A9DE2   8060 strh r0, [r4, 2h]
+080A9DE4   2111 mov r1, 11h
+080A9DE6   5679 ldrsb r1, [r7, r1]
+080A9DE8   203F mov r0, 3Fh
+080A9DEA   4001 and r1, r0
+080A9DEC   0049 lsl r1, r1, 1h
+080A9DEE   78E2 ldrb r2, [r4, 3h]
+080A9DF0   207F mov r0, 7Fh
+080A9DF2   4240 neg r0, r0
+080A9DF4   4010 and r0, r2
+080A9DF6   4308 orr r0, r1
+080A9DF8   70E0 strb r0, [r4, 3h]
+080A9DFA   2212 mov r2, 12h
+080A9DFC   56BA ldrsb r2, [r7, r2]
+080A9DFE   267F mov r6, 7Fh
+080A9E00   4032 and r2, r6
+080A9E02   0312 lsl r2, r2, Ch
+080A9E04   9801 ldr r0, [sp, 4h]
+
+
+start edit!!!!!!!!!
+080A9E06   0500 lsl r0, r0, 14h
+080A9E08   0D00 lsr r0, r0, 14h
+080A9E0A   4310 orr r0, r2
+080A9E0C   0000 lsl r0, r0, 0
+080A9E0E   0000 lsl r0, r0, 0
+080A9E10   211D mov r1, 1Dh
+080A9E12   5679 ldrsb r1, [r7, r1]
+080A9E14   2201 mov r2, 1h
+080A9E16   4011 and r1, r2
+080A9E18   04C9 lsl r1, r1, 13h
+080A9E1A   4308 orr r0, r1
+080A9E1C   2114 mov r1, 14h
+080A9E1E   5679 ldrsb r1, [r7, r1]
+080A9E20   263F mov r6, 3Fh
+080A9E22   4031 and r1, r6
+080A9E24   0509 lsl r1, r1, 14h
+080A9E26   4308 orr r0, r1
+080A9E28   2215 mov r2, 15h
+080A9E2A   56B9 ldrsb r1, [r7, r2]
+080A9E2C   4031 and r1, r6
+080A9E2E   0689 lsl r1, r1, 1Ah
+080A9E30   4308 orr r0, r1
+080A9E32   6060 str r0, [r4, 4h]
+080A9E34   2000 mov r0, 0h
+080A9E36   2500 mov r5, 0h
+080A9E38   E000 b 80A9E3Ch
+080A9E3A   4308 orr r0, r1
+080A9E3C   1C52 add r2, r2, 1h
+080A9E3E   56B9 ldrsb r1, [r7, r2]
+080A9E40   40A9 lsl r1, r5
+080A9E42   3506 add r5, 6h
+080A9E44   2A19 cmp r2, 19h
+080A9E46   DDF8 ble 80A9E3Ah
+080A9E48   2503 mov r5, 3h
+080A9E4A   56B9 ldrsb r1, [r7, r2]
+080A9E4C   4029 and r1, r5
+080A9E4E   0609 lsl r1, r1, 18h
+080A9E50   4308 orr r0, r1
+080A9E52   8BFA ldrh r2, [r7, 1Eh]
+080A9E54   1C11 mov r1, r2
+080A9E56   23FF mov r3, FFh
+080A9E58   4019 and r1, r3
+080A9E5A   0689 lsl r1, r1, 1Ah
+080A9E5C   4308 orr r0, r1
+080A9E5E   60A0 str r0, [r4, 8h]
+080A9E60   230F mov r3, Fh
+080A9E62   4698 mov r8, r3
+080A9E64   2301 mov r3, 1h
+080A9E66   469C mov r12, r3
+080A9E68   466B mov r3, sp
+080A9E6A   0992 lsr r2, r2, 6h
+080A9E6C   2401 mov r4, 1h
+080A9E6E   4264 neg r4, r4
+080A9E70   0CA4 lsr r4, r4, 12h
+080A9E72   8C38 ldrh r0, [r7, 20h]
+080A9E74   4020 and r0, r4
+080A9E76   0200 lsl r0, r0, 8h
+080A9E78   4302 orr r2, r0
+080A9E7A   8C78 ldrh r0, [r7, 22h]
+080A9E7C   4020 and r0, r4
+080A9E7E   1C01 mov r1, r0
+080A9E80   0580 lsl r0, r0, 16h
+080A9E82   4302 orr r2, r0
+080A9E84   60DA str r2, [r3, Ch]
+080A9E86   0A89 lsr r1, r1, Ah
+080A9E88   8CB8 ldrh r0, [r7, 24h]
+080A9E8A   4020 and r0, r4
+080A9E8C   0100 lsl r0, r0, 4h
+080A9E8E   4301 orr r1, r0
+080A9E90   8CF8 ldrh r0, [r7, 26h]
+080A9E92   4020 and r0, r4
+080A9E94   0480 lsl r0, r0, 12h
+080A9E96   4301 orr r1, r0
+080A9E98   6119 str r1, [r3, 10h]
+080A9E9A   E046 b 80A9F2Ah
+
+It is useless here
+080A9E9C   0000 lsl r0, r0, 0
+080A9E9E   0000 lsl r0, r0, 0
+080A9EA0   0000 lsl r0, r0, 0
+080A9EA2   0000 lsl r0, r0, 0
+080A9EA4   0000 lsl r0, r0, 0
+080A9EA6   0000 lsl r0, r0, 0
+080A9EA8   0000 lsl r0, r0, 0
+080A9EAA   0000 lsl r0, r0, 0
+080A9EAC   0000 lsl r0, r0, 0
+080A9EAE   0000 lsl r0, r0, 0
+080A9EB0   0000 lsl r0, r0, 0
+080A9EB2   0000 lsl r0, r0, 0
+080A9EB4   0000 lsl r0, r0, 0
+080A9EB6   0000 lsl r0, r0, 0
+080A9EB8   0000 lsl r0, r0, 0
+080A9EBA   0000 lsl r0, r0, 0
+080A9EBC   0000 lsl r0, r0, 0
+080A9EBE   0000 lsl r0, r0, 0
+080A9EC0   0000 lsl r0, r0, 0
+080A9EC2   0000 lsl r0, r0, 0
+080A9EC4   0000 lsl r0, r0, 0
+080A9EC6   0000 lsl r0, r0, 0
+080A9EC8   0000 lsl r0, r0, 0
+080A9ECA   0000 lsl r0, r0, 0
+080A9ECC   0000 lsl r0, r0, 0
+080A9ECE   0000 lsl r0, r0, 0
+080A9ED0   0000 lsl r0, r0, 0
+080A9ED2   0000 lsl r0, r0, 0
+080A9ED4   0000 lsl r0, r0, 0
+080A9ED6   0000 lsl r0, r0, 0
+080A9ED8   0000 lsl r0, r0, 0
+080A9EDA   0000 lsl r0, r0, 0
+080A9EDC   0000 lsl r0, r0, 0
+080A9EDE   0000 lsl r0, r0, 0
+080A9EE0   0000 lsl r0, r0, 0
+080A9EE2   0000 lsl r0, r0, 0
+080A9EE4   0000 lsl r0, r0, 0
+080A9EE6   0000 lsl r0, r0, 0
+080A9EE8   0000 lsl r0, r0, 0
+080A9EEA   0000 lsl r0, r0, 0
+080A9EEC   0000 lsl r0, r0, 0
+080A9EEE   0000 lsl r0, r0, 0
+080A9EF0   0000 lsl r0, r0, 0
+080A9EF2   0000 lsl r0, r0, 0
+080A9EF4   0000 lsl r0, r0, 0
+080A9EF6   0000 lsl r0, r0, 0
+080A9EF8   0000 lsl r0, r0, 0
+080A9EFA   0000 lsl r0, r0, 0
+080A9EFC   0000 lsl r0, r0, 0
+080A9EFE   0000 lsl r0, r0, 0
+080A9F00   0000 lsl r0, r0, 0
+080A9F02   0000 lsl r0, r0, 0
+080A9F04   0000 lsl r0, r0, 0
+080A9F06   0000 lsl r0, r0, 0
+080A9F08   0000 lsl r0, r0, 0
+080A9F0A   0000 lsl r0, r0, 0
+080A9F0C   0000 lsl r0, r0, 0
+080A9F0E   0000 lsl r0, r0, 0
+080A9F10   0000 lsl r0, r0, 0
+080A9F12   0000 lsl r0, r0, 0
+080A9F14   0000 lsl r0, r0, 0
+080A9F16   0000 lsl r0, r0, 0
+080A9F18   0000 lsl r0, r0, 0
+080A9F1A   0000 lsl r0, r0, 0
+080A9F1C   0000 lsl r0, r0, 0
+080A9F1E   0000 lsl r0, r0, 0
+080A9F20   0000 lsl r0, r0, 0
+080A9F22   0000 lsl r0, r0, 0
+080A9F24   0000 lsl r0, r0, 0
+080A9F26   0000 lsl r0, r0, 0
+080A9F28   0000 lsl r0, r0, 0
+over!!!!!!!!!!
+
+080A9F2A   4669 mov r1, sp
+080A9F2C   78C8 ldrb r0, [r1, 3h]
+080A9F2E   4655 mov r5, r10
+080A9F30   4005 and r5, r0
+080A9F32   70CD strb r5, [r1, 3h]
+080A9F34   888A ldrh r2, [r1, 4h]
+080A9F36   4E94 ldr r6, [pc, 250h]    ([000AA188]=FFFFF000)
+080A9F38   1C30 mov r0, r6
+080A9F3A   4010 and r0, r2
+080A9F3C   8088 strh r0, [r1, 4h]
+080A9F3E   68F8 ldr r0, [r7, Ch]
+080A9F40   2104 mov r1, 4h
+080A9F42   4688 mov r8, r1
+080A9F44   4008 and r0, r1
+080A9F46   2800 cmp r0, 0h
+080A9F48   D00F beq 80A9F6Ah
+080A9F4A   4668 mov r0, sp
+080A9F4C   8882 ldrh r2, [r0, 4h]
+080A9F4E   4C8F ldr r4, [pc, 23Ch]    ([000AA18C]=00000FFF)
+080A9F50   4022 and r2, r4
+080A9F52   4660 mov r0, r12
+080A9F54   0841 lsr r1, r0, 1h
+080A9F56   01C0 lsl r0, r0, 7h
+080A9F58   4328 orr r0, r5
+080A9F5A   70D8 strb r0, [r3, 3h]
+080A9F5C   4311 orr r1, r2
+080A9F5E   4021 and r1, r4
+080A9F60   889A ldrh r2, [r3, 4h]
+080A9F62   1C30 mov r0, r6
+080A9F64   4010 and r0, r2
+080A9F66   4308 orr r0, r1
+080A9F68   8098 strh r0, [r3, 4h]
+080A9F6A   68F8 ldr r0, [r7, Ch]
+080A9F6C   2108 mov r1, 8h
+080A9F6E   4689 mov r9, r1
+080A9F70   4008 and r0, r1
+080A9F72   2800 cmp r0, 0h
+080A9F74   D019 beq 80A9FAAh
+080A9F76   466B mov r3, sp
+080A9F78   4668 mov r0, sp
+080A9F7A   78C4 ldrb r4, [r0, 3h]
+080A9F7C   09E1 lsr r1, r4, 7h
+080A9F7E   8882 ldrh r2, [r0, 4h]
+080A9F80   4D82 ldr r5, [pc, 208h]    ([000AA18C]=00000FFF)
+080A9F82   402A and r2, r5
+080A9F84   0052 lsl r2, r2, 1h
+080A9F86   430A orr r2, r1
+080A9F88   2002 mov r0, 2h
+080A9F8A   4302 orr r2, r0
+080A9F8C   1C11 mov r1, r2
+080A9F8E   4660 mov r0, r12
+080A9F90   4001 and r1, r0
+080A9F92   01C9 lsl r1, r1, 7h
+080A9F94   4650 mov r0, r10
+080A9F96   4020 and r0, r4
+080A9F98   4308 orr r0, r1
+080A9F9A   70D8 strb r0, [r3, 3h]
+080A9F9C   0852 lsr r2, r2, 1h
+080A9F9E   402A and r2, r5
+080A9FA0   8899 ldrh r1, [r3, 4h]
+080A9FA2   1C30 mov r0, r6
+080A9FA4   4008 and r0, r1
+080A9FA6   4310 orr r0, r2
+080A9FA8   8098 strh r0, [r3, 4h]
+080A9FAA   68F8 ldr r0, [r7, Ch]
+080A9FAC   2180 mov r1, 80h
+080A9FAE   01C9 lsl r1, r1, 7h
+080A9FB0   4008 and r0, r1
+080A9FB2   2800 cmp r0, 0h
+080A9FB4   D019 beq 80A9FEAh
+080A9FB6   466B mov r3, sp
+080A9FB8   4668 mov r0, sp
+080A9FBA   78C4 ldrb r4, [r0, 3h]
+080A9FBC   09E2 lsr r2, r4, 7h
+080A9FBE   8881 ldrh r1, [r0, 4h]
+080A9FC0   4D72 ldr r5, [pc, 1C8h]    ([000AA18C]=00000FFF)
+080A9FC2   4029 and r1, r5
+080A9FC4   0049 lsl r1, r1, 1h
+080A9FC6   4311 orr r1, r2
+080A9FC8   4640 mov r0, r8
+080A9FCA   4301 orr r1, r0
+080A9FCC   1C0A mov r2, r1
+080A9FCE   4660 mov r0, r12
+080A9FD0   4002 and r2, r0
+080A9FD2   01D2 lsl r2, r2, 7h
+080A9FD4   4650 mov r0, r10
+080A9FD6   4020 and r0, r4
+080A9FD8   4310 orr r0, r2
+080A9FDA   70D8 strb r0, [r3, 3h]
+080A9FDC   0849 lsr r1, r1, 1h
+080A9FDE   4029 and r1, r5
+080A9FE0   889A ldrh r2, [r3, 4h]
+080A9FE2   1C30 mov r0, r6
+080A9FE4   4010 and r0, r2
+080A9FE6   4308 orr r0, r1
+080A9FE8   8098 strh r0, [r3, 4h]
+080A9FEA   68F8 ldr r0, [r7, Ch]
+080A9FEC   2180 mov r1, 80h
+080A9FEE   0209 lsl r1, r1, 8h
+080A9FF0   4008 and r0, r1
+080A9FF2   2800 cmp r0, 0h
+080A9FF4   D019 beq 80AA02Ah
+080A9FF6   466B mov r3, sp
+080A9FF8   4668 mov r0, sp
+080A9FFA   78C4 ldrb r4, [r0, 3h]
+080A9FFC   09E2 lsr r2, r4, 7h
+080A9FFE   8881 ldrh r1, [r0, 4h]
+080AA000   4D62 ldr r5, [pc, 188h]    ([000AA18C]=00000FFF)
+080AA002   4029 and r1, r5
+080AA004   0049 lsl r1, r1, 1h
+080AA006   4311 orr r1, r2
+080AA008   4648 mov r0, r9
+080AA00A   4301 orr r1, r0
+080AA00C   1C0A mov r2, r1
+080AA00E   4660 mov r0, r12
+080AA010   4002 and r2, r0
+080AA012   01D2 lsl r2, r2, 7h
+080AA014   4650 mov r0, r10
+080AA016   4020 and r0, r4
+080AA018   4310 orr r0, r2
+080AA01A   70D8 strb r0, [r3, 3h]
+080AA01C   0849 lsr r1, r1, 1h
+080AA01E   4029 and r1, r5
+080AA020   889A ldrh r2, [r3, 4h]
+080AA022   1C30 mov r0, r6
+080AA024   4010 and r0, r2
+080AA026   4308 orr r0, r1
+080AA028   8098 strh r0, [r3, 4h]
+080AA02A   68F8 ldr r0, [r7, Ch]
+080AA02C   2180 mov r1, 80h
+080AA02E   0189 lsl r1, r1, 6h
+080AA030   4008 and r0, r1
+080AA032   2800 cmp r0, 0h
+080AA034   D019 beq 80AA06Ah
+080AA036   466B mov r3, sp
+080AA038   4668 mov r0, sp
+080AA03A   78C4 ldrb r4, [r0, 3h]
+080AA03C   09E1 lsr r1, r4, 7h
+080AA03E   8882 ldrh r2, [r0, 4h]
+080AA040   4D52 ldr r5, [pc, 148h]    ([000AA18C]=00000FFF)
+080AA042   402A and r2, r5
+080AA044   0052 lsl r2, r2, 1h
+080AA046   430A orr r2, r1
+080AA048   2010 mov r0, 10h
+080AA04A   4302 orr r2, r0
+080AA04C   1C11 mov r1, r2
+080AA04E   4660 mov r0, r12
+080AA050   4001 and r1, r0
+080AA052   01C9 lsl r1, r1, 7h
+080AA054   4650 mov r0, r10
+080AA056   4020 and r0, r4
+080AA058   4308 orr r0, r1
+080AA05A   70D8 strb r0, [r3, 3h]
+080AA05C   0852 lsr r2, r2, 1h
+080AA05E   402A and r2, r5
+080AA060   8899 ldrh r1, [r3, 4h]
+080AA062   1C30 mov r0, r6
+080AA064   4008 and r0, r1
+080AA066   4310 orr r0, r2
+080AA068   8098 strh r0, [r3, 4h]
+080AA06A   68F8 ldr r0, [r7, Ch]
+080AA06C   2180 mov r1, 80h
+080AA06E   0249 lsl r1, r1, 9h
+080AA070   4008 and r0, r1
+080AA072   2800 cmp r0, 0h
+080AA074   D019 beq 80AA0AAh
+080AA076   466B mov r3, sp
+080AA078   4668 mov r0, sp
+080AA07A   78C4 ldrb r4, [r0, 3h]
+080AA07C   09E1 lsr r1, r4, 7h
+080AA07E   8882 ldrh r2, [r0, 4h]
+080AA080   4D42 ldr r5, [pc, 108h]    ([000AA18C]=00000FFF)
+080AA082   402A and r2, r5
+080AA084   0052 lsl r2, r2, 1h
+080AA086   430A orr r2, r1
+080AA088   2020 mov r0, 20h
+080AA08A   4302 orr r2, r0
+080AA08C   1C11 mov r1, r2
+080AA08E   4660 mov r0, r12
+080AA090   4001 and r1, r0
+080AA092   01C9 lsl r1, r1, 7h
+080AA094   4650 mov r0, r10
+080AA096   4020 and r0, r4
+080AA098   4308 orr r0, r1
+080AA09A   70D8 strb r0, [r3, 3h]
+080AA09C   0852 lsr r2, r2, 1h
+080AA09E   402A and r2, r5
+080AA0A0   8899 ldrh r1, [r3, 4h]
+080AA0A2   1C30 mov r0, r6
+080AA0A4   4008 and r0, r1
+080AA0A6   4310 orr r0, r2
+080AA0A8   8098 strh r0, [r3, 4h]
+080AA0AA   68F8 ldr r0, [r7, Ch]
+080AA0AC   2180 mov r1, 80h
+080AA0AE   0489 lsl r1, r1, 12h
+080AA0B0   4008 and r0, r1
+080AA0B2   2800 cmp r0, 0h
+080AA0B4   D019 beq 80AA0EAh
+080AA0B6   466B mov r3, sp
+080AA0B8   4668 mov r0, sp
+080AA0BA   78C4 ldrb r4, [r0, 3h]
+080AA0BC   09E1 lsr r1, r4, 7h
+080AA0BE   8882 ldrh r2, [r0, 4h]
+080AA0C0   4D32 ldr r5, [pc, C8h]    ([000AA18C]=00000FFF)
+080AA0C2   402A and r2, r5
+080AA0C4   0052 lsl r2, r2, 1h
+080AA0C6   430A orr r2, r1
+080AA0C8   2040 mov r0, 40h
+080AA0CA   4302 orr r2, r0
+080AA0CC   1C11 mov r1, r2
+080AA0CE   4660 mov r0, r12
+080AA0D0   4001 and r1, r0
+080AA0D2   01C9 lsl r1, r1, 7h
+080AA0D4   4650 mov r0, r10
+080AA0D6   4020 and r0, r4
+080AA0D8   4308 orr r0, r1
+080AA0DA   70D8 strb r0, [r3, 3h]
+080AA0DC   0852 lsr r2, r2, 1h
+080AA0DE   402A and r2, r5
+080AA0E0   8899 ldrh r1, [r3, 4h]
+080AA0E2   1C30 mov r0, r6
+080AA0E4   4008 and r0, r1
+080AA0E6   4310 orr r0, r2
+080AA0E8   8098 strh r0, [r3, 4h]
+080AA0EA   68F8 ldr r0, [r7, Ch]
+080AA0EC   2180 mov r1, 80h
+080AA0EE   0389 lsl r1, r1, Eh
+080AA0F0   4008 and r0, r1
+080AA0F2   2800 cmp r0, 0h
+080AA0F4   D019 beq 80AA12Ah
+080AA0F6   466B mov r3, sp
+080AA0F8   4668 mov r0, sp
+080AA0FA   78C4 ldrb r4, [r0, 3h]
+080AA0FC   09E1 lsr r1, r4, 7h
+080AA0FE   8882 ldrh r2, [r0, 4h]
+080AA100   4D22 ldr r5, [pc, 88h]    ([000AA18C]=00000FFF)
+080AA102   402A and r2, r5
+080AA104   0052 lsl r2, r2, 1h
+080AA106   430A orr r2, r1
+080AA108   2080 mov r0, 80h
+080AA10A   4302 orr r2, r0
+080AA10C   1C11 mov r1, r2
+080AA10E   4660 mov r0, r12
+080AA110   4001 and r1, r0
+080AA112   01C9 lsl r1, r1, 7h
+080AA114   4650 mov r0, r10
+080AA116   4020 and r0, r4
+080AA118   4308 orr r0, r1
+080AA11A   70D8 strb r0, [r3, 3h]
+080AA11C   0852 lsr r2, r2, 1h
+080AA11E   402A and r2, r5
+080AA120   8899 ldrh r1, [r3, 4h]
+080AA122   1C30 mov r0, r6
+080AA124   4008 and r0, r1
+080AA126   4310 orr r0, r2
+080AA128   8098 strh r0, [r3, 4h]
+080AA12A   2200 mov r2, 0h
+080AA12C   466D mov r5, sp
+080AA12E   351D add r5, 1Dh
+080AA130   1C3E mov r6, r7
+080AA132   3632 add r6, 32h
+080AA134   466C mov r4, sp
+080AA136   3415 add r4, 15h
+080AA138   1C3B mov r3, r7
+080AA13A   3328 add r3, 28h
+080AA13C   18A0 add r0, r4, r2
+080AA13E   1899 add r1, r3, r2
+080AA140   7809 ldrb r1, [r1, 0h]
+080AA142   7001 strb r1, [r0, 0h]
+080AA144   3201 add r2, 1h
+080AA146   2A07 cmp r2, 7h
+080AA148   DDF8 ble 80AA13Ch
+080AA14A   2200 mov r2, 0h
+080AA14C   1C2C mov r4, r5
+080AA14E   1C33 mov r3, r6
+080AA150   18A0 add r0, r4, r2
+080AA152   1899 add r1, r3, r2
+080AA154   7809 ldrb r1, [r1, 0h]
+080AA156   7001 strb r1, [r0, 0h]
+080AA158   3201 add r2, 1h
+080AA15A   2A06 cmp r2, 6h
+
+080AA15C   DDF8 ble 80AA150h<--------????? I don't know whether it is necessary
+080AA15E   E018 b 80AA192h<--------ditto
+
+080AA160 FFFFF07F bl 812A162h<--------mask data?
+080AA164   0FFF lsr r7, r7, 1Fh
+080AA166 FE07FFF8 bl 8129D72h
+080AA16A   FFFF [???]
+080AA16C   0FFF lsr r7, r7, 1Fh
+080AA16E F83FFFFC bl 81291E2h
+080AA172 FC1FFFFF bl 81299A2h
+080AA176   FFFF [???]
+080AA178   3FFF sub r7, FFh
+080AA17A   0000 lsl r0, r0, 0
+080AA17C   00FF lsl r7, r7, 3h
+080AA17E   FFC0 [???]
+080AA180   03FF lsl r7, r7, Fh
+080AA182   0000 lsl r0, r0, 0
+080AA184   000F lsl r7, r1, 0
+080AA186   FFFC [???]
+080AA188 FFFFF000 bl 80AB18Ah
+080AA18C   0FFF lsr r7, r7, 1Fh
+080AA18E   0000 lsl r0, r0, 0   mask data over?
+
+080AA190   DDDE ble 80AA150h ??? I found much data is expired
+080AA192   4668 mov r0, sp
+080AA194   991B ldr r1, [sp, 6Ch]
+080AA196   2224 mov r2, 24h
+080AA198 F9D6F02C bl 80D6548h
+080AA19C   B01C add sp, 70h
+080AA19E   BC38 pop r3-r5
+080AA1A0   4698 mov r8, r3
+080AA1A2   46A1 mov r9, r4
+080AA1A4   46AA mov r10, r5
+080AA1A6   BCF0 pop r4-r7
+080AA1A8   BC01 pop r0
+080AA1AA   4700 bx r0
+
+-----------------------------
+------------
+add points when level up (this part is not completeed)
+
+0802BE6C   B530 push r4-r5, lr
+0802BE6E   1C02 mov r2, r0
+0802BE70   468C mov r12, r1
+0802BE72   2112 mov r1, 12h
+0802BE74   5651 ldrsb r1, [r2, r1]  read HP?
+0802BE76   4660 mov r0, r12
+0802BE78   3073 add r0, 73h
+0802BE7A   7800 ldrb r0, [r0, 0h]  decide add HP(may be @_@)
+0802BE7C   0600 lsl r0, r0, 18h
+0802BE7E   1600 asr r0, r0, 18h   watch out! 7 bits binary
+0802BE80   180B add r3, r1, r0
+0802BE82   200B mov r0, Bh
+0802BE84   5610 ldrsb r0, [r2, r0]
+0802BE86   21C0 mov r1, C0h    some kind of filter(I don't know clearly)
+0802BE88   4008 and r0, r1
+0802BE8A   2880 cmp r0, 80h
+0802BE8C   D102 bne 802BE94h  begin to edit, but I haven't been success
+0802BE8E   2B78\7f cmp r3, 78\7fh
+0802BE90   DC02 bgt 802BE98h
+0802BE92   E010 b 802BEB6h
+0802BE94   2B3C\50 cmp r3, 3C\50h
+0802BE96   DD0E ble 802BEB6h
+0802BE98   2312 mov r3, 12h
+0802BE9A   56D3 ldrsb r3, [r2, r3] read HP once more?
+0802BE9C   200B mov r0, Bh
+0802BE9E   5610 ldrsb r0, [r2, r0]
+0802BEA0   21C0 mov r1, C0h another filter?
+0802BEA2   4008 and r0, r1
+0802BEA4   2880 cmp r0, 80h
+0802BEA6   D101 bne 802BEACh
+0802BEA8   2078\7f mov r0, 78\7fh
+0802BEAA   E000 b 802BEAEh
+0802BEAC   203C\50 mov r0, 3C\50h
+0802BEAE   1AC0 sub r0, r0, r3    an important calculation
+0802BEB0   4661 mov r1, r12
+0802BEB2   3173 add r1, 73h
+0802BEB4   7008 strb r0, [r1, 0h] final points save to the game
+
+0802BEB6   2014 mov r0, 14h
+0802BEB8   5610 ldrsb r0, [r2, r0]   read STR
+0802BEBA   4664 mov r4, r12
+0802BEBC   3474 add r4, 74h
+0802BEBE   2100 mov r1, 0h
+0802BEC0   5661 ldrsb r1, [r4, r1] decide add point
+0802BEC2   1840 add r0, r0, r1
+0802BEC4   6855 ldr r5, [r2, 4h] read pointer
+0802BEC6   2114 mov r1, 14h
+0802BEC8   5669 ldrsb r1, [r5, r1] read maxSTR of the class
+0802BECA   1C2B mov r3, r5
+0802BECC   4288 cmp r0, r1
+0802BECE   DD03 ble 802BED8h
+0802BED0   7D18 ldrb r0, [r3, 14h]
+0802BED2   7D11 ldrb r1, [r2, 14h]
+0802BED4   1A40 sub r0, r0, r1
+0802BED6   7020 strb r0, [r4, 0h]
+
+0802BED8   2015 mov r0, 15h
+0802BEDA   5610 ldrsb r0, [r2, r0]  read SKILL
+0802BEDC   4664 mov r4, r12
+0802BEDE   3475 add r4, 75h
+0802BEE0   2100 mov r1, 0h
+0802BEE2   5661 ldrsb r1, [r4, r1]
+0802BEE4   1840 add r0, r0, r1
+0802BEE6   2115 mov r1, 15h
+0802BEE8   5659 ldrsb r1, [r3, r1]
+0802BEEA   4288 cmp r0, r1
+0802BEEC   DD03 ble 802BEF6h
+0802BEEE   7D58 ldrb r0, [r3, 15h]
+0802BEF0   7D51 ldrb r1, [r2, 15h]
+0802BEF2   1A40 sub r0, r0, r1
+0802BEF4   7020 strb r0, [r4, 0h]
+
+0802BEF6   2016 mov r0, 16h
+0802BEF8   5610 ldrsb r0, [r2, r0] read SPD
+0802BEFA   4664 mov r4, r12
+0802BEFC   3476 add r4, 76h
+0802BEFE   2100 mov r1, 0h
+0802BF00   5661 ldrsb r1, [r4, r1]
+0802BF02   1840 add r0, r0, r1
+0802BF04   2116 mov r1, 16h
+0802BF06   5659 ldrsb r1, [r3, r1]
+0802BF08   4288 cmp r0, r1
+0802BF0A   DD03 ble 802BF14h
+0802BF0C   7D98 ldrb r0, [r3, 16h]
+0802BF0E   7D91 ldrb r1, [r2, 16h]
+0802BF10   1A40 sub r0, r0, r1
+0802BF12   7020 strb r0, [r4, 0h]
+
+0802BF14   2017 mov r0, 17h
+0802BF16   5610 ldrsb r0, [r2, r0]  SAVE'DEF
+0802BF18   4664 mov r4, r12
+0802BF1A   3477 add r4, 77h
+0802BF1C   2100 mov r1, 0h
+0802BF1E   5661 ldrsb r1, [r4, r1]
+0802BF20   1840 add r0, r0, r1
+0802BF22   2117 mov r1, 17h
+0802BF24   5659 ldrsb r1, [r3, r1]
+0802BF26   4288 cmp r0, r1
+0802BF28   DD03 ble 802BF32h
+0802BF2A   7DD8 ldrb r0, [r3, 17h]
+0802BF2C   7DD1 ldrb r1, [r2, 17h]
+0802BF2E   1A40 sub r0, r0, r1
+0802BF30   7020 strb r0, [r4, 0h]
+
+0802BF32   2018 mov r0, 18h
+0802BF34   5610 ldrsb r0, [r2, r0] SAVE MagicDEF
+0802BF36   4663 mov r3, r12
+0802BF38   3378 add r3, 78h
+0802BF3A   2100 mov r1, 0h
+0802BF3C   5659 ldrsb r1, [r3, r1]
+0802BF3E   1840 add r0, r0, r1
+0802BF40   2118 mov r1, 18h
+0802BF42   5669 ldrsb r1, [r5, r1]
+0802BF44   4288 cmp r0, r1
+0802BF46   DD03 ble 802BF50h
+0802BF48   7E28 ldrb r0, [r5, 18h]
+0802BF4A   7E11 ldrb r1, [r2, 18h]
+0802BF4C   1A40 sub r0, r0, r1
+0802BF4E   7018 strb r0, [r3, 0h]
+
+0802BF50   2019 mov r0, 19h
+0802BF52   5610 ldrsb r0, [r2, r0]-----> SAVE LUCK
+0802BF54   4663 mov r3, r12
+0802BF56   3379 add r3, 79h
+0802BF58   2100 mov r1, 0h
+0802BF5A   5659 ldrsb r1, [r3, r1]
+0802BF5C   1840 add r0, r0, r1
+0802BF5E   281E cmp r0, 1Eh
+0802BF60   DD03 ble 802BF6Ah
+0802BF62   7E51 ldrb r1, [r2, 19h]
+0802BF64   201E mov r0, 1Eh
+0802BF66   1A40 sub r0, r0, r1
+0802BF68   7018 strb r0, [r3, 0h]
+
+0802BF6A   BC30 pop r4-r5
+0802BF6C   BC01 pop r0
+0802BF6E   4700 bx r0   whether overflow 0802BB32    F000    bl 0802BE6Ch   define over
+
+====================================
+add points by using items(still under construction)
+
+08017EDC   B5F0 push r4-r7, lr
+08017EDE   1C04 mov r4, r0
+08017EE0   2212 mov r2, 12h
+08017EE2   56A2 ldrsb r2, [r4, r2]
+08017EE4   200B mov r0, Bh
+08017EE6   5620 ldrsb r0, [r4, r0]
+08017EE8   21C0 mov r1, C0h
+08017EEA   4008 and r0, r1
+08017EEC   2880 cmp r0, 80h
+08017EEE   D102 bne 8017EF6h
+08017EF0   2A78\7F cmp r2, 78\7Fh
+08017EF2   DC02 bgt 8017EFAh
+08017EF4   E00A b 8017F0Ch
+08017EF6   2A3C\50 cmp r2, 3C\50h
+08017EF8   DD08 ble 8017F0Ch
+08017EFA   200B mov r0, Bh
+08017EFC   5620 ldrsb r0, [r4, r0]
+08017EFE   21C0 mov r1, C0h
+08017F00   4008 and r0, r1
+08017F02   213C\50 mov r1, 3C\50h
+08017F04   2880 cmp r0, 80h
+08017F06   D100 bne 8017F0Ah
+08017F08   2178 mov r1, 78\7Fh
+08017F0A   74A1 strb r1, [r4, 12h]
+
+08017F0C   6867 ldr r7, [r4, 4h]
+08017F0E   2114 mov r1, 14h
+08017F10   5661 ldrsb r1, [r4, r1]
+08017F12   7D3A ldrb r2, [r7, 14h]
+08017F14   2014 mov r0, 14h
+08017F16   5638 ldrsb r0, [r7, r0]
+08017F18   1C3D mov r5, r7
+08017F1A   4281 cmp r1, r0
+08017F1C   DD00 ble 8017F20h
+08017F1E   7522 strb r2, [r4, 14h]
+08017F20   2115 mov r1, 15h
+08017F22   5661 ldrsb r1, [r4, r1]
+08017F24   7D6A ldrb r2, [r5, 15h]
+08017F26   2015 mov r0, 15h
+08017F28   5628 ldrsb r0, [r5, r0]
+08017F2A   4281 cmp r1, r0
+08017F2C   DD00 ble 8017F30h
+08017F2E   7562 strb r2, [r4, 15h]
+08017F30   2116 mov r1, 16h
+08017F32   5661 ldrsb r1, [r4, r1]
+08017F34   7DAA ldrb r2, [r5, 16h]
+08017F36   2016 mov r0, 16h
+08017F38   5628 ldrsb r0, [r5, r0]
+08017F3A   4281 cmp r1, r0
+08017F3C   DD00 ble 8017F40h
+08017F3E   75A2 strb r2, [r4, 16h]
+08017F40   2117 mov r1, 17h
+08017F42   5661 ldrsb r1, [r4, r1]
+08017F44   7DEA ldrb r2, [r5, 17h]
+08017F46   2017 mov r0, 17h
+08017F48   5628 ldrsb r0, [r5, r0]
+08017F4A   4281 cmp r1, r0
+08017F4C   DD00 ble 8017F50h
+08017F4E   75E2 strb r2, [r4, 17h]
+08017F50   2118 mov r1, 18h
+08017F52   5661 ldrsb r1, [r4, r1]
+08017F54   7E2A ldrb r2, [r5, 18h]
+08017F56   2018 mov r0, 18h
+08017F58   5628 ldrsb r0, [r5, r0]
+08017F5A   4281 cmp r1, r0
+08017F5C   DD00 ble 8017F60h
+08017F5E   7622 strb r2, [r4, 18h]
+08017F60   2019 mov r0, 19h
+08017F62   5620 ldrsb r0, [r4, r0]
+08017F64   281E cmp r0, 1Eh
+08017F66   DD01 ble 8017F6Ch
+08017F68   201E mov r0, 1Eh
+08017F6A   7660 strb r0, [r4, 19h]
+08017F6C   231A mov r3, 1Ah
+08017F6E   56E3 ldrsb r3, [r4, r3]
+08017F70   2219 mov r2, 19h
+08017F72   56AA ldrsb r2, [r5, r2]
+08017F74   2011 mov r0, 11h
+08017F76   5628 ldrsb r0, [r5, r0]
+08017F78   6826 ldr r6, [r4, 0h]
+08017F7A   2113 mov r1, 13h
+08017F7C   5671 ldrsb r1, [r6, r1]
+08017F7E   1840 add r0, r0, r1
+08017F80   1A12 sub r2, r2, r0
+08017F82   4293 cmp r3, r2
+08017F84   DD05 ble 8017F92h
+08017F86   7CF1 ldrb r1, [r6, 13h]
+08017F88   7C68 ldrb r0, [r5, 11h]
+08017F8A   1809 add r1, r1, r0
+08017F8C   7E68 ldrb r0, [r5, 19h]
+08017F8E   1A40 sub r0, r0, r1
+08017F90   76A0 strb r0, [r4, 1Ah]
+08017F92   221D mov r2, 1Dh
+08017F94   56A2 ldrsb r2, [r4, r2]
+08017F96   2112 mov r1, 12h
+08017F98   5679 ldrsb r1, [r7, r1]
+08017F9A   200F mov r0, Fh
+08017F9C   1A40 sub r0, r0, r1
+08017F9E   4282 cmp r2, r0
+08017FA0   DD03 ble 8017FAAh
+08017FA2   7CB9 ldrb r1, [r7, 12h]
+08017FA4   200F mov r0, Fh
+08017FA6   1A40 sub r0, r0, r1
+08017FA8   7760 strb r0, [r4, 1Dh]
+08017FAA   BCF0 pop r4-r7
+08017FAC   BC01 pop r0
+08017FAE   4700 bx r0
+
+---------------
+---------------------
+edit the way SUSPEND
+
+
+080AA828   B5F0 push r4-r7, lr
+080AA82A   4657 mov r7, r10
+080AA82C   464E mov r6, r9
+080AA82E   4645 mov r5, r8
+080AA830   B4E0 push r5-r7
+080AA832   B089 sub sp, 24h
+080AA834   1C07 mov r7, r0
+080AA836   1C0E mov r6, r1
+080AA838   6838 ldr r0, [r7, 0h]
+080AA83A   2800 cmp r0, 0h
+080AA83C   D101 bne 80AA842h
+080AA83E   7008 strb r0, [r1, 0h]
+080AA840   E0CD b 80AA9DEh
+080AA842   7900 ldrb r0, [r0, 4h]
+080AA844   7030 strb r0, [r6, 0h]
+080AA846   6878 ldr r0, [r7, 4h]
+080AA848   7900 ldrb r0, [r0, 4h]
+080AA84A   7070 strb r0, [r6, 1h]
+080AA84C   7EF8 ldrb r0, [r7, 1Bh]
+080AA84E   70F0 strb r0, [r6, 3h]
+080AA850   68F8 ldr r0, [r7, Ch]
+080AA852   6070 str r0, [r6, 4h]
+080AA854   4B00 ldr r3, [pc, 0h]    ([000AA858]=00003FFF)
+080AA856   E001 b 80AA85Ch
+080AA858   3FFF sub r7, FFh
+080AA85A   0000 lsl r0, r0, 0
+080AA85C   8BF8 ldrh r0, [r7, 1Eh]
+080AA85E   4018 and r0, r3
+080AA860   8C39 ldrh r1, [r7, 20h]
+080AA862   4019 and r1, r3
+080AA864   0389 lsl r1, r1, Eh
+080AA866   4308 orr r0, r1
+080AA868   8C7A ldrh r2, [r7, 22h]
+080AA86A   401A and r2, r3
+080AA86C   0711 lsl r1, r2, 1Ch
+080AA86E   4308 orr r0, r1
+080AA870   60B0 str r0, [r6, 8h]
+080AA872   0910 lsr r0, r2, 4h
+080AA874   8CB9 ldrh r1, [r7, 24h]
+080AA876   4019 and r1, r3
+080AA878   0289 lsl r1, r1, Ah
+080AA87A   4308 orr r0, r1
+080AA87C   8CFA ldrh r2, [r7, 26h]
+080AA87E   401A and r2, r3
+080AA880   0611 lsl r1, r2, 18h
+080AA882   4308 orr r0, r1
+080AA884   60F0 str r0, [r6, Ch]
+080AA886   211D mov r1, 1Dh
+080AA888   5C79 ldrb r1, [r7, r1]
+080AA88A   2303 mov r3, 3h
+080AA88C   4019 and r1, r3
+080AA88E   0189 lsl r1, r1, 6h
+080AA890   0A10 lsr r0, r2, 8h
+080AA892   4308 orr r0, r1
+080AA894   7430 strb r0, [r6, 10h]
+080AA896   7A38 ldrb r0, [r7, 8h]
+080AA898   251F mov r5, 1Fh
+080AA89A   4028 and r0, r5
+080AA89C   1C34 mov r4, r6
+080AA89E   3424 add r4, 24h
+080AA8A0   0000 lsl r0, r0, 0
+080AA8A2   0000 lsl r0, r0, 0
+080AA8A4   0000 lsl r0, r0, 0
+080AA8A6   0000 lsl r0, r0, 0
+080AA8A8   2110 mov r1, 10h
+080AA8AA   5679 ldrsb r1, [r7, r1]
+080AA8AC   2211 mov r2, 11h
+080AA8AE   56BA ldrsb r2, [r7, r2]
+080AA8B0   233F mov r3, 3Fh
+080AA8B2   4019 and r1, r3
+080AA8B4   401A and r2, r3
+080AA8B6   0149 lsl r1, r1, 5h
+080AA8B8   02D2 lsl r2, r2, Bh
+080AA8BA   4308 orr r0, r1
+080AA8BC   4310 orr r0, r2
+080AA8BE   211C mov r1, 1Ch
+080AA8C0   5C79 ldrb r1, [r7, r1]
+080AA8C2   227F mov r2, 7Fh
+080AA8C4   4011 and r1, r2
+080AA8C6   0449 lsl r1, r1, 11h
+080AA8C8   4308 orr r0, r1
+080AA8CA   2112 mov r1, 12h
+080AA8CC   5C79 ldrb r1, [r7, r1]
+080AA8CE   0609 lsl r1, r1, 18h
+080AA8D0   4308 orr r0, r1
+080AA8D2   6020 str r0, [r4, 0h]
+080AA8D4   0000 lsl r0, r0, 0
+080AA8D6   2113 mov r1, 13h
+080AA8D8   2200 mov r2, 0h
+080AA8DA   2500 mov r5, 0h
+080AA8DC   1C49 add r1, r1, 1h
+080AA8DE   5678 ldrsb r0, [r7, r1]
+080AA8E0   4018 and r0, r3
+080AA8E2   4090 lsl r0, r2
+080AA8E4   4305 orr r5, r0
+080AA8E6   1D92 add r2, r2, 6h
+080AA8E8   2918 cmp r1, 18h
+080AA8EA   DDF7 ble 80AA8DCh
+080AA8EC   6065 str r5, [r4, 4h]
+080AA8EE   5678 ldrsb r0, [r7, r1]
+080AA8F0   4018 and r0, r3
+080AA8F2   0880 lsr r0, r0, 2h
+080AA8F4   2139 mov r1, 39h
+080AA8F6   5C79 ldrb r1, [r7, r1]
+080AA8F8   237F mov r3, 7Fh
+080AA8FA   4019 and r1, r3
+080AA8FC   0649 lsl r1, r1, 19h
+080AA8FE   4308 orr r0, r1
+080AA900   2113 mov r1, 13h
+080AA902   5C79 ldrb r1, [r7, r1]
+080AA904   0109 lsl r1, r1, 4h
+080AA906   4308 orr r0, r1
+080AA908   0009 lsl r1, r1, 0
+080AA90A   2130 mov r1, 30h
+080AA90C   5C79 ldrb r1, [r7, r1]
+080AA90E   4019 and r1, r3
+080AA910   0309 lsl r1, r1, Ch
+080AA912   4308 orr r0, r1
+080AA914   2131 mov r1, 31h
+080AA916   5C79 ldrb r1, [r7, r1]
+080AA918   1C0A mov r2, r1
+080AA91A   0912 lsr r2, r2, 4h
+080AA91C   2307 mov r3, 7h
+080AA91E   4019 and r1, r3
+080AA920   04C9 lsl r1, r1, 13h
+080AA922   4308 orr r0, r1
+080AA924   401A and r2, r3
+080AA926   0591 lsl r1, r2, 16h
+080AA928   4308 orr r0, r1
+080AA92A   60A0 str r0, [r4, 8h]
+080AA92C   1C3D mov r5, r7
+080AA92E   3528 add r5, 28h
+080AA930   1C34 mov r4, r6
+080AA932   3412 add r4, 12h
+080AA934   2300 mov r3, 0h
+080AA936   2200 mov r2, 0h
+080AA938   2101 mov r1, 1h
+080AA93A   7828 ldrb r0, [r5, 0h]
+080AA93C   2800 cmp r0, 0h
+080AA93E   D002 beq 80AA946h
+080AA940   430A orr r2, r1
+080AA942   3301 add r3, 1h
+080AA944   54E0 strb r0, [r4, r3]
+080AA946   3501 add r5, 1h
+080AA948   0049 lsl r1, r1, 1h
+080AA94A   2980 cmp r1, 80h
+080AA94C   DDF5 ble 80AA93Ah
+080AA94E   7022 strb r2, [r4, 0h]
+080AA950   1C3B mov r3, r7
+080AA952   3332 add r3, 32h
+080AA954   1C34 mov r4, r6
+080AA956   341A add r4, 1Ah
+080AA958   2200 mov r2, 0h
+080AA95A   1899 add r1, r3, r2
+080AA95C   18A0 add r0, r4, r2
+080AA95E   7809 ldrb r1, [r1, 0h]
+080AA960   7001 strb r1, [r0, 0h]
+080AA962   3201 add r2, 1h
+080AA964   2A06 cmp r2, 6h
+080AA966   DDF8 ble 80AA95Ah
+080AA968   1C38 mov r0, r7
+080AA96A   3042 add r0, 42h
+080AA96C   7800 ldrb r0, [r0, 0h]
+080AA96E   70B0 strb r0, [r6, 2h]
+080AA970   227F mov r2, 7Fh
+080AA972   4002 and r2, r0
+080AA974   1C38 mov r0, r7
+080AA976   3030 add r0, 30h
+080AA978   7801 ldrb r1, [r0, 0h]
+080AA97A   0709 lsl r1, r1, 1Ch
+080AA97C   0F09 lsr r1, r1, 1Ch
+080AA97E   2008 mov r0, 8h
+080AA980   4008 and r0, r1
+080AA982   2800 cmp r0, 0h
+080AA984   D001 beq 80AA98Ah
+080AA986   2080 mov r0, 80h
+080AA988   4302 orr r2, r0
+080AA98A   70B2 strb r2, [r6, 2h]
+080AA98C   1C39 mov r1, r7
+080AA98E   3143 add r1, 43h
+080AA990   7808 ldrb r0, [r1, 0h]
+080AA992   1C31 mov r1, r6
+080AA994   3121 add r1, 21h
+080AA996   7008 strb r0, [r1, 0h]
+080AA998   1C39 mov r1, r7
+080AA99A   3144 add r1, 44h
+080AA99C   7808 ldrb r0, [r1, 0h]
+080AA99E   1C31 mov r1, r6
+080AA9A0   3122 add r1, 22h
+080AA9A2   7008 strb r0, [r1, 0h]
+080AA9A4   1C39 mov r1, r7
+080AA9A6   3145 add r1, 45h
+080AA9A8   7808 ldrb r0, [r1, 0h]
+080AA9AA   1C31 mov r1, r6
+080AA9AC   3123 add r1, 23h
+080AA9AE   7008 strb r0, [r1, 0h]
+080AA9B0   1C39 mov r1, r7
+080AA9B2   3140 add r1, 40h
+080AA9B4   8808 ldrh r0, [r1, 0h]
+080AA9B6   1C31 mov r1, r6
+080AA9B8   3132 add r1, 32h
+080AA9BA   8008 strh r0, [r1, 0h]
+080AA9BC   1C39 mov r1, r7
+080AA9BE   3146 add r1, 46h
+080AA9C0   7808 ldrb r0, [r1, 0h]
+080AA9C2   1C31 mov r1, r6
+080AA9C4   3131 add r1, 31h
+080AA9C6   7008 strb r0, [r1, 0h]
+080AA9C8   7AB8 ldrb r0, [r7, Ah]
+080AA9CA   7470 strb r0, [r6, 11h]
+080AA9CC   7A78 ldrb r0, [r7, 9h]
+080AA9CE   211A mov r1, 1Ah
+080AA9D0   5C79 ldrb r1, [r7, r1]
+080AA9D2   2307 mov r3, 7h
+080AA9D4   4019 and r1, r3
+080AA9D6   0209 lsl r1, r1, 8h
+080AA9D8   4308 orr r0, r1
+080AA9DA   2118 mov r1, 18h
+080AA9DC   5270 strh r0, [r6, r1]
+080AA9DE   B009 add sp, 24h
+080AA9E0   BC38 pop r3-r5
+080AA9E2   4698 mov r8, r3
+080AA9E4   46A1 mov r9, r4
+080AA9E6   46AA mov r10, r5
+080AA9E8   BCF0 pop r4-r7
+080AA9EA   BC01 pop r0
+080AA9EC   4700 bx r0
+080AA9EE   0000 lsl r0, r0, 0
+
+edit the way CONTINUE
+
+080AAB2E   0000 lsl r0, r0, 0
+080AAB30   B5F0 push r4-r7, lr
+080AAB32   4657 mov r7, r10
+080AAB34   464E mov r6, r9
+080AAB36   4645 mov r5, r8
+080AAB38   B4E0 push r5-r7
+080AAB3A   B093 sub sp, 4Ch
+080AAB3C   1C0E mov r6, r1
+080AAB3E   4990 ldr r1, [pc, 240h]    ([000AAD80]=03006790)
+080AAB40   680B ldr r3, [r1, 0h]
+080AAB42   4669 mov r1, sp
+080AAB44   2234 mov r2, 34h
+080AAB46 FD3FF02B bl 80D65C8h
+080AAB4A   4668 mov r0, sp
+080AAB4C   7800 ldrb r0, [r0, 0h]
+080AAB4E FAF5F76E bl 801913Ch
+080AAB52   6030 str r0, [r6, 0h]
+080AAB54   4668 mov r0, sp
+080AAB56   7840 ldrb r0, [r0, 1h]
+080AAB58 FAE0F76E bl 801911Ch
+080AAB5C   6070 str r0, [r6, 4h]
+080AAB5E   466F mov r7, sp
+080AAB60   78F8 ldrb r0, [r7, 3h]
+080AAB62   76F0 strb r0, [r6, 1Bh]
+080AAB64   6878 ldr r0, [r7, 4h]
+080AAB66   60F0 str r0, [r6, Ch]
+080AAB68   4B00 ldr r3, [pc, 0h]    ([000AAB6C]=00003FFF)
+080AAB6A   E001 b 80AAB70h
+080AAB6C   3FFF sub r7, FFh
+080AAB6E   0000 lsl r0, r0, 0
+080AAB70   68B8 ldr r0, [r7, 8h]
+080AAB72   1C1A mov r2, r3
+080AAB74   4002 and r2, r0
+080AAB76   83F2 strh r2, [r6, 1Eh]
+080AAB78   0B80 lsr r0, r0, Eh
+080AAB7A   1C1A mov r2, r3
+080AAB7C   4002 and r2, r0
+080AAB7E   8432 strh r2, [r6, 20h]
+080AAB80   0B81 lsr r1, r0, Eh
+080AAB82   68F8 ldr r0, [r7, Ch]
+080AAB84   0102 lsl r2, r0, 4h
+080AAB86   4311 orr r1, r2
+080AAB88   1C1A mov r2, r3
+080AAB8A   400A and r2, r1
+080AAB8C   8472 strh r2, [r6, 22h]
+080AAB8E   0A80 lsr r0, r0, Ah
+080AAB90   1C1A mov r2, r3
+080AAB92   4002 and r2, r0
+080AAB94   84B2 strh r2, [r6, 24h]
+080AAB96   0B81 lsr r1, r0, Eh
+080AAB98   7C38 ldrb r0, [r7, 10h]
+080AAB9A   0202 lsl r2, r0, 8h
+080AAB9C   4311 orr r1, r2
+080AAB9E   1C1A mov r2, r3
+080AABA0   400A and r2, r1
+080AABA2   84F2 strh r2, [r6, 26h]
+080AABA4   0980 lsr r0, r0, 6h
+080AABA6   211D mov r1, 1Dh
+080AABA8   5470 strb r0, [r6, r1]
+080AABAA   1C3C mov r4, r7
+080AABAC   3424 add r4, 24h
+080AABAE   6820 ldr r0, [r4, 0h]
+080AABB0   221F mov r2, 1Fh
+080AABB2   4002 and r2, r0
+080AABB4   2108 mov r1, 8h
+080AABB6   5472 strb r2, [r6, r1]
+080AABB8   0940 lsr r0, r0, 5h
+080AABBA   223F mov r2, 3Fh
+080AABBC   4002 and r2, r0
+080AABBE   2110 mov r1, 10h
+080AABC0   5472 strb r2, [r6, r1]
+080AABC2   0980 lsr r0, r0, 6h
+080AABC4   223F mov r2, 3Fh
+080AABC6   4002 and r2, r0
+080AABC8   2111 mov r1, 11h
+080AABCA   5472 strb r2, [r6, r1]
+080AABCC   0980 lsr r0, r0, 6h
+080AABCE   227F mov r2, 7Fh
+080AABD0   4002 and r2, r0
+080AABD2   211C mov r1, 1Ch
+080AABD4   5472 strb r2, [r6, r1]
+080AABD6   09C0 lsr r0, r0, 7h
+080AABD8   22FF mov r2, FFh
+080AABDA   4002 and r2, r0
+080AABDC   2112 mov r1, 12h
+080AABDE   5472 strb r2, [r6, r1]
+080AABE0   6860 ldr r0, [r4, 4h]
+080AABE2   2114 mov r1, 14h
+080AABE4   233F mov r3, 3Fh
+080AABE6   4003 and r3, r0
+080AABE8   5473 strb r3, [r6, r1]
+080AABEA   0980 lsr r0, r0, 6h
+080AABEC   3101 add r1, 1h
+080AABEE   2918 cmp r1, 18h
+080AABF0   DDF8 ble 80AABE4h
+080AABF2   68A2 ldr r2, [r4, 8h]
+080AABF4   0093 lsl r3, r2, 2h
+080AABF6   4318 orr r0, r3
+080AABF8   233F mov r3, 3Fh
+080AABFA   4018 and r0, r3
+080AABFC   5470 strb r0, [r6, r1]
+080AABFE   0910 lsr r0, r2, 4h
+080AAC00   22FF mov r2, FFh
+080AAC02   4002 and r2, r0
+080AAC04   2113 mov r1, 13h
+080AAC06   5472 strb r2, [r6, r1]
+080AAC08   0A00 lsr r0, r0, 8h
+080AAC0A   227F mov r2, 7Fh
+080AAC0C   4002 and r2, r0
+080AAC0E   2130 mov r1, 30h
+080AAC10   5472 strb r2, [r6, r1]
+080AAC12   09C0 lsr r0, r0, 7h
+080AAC14   2207 mov r2, 7h
+080AAC16   4002 and r2, r0
+080AAC18   2107 mov r1, 7h
+080AAC1A   08C0 lsr r0, r0, 3h
+080AAC1C   4001 and r1, r0
+080AAC1E   0109 lsl r1, r1, 4h
+080AAC20   430A orr r2, r1
+080AAC22   2131 mov r1, 31h
+080AAC24   5472 strb r2, [r6, r1]
+080AAC26   08C0 lsr r0, r0, 3h
+080AAC28   227F mov r2, 7Fh
+080AAC2A   4010 and r0, r2
+080AAC2C   2139 mov r1, 39h
+080AAC2E   5470 strb r0, [r6, r1]
+080AAC30   8B38 ldrh r0, [r7, 18h]
+080AAC32   22FF mov r2, FFh
+080AAC34   4002 and r2, r0
+080AAC36   7272 strb r2, [r6, 9h]
+080AAC38   0A00 lsr r0, r0, 8h
+080AAC3A   2207 mov r2, 7h
+080AAC3C   4002 and r2, r0
+080AAC3E   211A mov r1, 1Ah
+080AAC40   5472 strb r2, [r6, r1]
+080AAC42   1C35 mov r5, r6
+080AAC44   3528 add r5, 28h
+080AAC46   1C3C mov r4, r7
+080AAC48   3412 add r4, 12h
+080AAC4A   2300 mov r3, 0h
+080AAC4C   7822 ldrb r2, [r4, 0h]
+080AAC4E   2101 mov r1, 1h
+080AAC50   1C10 mov r0, r2
+080AAC52   4008 and r0, r1
+080AAC54   2800 cmp r0, 0h
+080AAC56   D002 beq 80AAC5Eh
+080AAC58   3401 add r4, 1h
+080AAC5A   7820 ldrb r0, [r4, 0h]
+080AAC5C   54E8 strb r0, [r5, r3]
+080AAC5E   3301 add r3, 1h
+080AAC60   0049 lsl r1, r1, 1h
+080AAC62   2B07 cmp r3, 7h
+080AAC64   DDF4 ble 80AAC50h
+080AAC66   1C35 mov r5, r6
+080AAC68   3532 add r5, 32h
+080AAC6A   1C3C mov r4, r7
+080AAC6C   341A add r4, 1Ah
+080AAC6E   2200 mov r2, 0h
+080AAC70   18A0 add r0, r4, r2
+080AAC72   18A9 add r1, r5, r2
+080AAC74   7800 ldrb r0, [r0, 0h]
+080AAC76   7008 strb r0, [r1, 0h]
+080AAC78   3201 add r2, 1h
+080AAC7A   2A06 cmp r2, 6h
+080AAC7C   DDF8 ble 80AAC70h
+080AAC7E   0000 lsl r0, r0, 0
+080AAC80   78B8 ldrb r0, [r7, 2h]
+080AAC82   1C31 mov r1, r6
+080AAC84   3142 add r1, 42h
+080AAC86   7008 strb r0, [r1, 0h]
+080AAC88   1C39 mov r1, r7
+080AAC8A   3121 add r1, 21h
+080AAC8C   7808 ldrb r0, [r1, 0h]
+080AAC8E   1C31 mov r1, r6
+080AAC90   3143 add r1, 43h
+080AAC92   7008 strb r0, [r1, 0h]
+080AAC94   1C39 mov r1, r7
+080AAC96   3122 add r1, 22h
+080AAC98   7808 ldrb r0, [r1, 0h]
+080AAC9A   1C31 mov r1, r6
+080AAC9C   3144 add r1, 44h
+080AAC9E   7008 strb r0, [r1, 0h]
+080AACA0   1C39 mov r1, r7
+080AACA2   3123 add r1, 23h
+080AACA4   7808 ldrb r0, [r1, 0h]
+080AACA6   1C31 mov r1, r6
+080AACA8   3145 add r1, 45h
+080AACAA   7008 strb r0, [r1, 0h]
+080AACAC   0000 lsl r0, r0, 0
+080AACAE   0000 lsl r0, r0, 0
+080AACB0   0000 lsl r0, r0, 0
+080AACB2   0000 lsl r0, r0, 0
+080AACB4   0000 lsl r0, r0, 0
+080AACB6   0000 lsl r0, r0, 0
+080AACB8   1C39 mov r1, r7
+080AACBA   3132 add r1, 32h
+080AACBC   8808 ldrh r0, [r1, 0h]
+080AACBE   1C31 mov r1, r6
+080AACC0   3140 add r1, 40h
+080AACC2   8008 strh r0, [r1, 0h]
+080AACC4   1C39 mov r1, r7
+080AACC6   3131 add r1, 31h
+080AACC8   7808 ldrb r0, [r1, 0h]
+080AACCA   1C31 mov r1, r6
+080AACCC   3146 add r1, 46h
+080AACCE   7008 strb r0, [r1, 0h]
+080AACD0   E037 b 80AAD42h
+080AACD2   0000 lsl r0, r0, 0
+
+080AAD40   0000 lsl r0, r0, 0
+080AAD42   4668 mov r0, sp
+080AAD44   7C40 ldrb r0, [r0, 11h]
+080AAD46   72B0 strb r0, [r6, Ah]
+080AAD48   7A70 ldrb r0, [r6, 9h]
+080AAD4A   287F cmp r0, 7Fh
+080AAD4C   DD01 ble 80AAD52h
+080AAD4E   20FF mov r0, FFh
+080AAD50   7270 strb r0, [r6, 9h]
+080AAD52   7C31 ldrb r1, [r6, 10h]
+080AAD54   2010 mov r0, 10h
+080AAD56   5630 ldrsb r0, [r6, r0]
+080AAD58   283F cmp r0, 3Fh
+080AAD5A   D101 bne 80AAD60h
+080AAD5C   20FF mov r0, FFh
+080AAD5E   7430 strb r0, [r6, 10h]
+080AAD60   7C71 ldrb r1, [r6, 11h]
+080AAD62   2011 mov r0, 11h
+080AAD64   5630 ldrsb r0, [r6, r0]
+080AAD66   283F cmp r0, 3Fh
+080AAD68   D101 bne 80AAD6Eh
+080AAD6A   20FF mov r0, FFh
+080AAD6C   7470 strb r0, [r6, 11h]
+080AAD6E   B013 add sp, 4Ch
+080AAD70   BC38 pop r3-r5
+080AAD72   4698 mov r8, r3
+080AAD74   46A1 mov r9, r4
+080AAD76   46AA mov r10, r5
+080AAD78   BCF0 pop r4-r7
+080AAD7A   BC01 pop r0
+080AAD7C   4700 bx r0
+080AAD7E   0000 lsl r0, r0, 0
+080AAD80   6790 str r0, [r2, 78h]
+080AAD82   0300 lsl r0, r0, Ch
+080AAD84   3FFF sub r7, FFh
+080AAD86   0000 lsl r0, r0, 0
+------------------------------

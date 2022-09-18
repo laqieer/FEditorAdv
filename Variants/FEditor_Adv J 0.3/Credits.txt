@@ -1,0 +1,36 @@
+These are additional credits handed out by me, Hextator.
+
+Obviously I don't need to credit myself anymore. Well, maybe I do; I'm pretty awesome.
+
+But anyway, you all (should) already know I conceived the editor, wrote most of its code
+and fixed most of its bugs regardless of whether my contributions to the project were the
+cause.
+
+But did you know that the following people gave varying amounts of effort in helping this
+project along?
+
+~~~~~
+
+Major thanks to:
+
+Zahlman
+	- For organizing ALL the code and saving me the trouble of doing a sloppy job of it
+	on my own once I had actually gotten around to it
+	- For fixing up the user interface to be even more friendly
+
+Generic thanks to:
+
+Fire Blazer
+	- Contributed some research about the game and conducted tests upon request
+
+Nintenlord
+	- His especially vague description of a solution for choosing an optimum OAM layout
+	for animations became the beastly algorithm we have now
+	- One of his apps (I forget which, sorry! I think it was NLZ GBA...) had some open
+	code for doing GBA friendly LZ77 compression in C#. Easily ported to Java and
+	working great. Glad I didn't have to figure it out for myself. :P
+
+~~~~~
+
+Other credits appear as comments in the appropriate files, but if you feel you were left out,
+let me know.
