@@ -1,0 +1,513 @@
+@This file generates output when assembled which follows the format specified in the specification at
+
+@Hextator's Doc/Development/Applications/Patching/Assembly Patcher
+
+@ Event Supports
+@ This hack modifies Fire Emblem 7 (U) to allow Support Conversations
+@ to be enacted as fully functional "events" using the game's "event" engine
+@ which processes a unique byte code format.
+@ Support Conversations are originally simply processed like other dialog in the game.
+@ This hack is a utility hack and will not modify the functional result of the game.
+
+.include "E:/curr/IO/Google Drive/Cloud/Dropbox/Public/Software/Hextator's Doc/Development/Utilities/Programming/devkitPro/arm-eabi/Branch Long with Link.txt"
+
+@ Allocation address
+.set				ESUS_FREE_MEM, 0x090C0000
+
+@ Hardware offset
+.long				0x08000000
+.align				2
+
+@ Event Support Unit Select code cave
+
+				ESUS_HOOK:
+.set				ESUS_HOOK_SIZE, ESUS_HOOK_END - ESUS_HOOK_START
+@Origin
+.long				0x0804AFB8
+@Offset (bytes to ignore)
+.long				0x00000000
+@Size
+.long				ESUS_HOOK_SIZE
+@@@
+.thumb
+				ESUS_HOOK_START:
+ldr	r0,			ESUS_HOOK_TARGET
+bx	r0			@
+
+.align				2
+				ESUS_HOOK_TARGET:
+.long				ESUS_HACK_ORIGIN+1
+				ESUS_HOOK_END:
+.align				2
+
+@ Event Support Unit Select custom code
+
+				ESUS_HACK:
+.set				ESUS_HACK_ORIGIN, ESUS_FREE_MEM
+.set				ESUS_HACK_SIZE, ESUS_HACK_END - ESUS_HACK_START
+@Origin
+.long				ESUS_HACK_ORIGIN
+@Offset (bytes to ignore)
+.long				0x00000000
+@Size
+.long				ESUS_HACK_SIZE
+@@@
+.thumb
+				ESUS_HACK_START:
+ldr	r0,			ESUS_HACK_IO_PTR
+ldr	r0,	[r0]		@
+ldrh	r1,	[r0,	#0x08]	@
+mov	r0,	#0x01		@A button
+and	r0,	r1		@
+cmp	r0,	#0x00		@
+bne				ESUS_HACK_A_PRESSED
+ldr	r0,			ESUS_HACK_A_NOT_PRESSED_RET
+bx	r0			@
+.align				2
+				ESUS_HACK_A_NOT_PRESSED_RET:
+.long				0x0804AFD4+1
+
+				ESUS_HACK_A_PRESSED:
+push	{r0-r7}			@
+
+@ Mimic 0x0802F540
+
+ldr	r5,	[r2,	#0x30]	@
+ldrb	r5,	[r5,	#0x02]	@
+ldr	r0,			ESUS_HACK_EV_PTR_WRAM_LOC
+ldrb	r0,	[r0,	#0x0C]	@
+@mov	r6,	r0		@
+bll				0x08018D0C
+ldr	r7,	[r0]		@
+ldrb	r7,	[r7,	#0x04]	@r7 is now sourceUnitID
+mov	r4,	r0		@r4 is the unit* to the source unit
+mov	r0,	r5		@
+bll				0x08018D0C
+ldr	r6,	[r0]		@
+ldrb	r6,	[r6,	#0x04]	@r6 is now targetUnitID
+mov	r5,	r0		@r5 is the unit* to the target unit
+
+push {r4-r7}			@
+
+mov	r0,	r4		@
+mov	r1,	r6		@
+bll				0x0802680C
+
+add	r0,	#0x32		@
+ldrb	r1,	[r4,	r0]	@
+sub	r0,	#0x32		@
+push	{r1}			@
+push	{r0}			@
+
+mov	r1,	r0		@
+mov	r0,	r4
+bll				0x08026744
+
+pop	{r1}			@
+push	{r1}			@
+mov	r0,	r4		@
+bll				0x08026694
+mov	r4,	r0		@r4 is now supportLev
+
+pop	{r0, r1}		@
+add	r0,	#0x32		@
+strb	r1,	[r4,	r0]	@
+
+@@@@@
+
+@ Mimic 0x08078A80
+
+@r7 = sourceUnitID
+@r6 = targetUnitID
+@r4 = supportLev
+mov	r5,	#0x00		@r5 = Text ID; 0 if invalid
+ldr	r0,			ESUS_HACK_SUPPORT_AVAIL
+b				ESUS_HACK_SUPPORT_LOOP
+
+@@@@@
+
+				ESUS_HACK_VALID_PAIR:
+mov	r2,	r1		@
+ldrb	r1,	[r0,	#0x01]	@
+cmp	r2,	r7		@
+bne				ESUS_HACK_SOURCE_MISMATCH
+cmp	r1,	r6		@
+beq				ESUS_HACK_PAIR_MATCH
+				ESUS_HACK_SOURCE_MISMATCH:
+cmp	r1,	r7		@
+bne				ESUS_HACK_WRONG_PAIR
+cmp	r2,	r6		@
+bne				ESUS_HACK_WRONG_PAIR
+				ESUS_HACK_PAIR_MATCH:
+cmp	r4,	#0x01		@
+bne				ESUS_HACK_NOT_C
+ldr	r5,	[r0,	#0x04]	@Support level C event pointer loaded
+				ESUS_HACK_NOT_C:
+cmp	r4,	#0x02		@
+bne				ESUS_HACK_NOT_B
+ldr	r5,	[r0,	#0x08]	@Support level B event pointer loaded
+				ESUS_HACK_NOT_B:
+cmp	r4,	#0x03		@
+bne				ESUS_HACK_EV_PTR_LOADED
+ldr	r5,	[r0,	#0x0C]	@Support level A event pointer loaded
+b				ESUS_HACK_EV_PTR_LOADED
+				ESUS_HACK_WRONG_PAIR:
+add	r0,	#0x10		@
+
+@@@@@
+
+				ESUS_HACK_SUPPORT_LOOP:
+ldr	r1,	[r0,	#0x04]	@
+cmp	r1,	#0x00		@
+bne				ESUS_HACK_CHECK_UNIT_ID
+ldr	r1,	[r0,	#0x08]	@
+cmp	r1,	#0x00		@
+bne				ESUS_HACK_CHECK_UNIT_ID
+ldr	r1,	[r0,	#0x0C]	@
+cmp	r1,	#0x00		@
+beq				ESUS_HACK_EXIT
+				ESUS_HACK_CHECK_UNIT_ID:
+ldrb	r1,	[r0]		@
+cmp	r1,	#0x00		@
+bne				ESUS_HACK_VALID_PAIR
+
+@@@@@
+
+				ESUS_HACK_EV_PTR_LOADED:
+cmp	r5,	#0x00		@
+beq				ESUS_HACK_EXIT
+@				ESUS_HACK_EVENT_SUPPORT:
+ldr	r0,			ESUS_HACK_EV_PTR_WRAM_LOC
+str	r5,	[r0,	#0x18]	@Event pointer to use loaded into WRAM
+
+pop	{r4-r7}			@
+@ r7 is now sourceUnitID
+@ r4 is the unit* to the source unit
+@ r6 is now targetUnitID
+@ r5 is the unit* to the target unit
+
+mov	r0,	r5		@
+mov	r1,	r7		@
+bll				0x0802680C
+mov	r1,	r0		@
+mov	r0,	r5		@
+bll				0x08026778
+
+mov	r0,	r5		@
+mov	r1,	r7		@
+bll				0x0802680C
+
+push	{r0}			@
+
+mov	r1,	r0		@
+mov	r0,	r5		@
+bll				0x08026744
+
+mov	r0,	r4		@
+mov	r1,	r6		@
+bll				0x0802680C
+
+push	{r0}			@
+
+mov	r1,	r0		@
+mov	r0,	r4
+bll				0x08026744
+
+pop	{r0-r1}			@r0 is now supportLevIndexSource
+				@r1 is now supportLevIndexTarget
+add	r4,	#0x32		@
+add	r5,	#0x32		@
+add	r4,	r4,	r0	@r4 is now &supportLevSource
+add	r5,	r5,	r1	@r5 is now &supportLevTarget
+ldrb	r0,	[r4]		@
+ldrb	r1,	[r5]		@
+cmp	r0,	r1		@
+bgt				ESUS_HACK_NO_LEV_ADJUST
+mov	r0,	r1		@
+				ESUS_HACK_NO_LEV_ADJUST:
+strb	r0,	[r4]		@
+strb	r0,	[r5]		@
+
+pop	{r0-r7}			@
+ldr	r0,			ESUS_HACK_EV_PTR_RET
+bx	r0			@
+
+				ESUS_HACK_EXIT:
+pop	{r4-r7}			@
+pop	{r0-r7}			@
+ldr	r3,			ESUS_HACK_A_PRESSED_RET
+bx	r3			@
+
+.align				2
+				ESUS_HACK_IO_PTR:
+.long				0x08B857F8
+				ESUS_HACK_SUPPORT_AVAIL:
+				@ This is basically just adding zero, but it's doing it symbolically
+				@ This forces the assembler to make the appropriate number of passes that it otherwise wouldn't
+				@ Otherwise ESUS_DATA_ORIGIN would be calculated too early (?) and ESUS_HACK_SIZE would have
+				@ a value of 0 at the time of processing, resulting in ESUS_DATA_ORIGIN having the wrong value
+.long				(ESUS_DATA_ORIGIN + ESUS_HACK_DATA - ESUS_DATA_START)
+				ESUS_HACK_EV_PTR_WRAM_LOC:
+.long				0x0203A85C
+				ESUS_HACK_EV_PTR_RET:
+.long				0x0804AFDC+1
+				ESUS_HACK_A_PRESSED_RET:
+.long				0x0804AFC4+1
+				ESUS_HACK_END:
+
+@ Event Support Menu Override code cave
+
+				ESMO_HOOK:
+.set				ESMO_HOOK_ORIGIN, 0x0804A84C
+.set				ESMO_HOOK_SIZE, ESMO_HOOK_END - ESMO_HOOK_START
+@Origin
+.long				ESMO_HOOK_ORIGIN
+@Offset (bytes to ignore)
+.long				0x00000000
+@Size
+.long				ESMO_HOOK_SIZE
+@@@
+.thumb
+				ESMO_HOOK_START:
+ldr	r1,			ESMO_HOOK_TARGET
+bx	r1			@
+
+.align				2
+				ESMO_HOOK_TARGET:
+.long				ESMO_HACK_ORIGIN+1
+				ESMO_HOOK_END:
+.align				2
+
+@ Event Support Menu Override custom code
+
+				ESMO_HACK:
+.set				ESMO_HACK_ORIGIN, (((ESUS_HACK_ORIGIN + ESUS_HACK_SIZE) + 3) & (~3))
+.set				ESMO_HACK_SIZE, ESMO_HACK_END - ESMO_HACK_START
+@Origin
+.long				ESMO_HACK_ORIGIN
+@Offset (bytes to ignore)
+.long				0x00000000
+@Size
+.long				ESMO_HACK_SIZE
+@@@
+.thumb
+				ESMO_HACK_START:
+ldr	r1,			ESMO_HACK_EV_PTR_WRAM_LOC
+ldr	r1,	[r1,	#0x18]	@
+cmp	r1,	#0x00		@
+beq				ESMO_HACK_NO_EV_PTR
+				ESMO_HACK_A_PRESSED:
+ldr	r1,			ESMO_HACK_A_PRESSED_RET
+bx	r1			@
+				ESMO_HACK_NO_EV_PTR:
+ldrh	r1,	[r0,	#0x08]	@
+mov	r0,	#0x01		@A button mask
+and	r0,	r1		@
+cmp	r0,	#0x00		@
+bne				ESMO_HACK_A_PRESSED
+ldr	r0,			ESMO_HACK_A_NOT_PRESSED_RET
+bx	r0			@
+
+.align				2
+				ESMO_HACK_EV_PTR_WRAM_LOC:
+.long				0x0203A85C
+				ESMO_HACK_A_PRESSED_RET:
+.long				0x0804A856+1
+				ESMO_HACK_A_NOT_PRESSED_RET:
+.long				0x0804A870+1
+				ESMO_HACK_END:
+.align				2
+
+@ Event Support Command Override code cave
+
+				ESCO_HOOK:
+.set				ESCO_HOOK_ORIGIN, 0x0804A87C
+.set				ESCO_HOOK_SIZE, ESCO_HOOK_END - ESCO_HOOK_START
+@Origin
+.long				ESCO_HOOK_ORIGIN
+@Offset (bytes to ignore)
+.long				0x00000000
+@Size
+.long				ESCO_HOOK_SIZE
+@@@
+.thumb
+				ESCO_HOOK_START:
+ldr	r0,			ESCO_HOOK_TARGET
+bx	r0			@
+
+.align				2
+				ESCO_HOOK_TARGET:
+.long				ESCO_HACK_ORIGIN+1
+				ESCO_HOOK_END:
+.align				2
+
+@ Event Support Command Override custom code
+
+				ESCO_HACK:
+.set				ESCO_HACK_ORIGIN, (((ESMO_HACK_ORIGIN + ESMO_HACK_SIZE) + 3) & (~3))
+.set				ESCO_HACK_SIZE, ESCO_HACK_END - ESCO_HACK_START
+@Origin
+.long				ESCO_HACK_ORIGIN
+@Offset (bytes to ignore)
+.long				0x00000000
+@Size
+.long				ESCO_HACK_SIZE
+@@@
+.thumb
+				ESCO_HACK_START:
+cmp	r2,	#0x00		@
+bne				ESCO_HACK_DO_COMMAND
+ldr	r0,			ESCO_HACK_NO_COMM_RET
+bx	r0			@
+				ESCO_HACK_DO_COMMAND:
+ldr	r0,			ESCO_HACK_EV_PTR_WRAM_LOC
+ldr	r0,	[r0,	#0x18]	@
+cmp	r0,	#0x00		@
+beq				ESCO_HACK_NORMAL_CMD
+ldr	r2,			ESCO_HACK_VISIT_FUNC_PTR
+				ESCO_HACK_NORMAL_CMD:
+ldr	r0,			ESCO_HACK_COMM_RET
+mov	lr,	r0		@
+mov	r0,	r4		@
+mov	r1,	r5		@
+bx	lr			@
+
+.align				2
+				ESCO_HACK_EV_PTR_WRAM_LOC:
+.long				0x0203A85C
+				ESCO_HACK_VISIT_FUNC_PTR:
+.long				0x08021F8D
+				ESCO_HACK_NO_COMM_RET:
+.long				0x0804A8A6+1
+				ESCO_HACK_COMM_RET:
+.long				0x0804A884+1
+				ESCO_HACK_END:
+.align				2
+
+@ Event Support Manage Event code cave
+
+				ESME_HOOK:
+.set				ESME_HOOK_ORIGIN, 0x080784D8
+.set				ESME_HOOK_SIZE, ESME_HOOK_END - ESME_HOOK_START
+@Origin
+.long				ESME_HOOK_ORIGIN
+@Offset (bytes to ignore)
+.long				0x00000000
+@Size
+.long				ESME_HOOK_SIZE
+@@@
+.thumb
+				ESME_HOOK_START:
+ldr	r6,			ESME_HOOK_TARGET
+bx	r6			@
+
+.align				2
+				ESME_HOOK_TARGET:
+.long				ESME_HACK_ORIGIN+1
+				ESME_HOOK_END:
+.align				2
+
+@ Event Support Manage Event custom code
+
+				ESME_HACK:
+.set				ESME_HACK_ORIGIN, (((ESCO_HACK_ORIGIN + ESCO_HACK_SIZE) + 3) & (~3))
+.set				ESME_HACK_SIZE, ESME_HACK_END - ESME_HACK_START
+@Origin
+.long				ESME_HACK_ORIGIN
+@Offset (bytes to ignore)
+.long				0x00000000
+@Size
+.long				ESME_HACK_SIZE
+@@@
+.thumb
+				ESME_HACK_START:
+lsr	r1,	r1,	#0x10	@
+mov	r6,	#0x00		@
+str	r6,	[r3,	#0x10]	@
+
+ldr	r0,			ESME_HACK_EV_PTR_WRAM_LOC
+ldr	r0,	[r0,	#0x18]	@
+cmp	r0,	#0x00		@
+beq				ESME_HACK_NO_SUPPORT
+
+str	r0,	[r3,	#0x04]	@
+mov	r0,	#0x08		@XXX: What is this for?
+str	r0,	[r3,	#0x08]	@
+mov	r0,	#0x0E		@XXX: What is this for?
+str	r0,	[r3,	#0x0C]	@
+ldr	r0,			ESME_HACK_SUPPORT_RET
+bx	r0			@
+
+				ESME_HACK_NO_SUPPORT:
+ldr	r0,			ESME_HACK_NO_SUPP_RET
+mov	lr,	r0		@
+mov	r0,	#0x18		@
+bx	lr			@
+
+.align				2
+				ESME_HACK_EV_PTR_WRAM_LOC:
+.long				0x0203A85C
+				ESME_HACK_NO_SUPP_RET:
+.long				0x080784E0+1
+				ESME_HACK_SUPPORT_RET:
+.long				0x080784FE+1
+				ESME_HACK_END:
+.align				2
+
+@ Event Support Pointer Clear global function
+
+				ESPC_FUNC:
+.set				ESPC_FUNC_ORIGIN, (((ESME_HACK_ORIGIN + ESME_HACK_SIZE) + 3) & (~3))
+.set				ESPC_FUNC_SIZE, ESPC_FUNC_END - ESPC_FUNC_START
+@Origin
+.long				ESPC_FUNC_ORIGIN
+@Offset (bytes to ignore)
+.long				0x00000000
+@Size
+.long				ESPC_FUNC_SIZE
+@@@
+.thumb
+				ESPC_FUNC_START:
+push	{r0-r1}			@
+ldr	r0,			ESPC_FUNC_EV_PTR_WRAM_LOC
+mov	r1,	#0x00		@
+str	r1,	[r0,	#0x18]	@
+pop	{r0-r1}			@
+bx	lr			@
+
+.align				2
+				ESPC_FUNC_EV_PTR_WRAM_LOC:
+.long				0x0203A85C
+				ESPC_FUNC_END:
+
+@ Event Support Unit Select data
+
+				ESUS_DATA:
+.set				ESUS_DATA_ORIGIN, (((ESPC_FUNC_ORIGIN + ESPC_FUNC_SIZE) + 3) & (~3))
+.set				ESUS_DATA_SIZE, ESUS_DATA_END - ESUS_DATA_START
+@Origin
+.long				ESUS_DATA_ORIGIN
+@Offset (bytes to ignore)
+.long				0x00000000
+@Size
+.long				ESUS_DATA_SIZE
+@@@
+@.thumb				@This is literal data - core mode is irrelevant
+.align				2
+				ESUS_DATA_START:
+@ This is a variable length array terminated by a null pointer in all 3 of the event pointer elements of the last index's struct
+				ESUS_HACK_DATA:
+@ Unit 1
+.byte				0x00
+@ Unit 2
+.byte				0x00
+@ Padding
+.short				0x0000
+.align				2
+@ Level C event pointer
+.long				0x00000000
+@ Level B event pointer
+.long				0x00000000
+@ Level B event pointer
+.long				0x00000000
+				ESUS_DATA_END:

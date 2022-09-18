@@ -1,0 +1,112 @@
+Siegfried = 0x16
+Shon = 0x30
+Gordon = 0x2F
+Tamiko = 0x3E
+Shuuda = 0x2B
+Inanna = 0x33
+Kevin = 0x27
+Noah = 0x31
+Althares = 0x20
+Cia = 0x3D
+Storm = 0x2E
+Haas = 0x49
+Arthur = 0x38
+Howard = 0x47
+
+#TODO: Fix file renaming bugs
+## Assault Start
+#Example starting position setting:
+Shon, right
+Gordon, far-right
+Siegfried, left: Alright, everybody! The plans are set for our assault. The marquees of Caelin is said to guard its walls, and resistance will be fierce. If anyone wishes to leave, do it now!
+Shon: I'm staying, father. I won't abandon you and our soldiers! We've all gone too far to just quit!
+Gordon: I'll be by your side, sir.
+Shon leaves.
+Gordon leaves too.
+Tamiko, right: There will be injuries. I shall remain to heal those in need.
+Tamiko leaves
+Shuuda, right: You paid our wages, thus we stay. Right, Inanna?
+Inanna, far-right: Of course. I will not abandon my employer, regardless of the situation!
+Shuuda leaves
+Inanna leaves
+Kevin, right: [ToggleMouthMove]...[ToggleMouthMove]There's no where else for me to go[ToggleMouthMove]...[ToggleMouthMove]I'll stay till' death.
+Kevin leaves
+Arthur, right: The holy light shalt guide us to victory, Sir.
+Arthur leaves
+Storm, right: If Chief Haas bids me to stay, then I stay. For the honour of the Saceans!
+Storm leaves
+Cia, right: I have to stay. I can't abandon my friends.
+Cia leaves
+Haas, right: Siegfried, you have come so far. I just want you to know, I've got your back!
+Haas leaves
+Althares, right: Heheh. This sure is interesting. I hate to be like this, but, once we seize the castle, I have to go somewhere. It's not like I'm much of a fighter anyway, right?
+Althares leaves
+Noah, right: This is the most fun I've had in a long while. Count me in!
+Noah leaves
+Siegfried: I see that my companions[ToggleMouthMove]...[ToggleMouthMove] no, my friends, have their minds set. I'm quite pleased. Like they say, the best of companions are the loyal ones.
+Siegfried leaves
+
+#After Battle, music Shadow of Triumph 0x39
+## After Battle
+Shon, far-right
+Siegfried, near-left: We've seized Caelin, yet I feel like something is missing.
+Shon: [ToggleMouthMove]...[ToggleMouthMove]So much violence[ToggleMouthMove]...[ToggleMouthMove] I[ToggleMouthMove]...[ToggleMouthMove] I never realized how much destruction this war has caused[ToggleMouthMove]...[ToggleMouthMove]
+Siegfried: I'm sorry, Shon. You're still too young[ToggleMouthMove]...[ToggleMouthMove]
+Shon: Nonsense! We've liberated Caelin. I-I can handle this. I'm your son, right?
+Siegfried: That is true. You've proven your skill today Shon. You are no longer my apprentice, you are my peer[ToggleMouthMove]...[ToggleMouthMove]Sir Shon.
+Shon: Father, I don't need a title. I want to fight for a world where all people are free. I want to fight for a world where there is no hunger or war, only peace and prosperity. I don't need to be a knight to do that. All I need is to fight by your side.
+Siegfried: Shon[ToggleMouthMove]...[ToggleMouthMove]that is your dream?
+Shon: Yes.
+Siegfried: A noble one indeed. However you'll find that it won't be that easy.
+Shon: I know the road will be rough, but I think I can fulfill my dream.
+Siegfried: Well, then I am committed to helping you see it through.
+Shon: Really?
+Siegfried: But before you can make positive changes to the world you have to reverse the negative changes. Seizing Caelin was a vital first step towards restoring the world to it's former glory. Once we fulfill that goal you can work on yours.
+Shon: Alright father. I shall go send a messenger to Anakin to relay the news of our success. I'm going to take Shuuda and Inanna with me into the castle first. We've time to rest before they embark on their journey.
+Shon leaves
+Siegfried leaves
+
+#Music stops
+##
+Siegfried: It's been so long since this little rebellion started. Things are just going to get harder[ToggleMouthMove]...[ToggleMouthMove]but still, there is hope for the people of Elibe. However, I don't think I will be the one to bring it[ToggleMouthMove]...[ToggleMouthMove]whether I like it or not, this has become my son's battle. He has told me his dream, all I can do now is prepare him to fulfill it. That's all any father could do[ToggleMouthMove]...[ToggleMouthMove]
+
+#Battlefield, enemy Paladin with several Cavaliers and Armour knights come from south
+#Paladin and two Cavaliers move towards Siegfried
+#Music 0x35 Shocking Truth I
+## Battlefield
+Howard, far-left
+Siegfried, right: The hell!?
+Howard: [ToggleMouthMove]...[ToggleMouthMove]Marquees Caelin[ToggleMouthMove]...[ToggleMouthMove]it appears you have failed[ToggleMouthMove]...[ToggleMouthMove]
+Siegfried: What!? Who are you?
+Howard: I am called[ToggleMouthMove]...[ToggleMouthMove]Howard, general of Etruria. You must be Lord Siegfried[ToggleMouthMove]...[ToggleMouthMove]
+Siegfried: Hmph, one of Etruria's tools, eh? This battle is over, retreat your men.
+Howard: [ToggleMouthMove]...[ToggleMouthMove]Such small number conquering so much. His Majesty wishes you to be disposed of. But[ToggleMouthMove]...[ToggleMouthMove] you looks exhausted. It is dishonourable to fight a weakened foe[ToggleMouthMove]...[ToggleMouthMove] Please, let us hold off any battles until you are rested[ToggleMouthMove]...[ToggleMouthMove]
+Siegfried: General, do you truly believe that this is honourable? Look around at what Etruria has done. Invading and destroying lands, killing innocent people and treating non-Etrurians like trash! Would a true knight advocate this murder?
+Howard: [ToggleMouthMove]...[ToggleMouthMove]I do as His will desires[ToggleMouthMove]...[ToggleMouthMove]
+Siegfried: Hmph[ToggleMouthMove]...[ToggleMouthMove] Pathetic[ToggleMouthMove]...[ToggleMouthMove] I can't stand you people[ToggleMouthMove]...[ToggleMouthMove] You Etrurians are all murderers!!! You worthless bastard, I'll kill you!
+
+#Event battle, Siegfried hits, Howard hits dealing massive damage
+## Siegfried and Howard Battle
+Howard, left
+Siegfried, near-right: Argh[ToggleMouthMove]...[ToggleMouthMove]gah! Hah[ToggleMouthMove]...[ToggleMouthMove]hah[ToggleMouthMove]...[ToggleMouthMove]so strong[ToggleMouthMove]...[ToggleMouthMove]
+Howard: Lord Siegfried[ToggleMouthMove]...[ToggleMouthMove]you said there is no need for battle before.
+Siegfried: Heh, are you expecting me to just give up? I still have some fight left in me. Who wishes to fight against us? Who wants to die first?
+
+#From north, enemy Mages, Shaman, and a Sage move towards Siegfried
+#Music 0x52 What Comes from Darkness
+## Trapped
+#Siegfried and Gordon appear
+Siegfried, near-right
+Gordon, left: Sir! This isn't good[ToggleMouthMove]...[ToggleMouthMove]we're trapped. Enemy magi just came in from the north! We're completely surrounded!
+Siegfried: No[ToggleMouthMove]...[ToggleMouthMove]this can't be.
+Gordon: There isn't enough time. Our best chances are to break through the mages and retreat to Sacae.
+Siegfried: Dammit! That would mean leaving Shon alone to fend off Etruria. Okay[ToggleMouthMove]...[ToggleMouthMove]Gordon, we're going to cut out of this and make our way to Castle Caelin. Kevin, go take everyone else and retreat to Pherae. Anakin should be there as well. As soon as you can, I'd like you to send a message to Kelik, the swordsman I talked with a few days ago. Request his help. I'll take the defense of Caelin.
+#Kevin appears
+Kevin, far-right: Sir Siegfried[ToggleMouthMove]...[ToggleMouthMove]is this for the best? Should we scatter, Etruria can eliminate us easily[ToggleMouthMove]...[ToggleMouthMove]
+Siegfried: [SendToBack]Kevin, please listen to these orders. I don't know how long I can last out here in the field, nor is there enough time to get everyone into Castle Caelin to mount a proper defense. Remember Kevin, what I said before this battle? We are all family. I won't allow my family to just die. We'll survive, you will see. It just takes a little will power.
+Kevin: [ToggleMouthMove]...[ToggleMouthMove]Yes, I understand. Sir Siegfried, may fortune be with you. We'll return for you, Sir Siegfried.
+Kevin leaves
+Siegfried: [ToggleMouthMove]...[ToggleMouthMove]Anakin, Kelik[ToggleMouthMove]...[ToggleMouthMove]you are our only hope. Looks like this is the end for me[ToggleMouthMove]...[ToggleMouthMove]
+Siegfreid leaves
+Gordon leaves
+#Fades black, goes to chapter 11K map, Kelik and Levion, No Music

@@ -1,0 +1,3 @@
+This patch is currently only for FE 7.
+
+This patch allows the modification of how much EXP items 0x4A through 0x58 will give when used as staves; the bytes for each are consecutively located at 0x000CB528.

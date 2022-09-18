@@ -1,0 +1,68 @@
+The folder "Natural Script Formatter" that should be in the same directory as this file has a file called "Chapter 10 Raw.txt" that, when fed to the "Model.NaturalScriptFormatter" class's main method's prompt, should output the other files that are in that directory.
+So use "Chapter 10 Raw.txt" as example input for this part of the application.
+There should be a batch script in the root folder of this application which should facilitate the "feeding" described above.
+
+Specification for text dialog files
+----------------------------------------------------
+
+0) Escape characters.
+
+No special provision is needed because hex escape codes can be used as needed. Example:
+
+[0x5B] = [
+[0x5D] = ]
+[0x23] = #
+[0x5F] = _
+
+1) Comments and headings.
+
+The portion of each line from the first '#' onward is a comment, and is ignored, except for headings.
+
+A line *starting with* ## is a heading. It starts a new text ID (i.e., the previous entry has an [X] inserted at this point), and provides a title for the new text item. If no title is provided, the new item is assumed to "follow on" from the previous one - i.e. all characters on screen at the end of the previous item are assumed to keep their places. Otherwise, it is assumed that the screen starts out empty (no characters loaded).
+
+Heading names may be used to name output text files, with the processed text being put into a separate file for each output text ID.
+
+2) Overall structure of the file.
+
+Every non-blank line (after removing comments) should have one of the following structures:
+
+<character identifier> '=' <player ID>
+
+This is used to inform the script about the portrait ID used for the given character name. From this point on in the file, the supplied ID is used for the supplied character name. These should appear at the top of the file, but may appear anywhere as long as a character's ID is known before the first time the character is otherwise referred to.
+
+[<character identifier>] [<position>] <speech separator> <text>
+
+Valid positions are:
+FarFarLeft, FarLeft, Left, NearLeft, NearRight, Right, FarRight, FarFarRight, Exit, "Leaves", "Exits" and "x" (the last three all do what Exit does).
+
+The 'Exit' position is used to dismiss a character. The others have the usual meanings; the 'FarFar' positions are off-screen.
+
+Position descriptions are NOT case sensitive. FARFARRIGHT, farFARright and FaRfArRiGhT all work. Also note that for positions like FarRight and NearRight, typing them as "Far-Right" and "Near-Right" works as well (still case insensitive, too - NeAr-RIGht works).
+
+The character speaks the provided text, which is automatically line-wrapped. A [A] is inserted at the end of the item. To put multiple [A]'s into text, have the character speak again with a new line (alternatively, simply enter another newline and omit the declaration of who's speaking).
+
+If you want no [A] to be appended after a newline you've manually added, type "[NoA]" at the end of the line.
+
+The speech separator is one of the following:
+
+'.' - No speech. This is used for moving characters around without opening a speech bubble, or when the position is 'Exit'. This character can be omitted if no text is provided. If text is provided and no separator is, the text will be ignored, as if this character had been provided.
+
+':' - Normal speech.
+
+'@' - Inverts the text bubble colours.
+
+'!' - Force move. If a character is already on screen, this separator will be needed to ensure that a name/position pair moves the character rather than reloading them (loading over portraits without clearing the ones being overwritten is good for animating body movement; normally, only eye and mouth movements are animated). See below for more information.
+
+Either the character identifier or the position must be provided. 
+
+If a character is named without a position, the character must already be on screen; the bubble will be drawn for whatever the character's position is. The bubble is not redrawn if that character was already talking before.
+
+If a position is named without a character, the bubble is simply drawn in that position. This is most useful for speech that comes from "offscreen". (However, it may be desirable to load a character in the offscreen position anyway.) This always (re)draws a bubble, which may be useful.
+
+If both are provided, the character is loaded in the given position (if not already on screen) or moves to it (if already on screen), and then begins talking. The usual movement behaviour occurs (moving to the same position causes a bounce; moving to someone else's position causes characters to switch places).
+
+If a fifth character is loaded, the earliest-loaded character will automatically 'exit' first to avoid glitches.
+
+Within the text, use '_' to toggle red text.
+
+Whitespace before, between and after each 'item' is ignored (e.g. between the speech separator and text). Tabs within text are translated into [0x02]. Newlines within text are translated into [0x01], but this should only be done to force line breaks in certain positions; line wrapping is done automatically.

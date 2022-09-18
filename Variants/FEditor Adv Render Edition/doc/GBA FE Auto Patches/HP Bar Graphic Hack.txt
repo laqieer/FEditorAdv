@@ -1,0 +1,5 @@
+This patch keeps HP bars from having leftover garbage frame data in their graphical data when the game draws them. No more ugly random pixels next to your HP!
+
+This patch is only for FE 7; the other games didn't need it.
+
+NOTE: You can see this garbage in a clean ROM, too. IS screwed up. Start a game in ENM and have Elifail attack the first bandit. You should see this garbage data I speak of.

@@ -1,0 +1,108 @@
+/// - Mode 1
+C03
+C07
+8  p- Attacking 1.png
+8  p- Attacking 2.png
+8  p- Attacking 1.png
+8  p- Attacking 2.png
+8  p- Attacking 1.png
+8  p- Attacking 2.png
+C04
+C1A
+C1F
+8  p- Attacking 1.png
+8  p- Attacking 2.png
+8  p- Attacking 1.png
+8  p- Attacking 2.png
+C01
+C06
+C0D
+~~~
+/// - Mode 3
+C03
+C07
+8  p- Critical 1.png
+8  p- Critical 2.png
+8  p- Critical 1.png
+8  p- Critical 2.png
+8  p- Critical 1.png
+8  p- Critical 2.png
+C04
+C08
+C1F
+8  p- Critical 1.png
+8  p- Critical 2.png
+8  p- Critical 1.png
+8  p- Critical 2.png
+C01
+C06
+C0D
+~~~
+/// - Mode 5
+C03
+C07
+32 p- Ranged Hit.png
+C05
+32 p- Ranged Hit.png
+C01
+C06
+C0D
+~~~
+/// - Mode 6
+C03
+C07
+32 p- Ranged Critical.png
+C05
+32 p- Ranged Critical.png
+C01
+C06
+C0D
+~~~
+/// - Mode 7
+C02
+8  p- Dodge.png
+C0E
+C01
+C0D
+~~~
+/// - Mode 8
+C02
+8  p- Dodge.png
+C0E
+C01
+C0D
+~~~
+/// - Mode 9
+16 p- Standing 1.png
+16 p- Standing 2.png
+C01
+~~~
+/// - Mode 10
+16 p- Standing 3.png
+16 p- Standing 4.png
+C01
+~~~
+/// - Mode 11
+16 p- Standing 3.png
+16 p- Standing 4.png
+C01
+~~~
+/// - Mode 12
+C03
+C07
+8  p- Miss 1.png
+8  p- Miss 2.png
+8  p- Miss 1.png
+8  p- Miss 2.png
+8  p- Miss 1.png
+8  p- Miss 2.png
+C04
+8  p- Miss 1.png
+8  p- Miss 2.png
+8  p- Miss 1.png
+8  p- Miss 2.png
+C01
+C06
+C0D
+~~~
+/// - End of animation

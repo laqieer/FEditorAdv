@@ -1,0 +1,37 @@
+C03 - This does what choosing the "add command" button would do in the insertion dialog
+C07 - using the values "3" and "7" in place of the values normally obtained from the spinner.
+16  - frame 1
+16  - frame 2
+C04 - Commands are formated as CXX, where XX is a hexadecimal value. Only the first 3
+C1A - characters of a line starting with "C" are interpreted.
+C1F - Only the first character of lines staring with "~" is interpreted.
+16  - frame 1
+C01 - "~" lines terminate the current animation mode, and lines beginning with numbers followed
+C06 - by hyphens open a frame dialog to select a frame with the title of the dialog having
+C0D - the description of what to open found after the hyphen in it. Blank lines are skipped,
+/// - and the number in front of the hyphen in the frame selection lines is the duration
+~~~ - the frame will last (each "frame" being equivalent to several frames of display on the GBA).
+/// - Now, this means we must be in mode 3, because modes 2 and 4 are handled during processing of
+/// - modes 1 and 3, respectively.
+~~~ - So this must be mode 5.
+~~~ - 6
+~~~ - 7
+~~~ - 8
+~~~ - Uh oh. Now we're in 9, a standing animation. These MUST have at least one frame to avoid
+16  - frame 1
+C01 - crashes, and should end with a C01 before the terminator.
+~~~ - 10
+16 p- Example Frame 1.PNG
+C01
+~~~
+~~~
+~~~
+/// - But wait, there's more!
+/// - Lines starting with "/" are skipped. Now you can add comments!
+/// - As a special bonus, if you put a "p" directly in front of the hyphen in a frame loading
+/// - line, the text after the hyphen will be appended to the path of the script file, and
+/// - the inserter will use the file at resulting full path instead of prompting for the path
+/// - to save you even more time!
+/*    Block comments now supported as well.
+*/    However, the entire script is read line by line, so this line is commented as well. :P
+/// - As a final note, the very last frame makes use of the "p" flag, for reference.

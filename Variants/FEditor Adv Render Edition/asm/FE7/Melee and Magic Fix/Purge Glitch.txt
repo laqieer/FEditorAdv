@@ -1,0 +1,54 @@
+Purge doesn't work correctly with the melee/magic fix hack, and here's why
+
+(note that this can be fixed by making Purge an actual magic weapon via a utility similar to Nightmare or a generic binary editor):
+
+[16:42:11] Hextator: weird
+[16:42:15] Hextator: purge doesn't display mag
+[16:42:30] Hextator: how does it do magic damage if the magic damage bit isn't set
+[16:42:43] BwdYeti: I mean functionally it all works out now right? IT's just a display problem?
+[16:43:19] Hextator: it checks the bit
+[16:43:25] Hextator: that determines whether the weapon hits res or def
+[16:43:31 | Edited 16:43:33] Hextator: and displays the appropriate stats
+[16:43:37] Hextator: the only thing I can assume from this
+[16:43:42] Hextator: is that purge is a melee weapon
+[16:45:53] Hextator: let's see what nightmare says
+[16:47:09] Hextator: that is indeed what nightmare says
+[16:47:14] Hextator: seriously IS?
+[16:47:26] Hextator: I personally verified that's what that bit did
+[16:47:29] Hextator: and it's not set for purge
+[16:47:39] Hextator: purge uses str and hits def
+[16:47:52] BwdYeti: TEst it in an unmodified rom?
+[16:48:01] BwdYeti: BEcause that sounds hilarious
+[16:48:09] Hextator: it would have to be hardcoded to work correctly
+[16:48:37] BwdYeti: I mean to see if it actually hits def and no one ever noticed
+[16:48:39] Hextator: damn, and I had the perfect set up for testing
+[16:48:41] Hextator: better hack the weapons back in
+[16:48:53] Hextator: I know what you mean goose
+[16:49:01] Hextator: I'm just trying to figure out how no one noticed this
+[16:49:05] BwdYeti: I dunno lol
+[16:49:14] BwdYeti: PLayers never use it, enemies are overlooked?
+[16:49:20] Hextator: BUT STILL
+[16:49:22] Hextator: you found that animation glitch
+[16:49:26] Hextator: er, those animation glitches
+[16:49:51] Hextator: wait what
+[16:49:57] Hextator: >resume prologue
+[16:50:04] Hextator: >final chapter: light part II loads
+[16:50:08] Hextator: waaaat
+[16:51:23] BwdYeti: IT must be hardcoded to work right
+[16:51:29] BwdYeti: BEcause it's hitting res
+[16:53:22] Hextator: holy poo poo
+[16:53:23] Hextator: it is
+[16:53:33] Hextator: god damn
+[16:53:37] Hextator: some dumbbutt was probably like
+[16:53:44] Hextator: "why the gently caress is it doing melee damage?!"
+[16:53:47] Hextator: and the game was ready to go or something
+[16:53:49] Hextator: so he just hacked the game while it was still in development
+[16:54:03] BwdYeti: lol
+[16:54:07] Hextator: instead of checking to see if anyone made the weapon actually do magic damage the right way
+[16:54:11] Hextator: because I just gave athos an iron blade
+[16:54:27] Hextator: and he was going to do 40 damage to the dragon whose stats were all 0 except res at 127
+[16:54:30] Hextator: and then I changed that bit
+[16:54:33] Hextator: and now it says 0 damage
+[16:54:39] Hextator: so that was definitely the right bit
+[16:54:45] Hextator: the people who made the game are just hilariously stupid
+[16:54:51] BwdYeti: :D

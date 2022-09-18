@@ -1,0 +1,20 @@
+The Gameboy Advance uses 4BPP images most of the time. This is the only format I have written a container for as of yet, but if I write any more container formats in the future, they will likely follow these principles, just as the 4BPP container does.
+
+The container format is only for converting between the target format and the standard bitmap format. All other common formats, such as PNG, are converted to a bitmap prior to being used as input. Because of this, only the expected resulting bitmap you would get from converting an image your choice to the bitmap format needs to meet these criteria:
+
+- The image should have a height and width with pixel dimensions divisible evenly by 8.
+- The image should have 16 unique colors or less, after ignoring the bottom three bits of each color's red, green and blue intensity values (in other words, dividing them by 8).
+- The top right corner of an expected image should be the color intended to be the transparent "background" color.
+- Currently, all tools built into the editor that expect images will expect them to have dimensions that are specific to the tool, reinforcing the "pixel dimensions divisible by 8" rule extremely.
+
+~~~~~
+
+The following is a quote of a post with further information about how FEditor decodes palettes:
+
+A better way to do it is to make a series of palette pixels in the area FEditor expects. This input is unnecessary if the rest of it is valid as FEditor can deduce the palette on its own. However, if there is an issue with the data then you can use a program like Usenti to do a colour count. If the palette pixels are in the palette area of each image then Usenti will identify any frames that are over 16 colours much more simply than manually checking RGB values. Then you can identify problem frames and correct them all at once using a find/replace on colours or something (reduce to 16 in Usenti before doing the replace to be sure...maybe. There's a smart way to do it, whatever it is).
+
+Personally, I use the top right 8x8 tile for placing the palette pixels. This is because images are decoded from top right to bottom left. Tiles are probably decoded in the same order, so it'd start at the top right 8x8 pixel tile, and then grab the first 8 pixels from the top row of the tile from right to left and the next 8 pixels from the row below that, and so on.
+
+FEditor uses each pixel it encounters to deduce palettes. Each time it encounters a new colour it adds it to the next free slot in the palette. If it meets a 17th new colour, it throws an exception. I don't believe there's any logic to check if palettes have been reordered, so the only way to be sure they're deduced correctly is to place the palette pixels in the top right of each frame in the same order and be sure they're the first pixels that are decoded by using the location that I use.
+
+If you look at the top right of each debug animation frame you'll notice I did this. The "palette area" is the 8 pixel wide column at the far right of any image loaded into FEditor, be it batte animation frames or portraits.

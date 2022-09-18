@@ -1,0 +1,74 @@
+// Original source and concept by Hextator
+// Rewritten by Nintenlord
+
+arch gba.thumb
+
+pointerTester:
+org $08002ba4 //20 bytes max //r0 = data, r1 = dest
+	push {lr}
+	lsr r2, r0, #31
+	beq pointerTester.compressed
+
+.uncompressed:
+	bl uncompHelper
+	b pointerTester.end
+
+.compressed:
+	bl compressedHelper 
+
+.end:	
+	pop {pc}
+//1 fits
+
+org $0800a24a
+	beq loaded
+	ldr r1, [pc, #16]
+	add r0, r5, #0
+	bl $0800a280
+	str r5, [r6, #0]
+	b end
+
+loaded:
+	ldr r0, [pc, #4]
+
+end:
+	pop {r4-r6}
+	pop {pc}
+
+dw $00
+dd $0202a6ac
+
+compressedHelper: //0x800a264
+	push {lr}
+	ldr r2, [pc, #8]
+	ldr r2, [r2, #0]
+	bl $080d18c8 
+	pop {pc}
+
+dd $03004150
+
+uncompHelper: //0x800a274
+	//push {lr}
+	//bl main
+	//pop {pc}
+	ldr r2, [pc, #0]
+	mov pc, r2
+dd main
+
+//The following was originally at 0x800a2c4
+
+org $0846445C
+
+main:
+	mov r3, #0x80
+	lsl r3, r3, #24
+	sub r0, r0, r3
+	
+.loop:
+	ldrb r2, [r0, #0]
+	strb r2, [r1, #0]
+	add r1, #1
+	add r0, #1
+	cmp r2, #0
+	bne main.loop
+	bx lr

@@ -1,0 +1,24 @@
+The following portraits have "garbage" chibis in FE6, i.e. they don't look like anything in particular:
+
+0x69 through 0x98, 0xD7 through 0xDC
+
+The pointers are:
+0xD7 through 0xDC -> 0863FED0 (palette swaps of a soldier)
+
+0x69 through 0x98 ->
+64505C
+64579C
+645E20
+646498
+646B84
+6472B4
+647A28
+6480FC
+6487AC
+648E58
+649494
+649AC8
+
+repeated 4 times (this range contains 4 palette swaps each of 12 villagers).
+
+Normally, if an FE6 portrait doesn't have a chibi, the chibi pointer in the portrait pointer array will be set to equal the palette pointer (since a null pointer would mean the entry represents a card - neat hacks all around). But it looks like some of these pointers are just plain uninitialized. It doesn't matter to the game (since it will never try to render these chibis), but does make things a little difficult for FEditor.
